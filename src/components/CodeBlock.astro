@@ -1,0 +1,14 @@
+---
+// input: code and label props
+// output: accessible code block with copy button
+// pos: reusable code display component (update rule: sync this header and src/components README when this file changes)
+const { code, label = "Code example" } = Astro.props;
+---
+
+<figure class="code-frame">
+  <figcaption>
+    <span>{label}</span>
+    <button type="button" class="copy-button" data-copy-text={code}>Copy</button>
+  </figcaption>
+  <pre tabindex="0"><code>{code}</code></pre>
+</figure>

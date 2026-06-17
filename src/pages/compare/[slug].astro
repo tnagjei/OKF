@@ -1,0 +1,56 @@
+---
+// input: comparison slug route param
+// output: generated comparison pages
+// pos: dynamic comparison route (update rule: sync this header and src/pages/compare README when this file changes)
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { comparePages } from "../../data/content";
+
+export function getStaticPaths() {
+  return Object.entries(comparePages).map(([slug, page]) => ({
+    params: { slug },
+    props: { page }
+  }));
+}
+
+const { page } = Astro.props;
+---
+
+<BaseLayout title={page.title} description={page.description} path={page.path}>
+  <main class="page-shell">
+    <section class="page-hero narrow-hero">
+      <p class="eyebrow">{page.eyebrow}</p>
+      <h1>{page.h1}</h1>
+      <p class="hero-copy">{page.intro}</p>
+    </section>
+
+    <section class="compare-table-section">
+      <h2>Quick comparison</h2>
+      <div class="compare-table" role="table" aria-label={`${page.h1} comparison table`}>
+        <div class="compare-row compare-head" role="row">
+          <div role="columnheader">Question</div>
+          <div role="columnheader">OKF</div>
+          <div role="columnheader">Other concept</div>
+        </div>
+        {page.summaryRows.map((row) => (
+          <div class="compare-row" role="row">
+            <div role="cell">{row.label}</div>
+            <div role="cell">{row.okf}</div>
+            <div role="cell">{row.other}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {page.sections.map((section) => (
+      <section class="content-section">
+        <h2>{section.heading}</h2>
+        {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+        {section.bullets && (
+          <ul class="check-list">
+            {section.bullets.map((bullet) => <li>{bullet}</li>)}
+          </ul>
+        )}
+      </section>
+    ))}
+  </main>
+</BaseLayout>

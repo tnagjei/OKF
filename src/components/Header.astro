@@ -1,0 +1,20 @@
+---
+// input: activePath prop
+// output: site header and primary navigation
+// pos: shared navigation component (update rule: sync this header and src/components README when this file changes)
+import { mainNav, siteConfig } from "../../site.config.mjs";
+
+const { activePath = "/" } = Astro.props;
+---
+
+<header class="site-header">
+  <a class="brand" href="/" aria-label={`${siteConfig.shortName} home`}>
+    <span class="brand-mark" aria-hidden="true">OKF</span>
+    <span>{siteConfig.shortName}</span>
+  </a>
+  <nav class="main-nav" aria-label="Primary navigation">
+    {mainNav.map((item) => (
+      <a class:list={[activePath === item.href && "is-active"]} href={item.href}>{item.label}</a>
+    ))}
+  </nav>
+</header>

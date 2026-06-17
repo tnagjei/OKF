@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>OKF Examples: Open Knowledge Format Bundle Patterns</title><meta name="description" content="Browse practical OKF examples for website content, API endpoints, product documentation, support playbooks, SaaS metrics, and knowledge bases."><meta name="keywords" content=""><link rel="canonical" href="https://openknowledgeformat.online/okf-examples/"><meta property="og:title" content="OKF Examples: Open Knowledge Format Bundle Patterns"><meta property="og:description" content="Browse practical OKF examples for website content, API endpoints, product documentation, support playbooks, SaaS metrics, and knowledge bases."><meta property="og:type" content="website"><meta property="og:url" content="https://openknowledgeformat.online/okf-examples/"><meta property="og:image" content="https://openknowledgeformat.online/"><meta name="twitter:card" content="summary_large_image"><link rel="stylesheet" href="/_astro/content.BNd6HZti.css"></head> <body> <header class="site-header"> <a class="brand" href="/" aria-label="OKF Guide home"> <span class="brand-mark" aria-hidden="true">OKF</span> <span>OKF Guide</span> </a> <nav class="main-nav" aria-label="Primary navigation"> <a href="/what-is-okf/">What is OKF</a><a href="/okf-tutorial/">Tutorial</a><a class="is-active" href="/okf-examples/">Examples</a><a href="/okf-templates/">Templates</a><a href="/okf-validator/">Validator</a> </nav> </header>  <main class="page-shell"> <section class="page-hero narrow-hero"> <p class="eyebrow">Example library</p> <h1>OKF examples for real knowledge bundles</h1> <p class="hero-copy">These examples show how different teams can organize OKF bundles. They are starter patterns, not official conformance tests.</p> </section> <section class="content-section"> <h2>How to read these examples</h2> <p>Each example shows a bundle shape, the fields that matter most, common mistakes, and a practical next step.</p><p>Use the structure as a starting point, then adapt file names, tags, and links to your actual content model.</p>   </section> <section class="library-section" aria-label="OKF examples"> <article class="library-item"> <div class="library-copy"> <p class="eyebrow">Example</p> <h2>Website content bundle</h2> <p>A marketing and docs team wants agents to answer questions from public website pages without scraping every page from scratch.</p> <h3>Field notes</h3> <ul> <li>`index.md` lists the bundle contents for progressive reading.</li><li>Each page file uses frontmatter fields for type, title, description, resource, tags, and timestamp.</li><li>Markdown links connect pricing, privacy, support, and product documents.</li> </ul> <h3>Common mistakes</h3> <ul> <li>Copying entire HTML pages instead of clean Markdown summaries.</li><li>Missing canonical resource URLs.</li><li>Not separating legal pages from product pages.</li> </ul> <h3>Recommended next step</h3> <p>Start with the top traffic URLs, then add internal docs only after public pages are stable.</p> </div> <figure class="code-frame"> <figcaption> <span>Website content bundle</span> <button type="button" class="copy-button" data-copy-text="bundle/
+  index.md
+  pages/
+    home.md
+    pricing.md
+    privacy.md
+  products/
+    okf-validator.md
+  support/
+    contact.md">Copy</button> </figcaption> <pre tabindex="0"><code>bundle/
+  index.md
+  pages/
+    home.md
+    pricing.md
+    privacy.md
+  products/
+    okf-validator.md
+  support/
+    contact.md</code></pre> </figure> </article><article class="library-item"> <div class="library-copy"> <p class="eyebrow">Example</p> <h2>API endpoint bundle</h2> <p>A developer relations team wants agents to explain endpoints, parameters, limits, and errors.</p> <h3>Field notes</h3> <ul> <li>Endpoint files describe one action per concept.</li><li>Reference files hold authentication and shared error details.</li><li>Cross-links keep repeated rules out of endpoint files.</li> </ul> <h3>Common mistakes</h3> <ul> <li>Putting every endpoint in one file.</li><li>Omitting error responses.</li><li>Letting samples drift from the live API reference.</li> </ul> <h3>Recommended next step</h3> <p>Generate a draft from OpenAPI, then manually review examples and warnings.</p> </div> <figure class="code-frame"> <figcaption> <span>API endpoint bundle</span> <button type="button" class="copy-button" data-copy-text="bundle/
+  index.md
+  api/
+    create-customer.md
+    update-subscription.md
+    list-invoices.md
+  references/
+    auth.md
+    rate-limits.md
+    error-codes.md">Copy</button> </figcaption> <pre tabindex="0"><code>bundle/
+  index.md
+  api/
+    create-customer.md
+    update-subscription.md
+    list-invoices.md
+  references/
+    auth.md
+    rate-limits.md
+    error-codes.md</code></pre> </figure> </article><article class="library-item"> <div class="library-copy"> <p class="eyebrow">Example</p> <h2>Product documentation bundle</h2> <p>A docs team wants task pages, reference pages, and troubleshooting notes to stay readable by humans and agents.</p> <h3>Field notes</h3> <ul> <li>Concept files define product objects.</li><li>Task files explain step-by-step procedures.</li><li>Troubleshooting files capture symptoms, causes, fixes, and escalation.</li> </ul> <h3>Common mistakes</h3> <ul> <li>Blending concept, task, and troubleshooting content.</li><li>Skipping prerequisites.</li><li>Not documenting who owns the page.</li> </ul> <h3>Recommended next step</h3> <p>Map docs IA first, then create one OKF file for each durable topic.</p> </div> <figure class="code-frame"> <figcaption> <span>Product documentation bundle</span> <button type="button" class="copy-button" data-copy-text="bundle/
+  index.md
+  concepts/
+    workspace.md
+    roles.md
+  tasks/
+    invite-user.md
+    import-csv.md
+  troubleshooting/
+    csv-validation-errors.md">Copy</button> </figcaption> <pre tabindex="0"><code>bundle/
+  index.md
+  concepts/
+    workspace.md
+    roles.md
+  tasks/
+    invite-user.md
+    import-csv.md
+  troubleshooting/
+    csv-validation-errors.md</code></pre> </figure> </article><article class="library-item"> <div class="library-copy"> <p class="eyebrow">Example</p> <h2>Support playbook bundle</h2> <p>A support team wants agents to route cases, ask for the right evidence, and avoid unsupported promises.</p> <h3>Field notes</h3> <ul> <li>Playbooks define trigger, triage steps, boundaries, and escalation.</li><li>Policy files hold stable rules that many playbooks reference.</li><li>Tags separate refund, security, billing, and account topics.</li> </ul> <h3>Common mistakes</h3> <ul> <li>Writing agent actions that bypass human approval.</li><li>Forgetting negative cases where support must refuse.</li><li>Not listing escalation thresholds.</li> </ul> <h3>Recommended next step</h3> <p>Review each playbook with policy owners before production agent use.</p> </div> <figure class="code-frame"> <figcaption> <span>Support playbook bundle</span> <button type="button" class="copy-button" data-copy-text="bundle/
+  index.md
+  playbooks/
+    refund-request.md
+    login-lockout.md
+    billing-dispute.md
+  policies/
+    refund-policy.md
+    account-security.md">Copy</button> </figcaption> <pre tabindex="0"><code>bundle/
+  index.md
+  playbooks/
+    refund-request.md
+    login-lockout.md
+    billing-dispute.md
+  policies/
+    refund-policy.md
+    account-security.md</code></pre> </figure> </article><article class="library-item"> <div class="library-copy"> <p class="eyebrow">Example</p> <h2>SaaS metrics bundle</h2> <p>A growth or finance team wants consistent definitions for ARR, churn, activation, and usage metrics.</p> <h3>Field notes</h3> <ul> <li>Metric files state formula, grain, exclusions, and owner.</li><li>Dashboard files explain where numbers appear and how they are filtered.</li><li>Table files document upstream data and freshness.</li> </ul> <h3>Common mistakes</h3> <ul> <li>Publishing a metric without numerator and denominator.</li><li>Not marking exclusions.</li><li>Using dashboard labels as definitions.</li> </ul> <h3>Recommended next step</h3> <p>Create metric OKF files before dashboard OKF files so the dashboard has source definitions.</p> </div> <figure class="code-frame"> <figcaption> <span>SaaS metrics bundle</span> <button type="button" class="copy-button" data-copy-text="bundle/
+  index.md
+  metrics/
+    arr.md
+    logo-churn.md
+    activation-rate.md
+  dashboards/
+    executive-overview.md
+  tables/
+    subscription-events.md">Copy</button> </figcaption> <pre tabindex="0"><code>bundle/
+  index.md
+  metrics/
+    arr.md
+    logo-churn.md
+    activation-rate.md
+  dashboards/
+    executive-overview.md
+  tables/
+    subscription-events.md</code></pre> </figure> </article><article class="library-item"> <div class="library-copy"> <p class="eyebrow">Example</p> <h2>Knowledge base bundle</h2> <p>An operations team wants a lightweight knowledge base that can be edited in Git and consumed by agents.</p> <h3>Field notes</h3> <ul> <li>Runbooks focus on repeatable actions.</li><li>Decision files capture why a choice was made.</li><li>Reference files hold supporting facts and links.</li> </ul> <h3>Common mistakes</h3> <ul> <li>Treating OKF as a file dump with no index.</li><li>Keeping outdated decisions without timestamps.</li><li>Mixing private credentials into agent-readable files.</li> </ul> <h3>Recommended next step</h3> <p>Add a review cadence and remove sensitive data before sharing the bundle.</p> </div> <figure class="code-frame"> <figcaption> <span>Knowledge base bundle</span> <button type="button" class="copy-button" data-copy-text="bundle/
+  index.md
+  runbooks/
+    deploy-checklist.md
+    incident-triage.md
+  decisions/
+    why-static-export.md
+  references/
+    vendor-contacts.md">Copy</button> </figcaption> <pre tabindex="0"><code>bundle/
+  index.md
+  runbooks/
+    deploy-checklist.md
+    incident-triage.md
+  decisions/
+    why-static-export.md
+  references/
+    vendor-contacts.md</code></pre> </figure> </article> </section> <section class="content-section source-note"> <h2>Source boundary</h2> <p>
+This guide is unofficial. It uses public draft references for orientation and adds practical examples for learning.
+</p> <ul> <li><a href="https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md" rel="noreferrer">GoogleCloudPlatform knowledge-catalog OKF specification</a></li><li><a href="https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/README.md" rel="noreferrer">GoogleCloudPlatform knowledge-catalog OKF README</a></li> </ul> </section> </main>  <footer class="site-footer"> <div class="footer-grid"> <div> <p class="footer-title">Open Knowledge Format Guide</p> <p>This is an unofficial guide to Open Knowledge Format. It is not affiliated with Google.</p> </div> <nav aria-label="Footer navigation"> <a href="/about/">About</a> <a href="/contact/">Contact</a> <a href="/privacy/">Privacy</a> <a href="/terms/">Terms</a> </nav> <div> <p>Contact: <a href="mailto:tangjei414@gmail.com">tangjei414@gmail.com</a></p> <p>Copyright 2026 Open Knowledge Format Guide.</p> </div> </div> </footer> <script type="module">const a=document.querySelectorAll("[data-copy-text]");a.forEach(t=>{t.addEventListener("click",async()=>{const e=t.getAttribute("data-copy-text")||"",o=t.textContent||"Copy";try{await navigator.clipboard.writeText(e),t.textContent="Copied"}catch{t.textContent="Copy failed"}window.setTimeout(()=>{t.textContent=o},1600)})});</script> </body> </html>

@@ -1,0 +1,36 @@
+# Open Knowledge Format Guide
+
+This is an unofficial guide to Open Knowledge Format. It is not affiliated with Google.
+
+## Site purpose
+Open Knowledge Format Guide explains how to organize website, documentation, API, SaaS, support, and data catalog knowledge as Markdown concept files with YAML frontmatter.
+
+## Primary audience
+- Developers building agent-readable documentation.
+- AI agent teams preparing context packages.
+- SEO teams adapting public website knowledge for AI discovery.
+- Documentation teams splitting large docs into maintainable concept files.
+
+## Public routes
+- Home: https://openknowledgeformat.online/
+- What is OKF: https://openknowledgeformat.online/what-is-okf/
+- OKF Tutorial: https://openknowledgeformat.online/okf-tutorial/
+- OKF Examples: https://openknowledgeformat.online/okf-examples/
+- OKF Templates: https://openknowledgeformat.online/okf-templates/
+- OKF Validator: https://openknowledgeformat.online/okf-validator/
+- OKF vs MCP: https://openknowledgeformat.online/compare/okf-vs-mcp/
+- OKF vs RAG: https://openknowledgeformat.online/compare/okf-vs-rag/
+- OKF vs llms.txt: https://openknowledgeformat.online/compare/okf-vs-llms-txt/
+- About: https://openknowledgeformat.online/about/
+- Contact: https://openknowledgeformat.online/contact/
+- Privacy: https://openknowledgeformat.online/privacy/
+- Terms: https://openknowledgeformat.online/terms/
+
+## OKF guide profile
+This site teaches a practical guide profile that checks type, title, description, and tags. The OKF draft specification identifies type as the required frontmatter field and describes title, description, resource, tags, and timestamp as useful structured fields.
+
+## Validator behavior
+The validator runs in the browser. Pasted Markdown is not uploaded by the validator code in this static MVP.
+
+## Contact
+tangjei414@gmail.com

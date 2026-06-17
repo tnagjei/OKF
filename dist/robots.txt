@@ -1,0 +1,43 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Sitemap: https://openknowledgeformat.online/sitemap.xml
+LLM-Content: https://openknowledgeformat.online/llms.txt
+LLM-Full-Content: https://openknowledgeformat.online/llms-full.txt
+
+User-agent: GPTBot
+Allow: /
+Disallow: /user-content/
+LLM-Content: https://openknowledgeformat.online/llms.txt
+LLM-Full-Content: https://openknowledgeformat.online/llms-full.txt
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /user-content/
+LLM-Content: https://openknowledgeformat.online/llms.txt
+LLM-Full-Content: https://openknowledgeformat.online/llms-full.txt
+
+User-agent: Anthropic-AI
+Allow: /
+Disallow: /user-content/
+LLM-Content: https://openknowledgeformat.online/llms.txt
+LLM-Full-Content: https://openknowledgeformat.online/llms-full.txt
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /user-content/
+LLM-Content: https://openknowledgeformat.online/llms.txt
+LLM-Full-Content: https://openknowledgeformat.online/llms-full.txt
+
+User-agent: GoogleOther
+Allow: /
+Disallow: /user-content/
+LLM-Content: https://openknowledgeformat.online/llms.txt
+LLM-Full-Content: https://openknowledgeformat.online/llms-full.txt
+
+User-agent: DuckAssistBot
+Allow: /
+Disallow: /user-content/
+LLM-Content: https://openknowledgeformat.online/llms.txt
+LLM-Full-Content: https://openknowledgeformat.online/llms-full.txt

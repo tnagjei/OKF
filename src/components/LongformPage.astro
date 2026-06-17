@@ -1,0 +1,78 @@
+---
+// input: page content object
+// output: longform page with optional template or example library
+// pos: shared content renderer (update rule: sync this header and src/components README when this file changes)
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CodeBlock from "./CodeBlock.astro";
+import { exampleLibrary, templateLibrary, sourceLinks } from "../data/content";
+
+const { page } = Astro.props;
+const library = page.kind === "templates" ? templateLibrary : page.kind === "examples" ? exampleLibrary : [];
+---
+
+<BaseLayout title={page.title} description={page.description} path={page.path}>
+  <main class="page-shell">
+    <section class="page-hero narrow-hero">
+      <p class="eyebrow">{page.eyebrow}</p>
+      <h1>{page.h1}</h1>
+      <p class="hero-copy">{page.intro}</p>
+    </section>
+
+    {page.sections.map((section) => (
+      <section class="content-section">
+        <h2>{section.heading}</h2>
+        {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+        {section.bullets && (
+          <ul class="check-list">
+            {section.bullets.map((bullet) => <li set:html={bullet} />)}
+          </ul>
+        )}
+        {section.subsections && (
+          <div class="mini-grid">
+            {section.subsections.map((item) => (
+              <article class="mini-panel">
+                <h3>{item.heading}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+    ))}
+
+    {library.length > 0 && (
+      <section class="library-section" aria-label={page.kind === "templates" ? "OKF templates" : "OKF examples"}>
+        {library.map((item) => (
+          <article class="library-item">
+            <div class="library-copy">
+              <p class="eyebrow">{page.kind === "templates" ? "Template" : "Example"}</p>
+              <h2>{item.title}</h2>
+              <p>{item.scenario}</p>
+              <h3>Field notes</h3>
+              <ul>
+                {item.fields.map((field) => <li set:html={field} />)}
+              </ul>
+              <h3>Common mistakes</h3>
+              <ul>
+                {item.mistakes.map((mistake) => <li>{mistake}</li>)}
+              </ul>
+              <h3>Recommended next step</h3>
+              <p>{item.nextStep}</p>
+            </div>
+            <CodeBlock code={item.code} label={item.title} />
+          </article>
+        ))}
+      </section>
+    )}
+
+    <section class="content-section source-note">
+      <h2>Source boundary</h2>
+      <p>
+        This guide is unofficial. It uses public draft references for orientation and adds practical examples for learning.
+      </p>
+      <ul>
+        {sourceLinks.map((source) => <li><a href={source.href} rel="noreferrer">{source.label}</a></li>)}
+      </ul>
+    </section>
+  </main>
+</BaseLayout>

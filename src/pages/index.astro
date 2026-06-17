@@ -1,0 +1,151 @@
+---
+// input: no route params
+// output: home page for Open Knowledge Format Guide
+// pos: home route (update rule: sync this header and src/pages README when this file changes)
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CodeBlock from "../components/CodeBlock.astro";
+import { homePanels, minimumExample } from "../data/content";
+
+const title = "Open Knowledge Format: OKF Examples, Validator, Templates";
+const description =
+  "Learn Open Knowledge Format v0.1 with copy-ready OKF examples, templates, validation rules, and comparisons with MCP, RAG, llms.txt, and OpenAPI.";
+---
+
+<BaseLayout title={title} description={description} path="/">
+  <main>
+    <section class="home-hero">
+      <div class="hero-content">
+        <p class="eyebrow">Unofficial OKF guide</p>
+        <h1>Open Knowledge Format examples, validator, and templates</h1>
+        <p class="hero-copy">
+          Learn how to package websites, docs, APIs, support playbooks, and data catalogs into AI-agent-readable knowledge bundles.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="/okf-validator/">Try OKF Validator</a>
+          <a class="button secondary" href="/okf-templates/">Copy OKF Template</a>
+          <a class="button ghost" href="/okf-examples/">View OKF Examples</a>
+        </div>
+      </div>
+      <div class="knowledge-visual" aria-label="OKF bundle preview">
+        <div class="folder-line">bundle/</div>
+        <div class="folder-line indent">index.md</div>
+        <div class="folder-line indent">pages/home.md</div>
+        <div class="folder-line indent">api/create-customer.md</div>
+        <div class="frontmatter-card">
+          <span>---</span>
+          <span>type: Website Page</span>
+          <span>title: OKF Validator</span>
+          <span>tags: [okf, markdown]</span>
+          <span>---</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="section-heading">
+        <p class="eyebrow">What is OKF</p>
+        <h2>Plain Markdown, small metadata, portable knowledge</h2>
+        <p>
+          Open Knowledge Format is useful when knowledge needs to stay readable by humans while also being easier for AI agents to scan, route, and retrieve.
+        </p>
+      </div>
+      <div class="panel-grid three">
+        {homePanels.map((panel) => (
+          <article class="info-panel">
+            <h3>{panel.title}</h3>
+            <p>{panel.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="split-section">
+      <div>
+        <p class="eyebrow">Why OKF matters</p>
+        <h2>It makes source knowledge easier to inspect before an agent uses it</h2>
+        <p>
+          Without structure, a knowledge folder becomes another pile of text. OKF adds just enough metadata to identify what each file is, what it describes, where it came from, and how it connects to related concepts.
+        </p>
+      </div>
+      <ul class="check-list">
+        <li>Useful for website pages, API endpoints, support workflows, documentation topics, and data assets.</li>
+        <li>Works with Git, static hosting, editors, search indexes, and retrieval systems.</li>
+        <li>Stays readable because the body is still normal Markdown.</li>
+      </ul>
+    </section>
+
+    <section class="band">
+      <div class="section-heading">
+        <p class="eyebrow">How OKF works</p>
+        <h2>Write one concept per file, then connect files with normal links</h2>
+        <p>
+          The frontmatter gives compact structured data. The Markdown body carries the explanation, examples, tables, citations, and links.
+        </p>
+      </div>
+      <CodeBlock code={minimumExample} label="OKF minimum example" />
+    </section>
+
+    <section class="panel-grid three cta-grid" aria-label="Primary tools">
+      <article class="info-panel action-panel">
+        <h2>Validator</h2>
+        <p>Paste Markdown and check whether the guide profile fields are present. The check runs in your browser.</p>
+        <a class="button primary" href="/okf-validator/">Try OKF Validator</a>
+      </article>
+      <article class="info-panel action-panel">
+        <h2>Templates</h2>
+        <p>Copy starter frontmatter for websites, APIs, SaaS products, docs, agent context, and data catalogs.</p>
+        <a class="button secondary" href="/okf-templates/">Copy OKF Template</a>
+      </article>
+      <article class="info-panel action-panel">
+        <h2>Examples</h2>
+        <p>Review bundle shapes for real teams before building your own OKF folder.</p>
+        <a class="button ghost" href="/okf-examples/">View OKF Examples</a>
+      </article>
+    </section>
+
+    <section class="band">
+      <div class="section-heading">
+        <p class="eyebrow">Comparisons</p>
+        <h2>OKF works beside nearby AI concepts</h2>
+      </div>
+      <div class="panel-grid three">
+        <article class="info-panel">
+          <h3>OKF vs MCP</h3>
+          <p>MCP connects tools. OKF organizes knowledge. They can be used together.</p>
+          <a href="/compare/okf-vs-mcp/">Read comparison</a>
+        </article>
+        <article class="info-panel">
+          <h3>OKF vs RAG</h3>
+          <p>RAG retrieves context. OKF can make the source corpus cleaner before retrieval.</p>
+          <a href="/compare/okf-vs-rag/">Read comparison</a>
+        </article>
+        <article class="info-panel">
+          <h3>OKF vs llms.txt</h3>
+          <p>llms.txt points to resources. OKF packages deeper structured knowledge.</p>
+          <a href="/compare/okf-vs-llms-txt/">Read comparison</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <p class="eyebrow">FAQ</p>
+      <h2>Open Knowledge Format questions</h2>
+      <details>
+        <summary>Is this an official OKF website?</summary>
+        <p>No. This is an unofficial guide and is not affiliated with Google.</p>
+      </details>
+      <details>
+        <summary>Does the validator upload my Markdown?</summary>
+        <p>No. The validator runs in your browser for this MVP and does not upload pasted content to this site.</p>
+      </details>
+      <details>
+        <summary>Is OKF a replacement for MCP or RAG?</summary>
+        <p>No. OKF organizes knowledge. MCP connects tools and resources. RAG retrieves context for model answers.</p>
+      </details>
+      <details>
+        <summary>What should I create first?</summary>
+        <p>Start with one small bundle that covers important public pages, core API endpoints, or one support workflow.</p>
+      </details>
+    </section>
+  </main>
+</BaseLayout>

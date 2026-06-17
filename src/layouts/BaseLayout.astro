@@ -1,0 +1,62 @@
+---
+// input: title, description, path, and slot content
+// output: complete HTML document with SEO metadata and shared chrome
+// pos: base page layout (update rule: sync this header and src/layouts README when this file changes)
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+import { siteConfig } from "../../site.config.mjs";
+
+const {
+  title,
+  description,
+  path = "/",
+  image = "/"
+} = Astro.props;
+
+const canonicalUrl = new URL(path, siteConfig.url).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="" />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={new URL(image, siteConfig.url).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <Header activePath={path} />
+    <slot />
+    <Footer />
+    <script>
+      const copyButtons = document.querySelectorAll("[data-copy-text]");
+
+      copyButtons.forEach((button) => {
+        button.addEventListener("click", async () => {
+          const text = button.getAttribute("data-copy-text") || "";
+          const original = button.textContent || "Copy";
+
+          try {
+            await navigator.clipboard.writeText(text);
+            button.textContent = "Copied";
+          } catch {
+            button.textContent = "Copy failed";
+          }
+
+          window.setTimeout(() => {
+            button.textContent = original;
+          }, 1600);
+        });
+      });
+    </script>
+  </body>
+</html>
