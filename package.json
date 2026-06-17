@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node scripts/generate-indexnow-key-file.mjs",
+    "prebuild": "node scripts/generate-indexnow-key-file.mjs && node scripts/generate-favicons.mjs",
     "build": "astro build",
     "indexnow:key": "node scripts/create-indexnow-key.mjs",
     "indexnow:submit": "node scripts/indexnow-submit.mjs",

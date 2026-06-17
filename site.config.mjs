@@ -10,6 +10,9 @@ export const siteConfig = {
   owner: "Open Knowledge Format Guide",
   disclaimer:
     "This is an unofficial guide to Open Knowledge Format. It is not affiliated with Google.",
+  brandColor: "#0f172a",
+  accentColor: "#38bdf8",
+  iconTheme: "default",
   analytics: {
     clarityId: "x8c07w7ub7",
     googleAnalyticsId: "G-2MNFZ0VFFM"
