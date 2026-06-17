@@ -3,6 +3,7 @@
 // output: site footer with legal links and disclaimer
 // pos: shared footer component (update rule: sync this header and src/components README when this file changes)
 import { siteConfig } from "../../site.config.mjs";
+const [emailUser, emailDomain] = siteConfig.email.split("@");
 ---
 
 <footer class="site-footer">
@@ -18,7 +19,7 @@ import { siteConfig } from "../../site.config.mjs";
       <a href="/terms/">Terms</a>
     </nav>
     <div>
-      <p>Contact: <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></p>
+      <p>Contact: <a href="#" class="obfuscated-email" data-user={emailUser} data-domain={emailDomain}>Send Email</a></p>
       <p>Copyright {siteConfig.year} {siteConfig.owner}.</p>
     </div>
   </div>

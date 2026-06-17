@@ -651,7 +651,9 @@ export const longformPages: Record<string, LongformPage> = {
       },
       {
         heading: "Contact",
-        paragraphs: ["For corrections or site issues, email tangjei414@gmail.com."]
+        paragraphs: [
+          'For corrections or site issues, email <a href="#" class="obfuscated-email" data-user="tangjei414" data-domain="gmail.com">Send Email</a>.'
+        ]
       }
     ]
   },
@@ -667,7 +669,9 @@ export const longformPages: Record<string, LongformPage> = {
     sections: [
       {
         heading: "Email",
-        paragraphs: ["Send site feedback to tangjei414@gmail.com."]
+        paragraphs: [
+          'Send site feedback to <a href="#" class="obfuscated-email" data-user="tangjei414" data-domain="gmail.com">Send Email</a>.'
+        ]
       },
       {
         heading: "Good correction reports",
@@ -705,7 +709,7 @@ export const longformPages: Record<string, LongformPage> = {
       {
         heading: "Contact email",
         paragraphs: [
-          "If you email tangjei414@gmail.com, the information you send is used to read and respond to your message."
+          "If you contact us via email, the information you send is used to read and respond to your message."
         ]
       },
       {
@@ -754,7 +758,9 @@ export const longformPages: Record<string, LongformPage> = {
       },
       {
         heading: "Contact",
-        paragraphs: ["Questions about these terms can be sent to tangjei414@gmail.com."]
+        paragraphs: [
+          'Questions about these terms can be sent to <a href="#" class="obfuscated-email" data-user="tangjei414" data-domain="gmail.com">Send Email</a>.'
+        ]
       }
     ]
   }

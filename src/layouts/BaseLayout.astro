@@ -57,6 +57,19 @@ const canonicalUrl = new URL(path, siteConfig.url).href;
           }, 1600);
         });
       });
+
+      // Handle obfuscated email clicks
+      const obfuscatedEmails = document.querySelectorAll(".obfuscated-email");
+      obfuscatedEmails.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const user = link.getAttribute("data-user");
+          const domain = link.getAttribute("data-domain");
+          if (user && domain) {
+            window.location.href = `mailto:${user}@${domain}`;
+          }
+        });
+      });
     </script>
   </body>
 </html>

@@ -21,7 +21,7 @@ const library = page.kind === "templates" ? templateLibrary : page.kind === "exa
     {page.sections.map((section) => (
       <section class="content-section">
         <h2>{section.heading}</h2>
-        {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+        {section.paragraphs?.map((paragraph) => <p set:html={paragraph} />)}
         {section.bullets && (
           <ul class="check-list">
             {section.bullets.map((bullet) => <li set:html={bullet} />)}
