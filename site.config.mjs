@@ -9,7 +9,10 @@ export const siteConfig = {
   year: "2026",
   owner: "Open Knowledge Format Guide",
   disclaimer:
-    "This is an unofficial guide to Open Knowledge Format. It is not affiliated with Google."
+    "This is an unofficial guide to Open Knowledge Format. It is not affiliated with Google.",
+  analytics: {
+    clarityId: "x8c07w7ub7"
+  }
 };
 
 export const publicRoutes = [
