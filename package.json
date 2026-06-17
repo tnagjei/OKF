@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/generate-indexnow-key-file.mjs",
     "build": "astro build",
+    "indexnow:key": "node scripts/create-indexnow-key.mjs",
+    "indexnow:submit": "node scripts/indexnow-submit.mjs",
     "preview": "astro preview",
     "verify": "npm run build && node scripts/verify-site.mjs",
     "verify:browser": "playwright test tests/browser.spec.js --reporter=line"

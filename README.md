@@ -63,9 +63,88 @@ npm run verify:browser
 - 联系邮箱：`tangjei414@gmail.com`
 - 所有页面必须保留非官方声明：`This is an unofficial guide to Open Knowledge Format. It is not affiliated with Google.`
 
+## IndexNow
+
+IndexNow 是用于通知支持 IndexNow 的搜索引擎页面已新增、更新或删除的协议。它只帮助搜索引擎更快发现变化，不保证收录，也不保证 Google 收录。
+
+### 本项目如何配置
+
+1. 复制环境变量模板：
+
+```bash
+cp .env.example .env
+```
+
+2. 生成 IndexNow key：
+
+```bash
+npm run indexnow:key
+```
+
+3. 把生成的 key 填入 `.env` 的 `INDEXNOW_KEY`。
+4. 确认 `.env` 的 `SITE_URL` 是：
+
+```env
+SITE_URL=https://openknowledgeformat.online
+```
+
+5. 不要提交真实 `.env`。本项目已经在 `.gitignore` 忽略 `.env`。
+
+### Cloudflare Pages 设置
+
+在 Cloudflare Pages 后台设置环境变量：
+
+1. Project，项目。
+2. Settings，设置。
+3. Environment variables，环境变量。
+4. 添加 `SITE_URL`，值为 `https://openknowledgeformat.online`。
+5. 添加 `INDEXNOW_KEY`，值为你生成的 key。
+6. 重新部署。
+
+### 部署后验证 key 文件
+
+部署后打开：
+
+```text
+https://openknowledgeformat.online/{INDEXNOW_KEY}.txt
+```
+
+页面内容必须只显示 key 本身，不能有额外说明。构建时如果没有设置 `INDEXNOW_KEY`，构建仍会成功，只会跳过 key 文件生成。
+
+### 提交 URL
+
+提交 sitemap 中的所有合格 URL：
+
+```bash
+npm run build
+npm run indexnow:submit
+```
+
+上线前 dry-run，试运行，不发送网络请求：
+
+```bash
+npm run build
+npm run indexnow:submit -- --dry-run
+```
+
+提交单个 URL：
+
+```bash
+npm run indexnow:submit -- https://openknowledgeformat.online/okf-validator/
+```
+
+注意事项：
+
+1. 不要提交 `.env`。
+2. 不要把 key 写死进源码。
+3. 不要提交不属于 `openknowledgeformat.online` host，主机名，的 URL。
+4. IndexNow 不保证 Google 收录。
+5. 真实提交前，先确认 `https://openknowledgeformat.online/{INDEXNOW_KEY}.txt` 能公开访问。
+
 ## 后续扩展方向
 
 - 增加真实 OKF bundle 下载包。
 - 增加模板复制后的字段编辑器。
 - 增加更完整的 YAML frontmatter 解析与导出功能。
 - 增加博客或更新日志栏目，持续覆盖 OKF 规范变化。
+- 将 IndexNow 提交接入部署后的手动审批或独立 CI 任务，避免无意重复提交。
