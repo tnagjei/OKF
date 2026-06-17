@@ -15,7 +15,8 @@ export const siteConfig = {
   iconTheme: "default",
   analytics: {
     clarityId: "x8c07w7ub7",
-    googleAnalyticsId: "G-2MNFZ0VFFM"
+    googleAnalyticsId: "G-2MNFZ0VFFM",
+    adsenseClient: "ca-pub-3083296102953963"
   }
 };
 

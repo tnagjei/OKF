@@ -31,6 +31,9 @@ const canonicalUrl = new URL(path, siteConfig.url).href;
         `} />
       </>
     )}
+    {siteConfig.analytics?.adsenseClient && (
+      <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${siteConfig.analytics.adsenseClient}`} crossorigin="anonymous" is:inline></script>
+    )}
     <meta charset="utf-8" />
     <meta name="yandex-verification" content="91c4416c6b7be047" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
