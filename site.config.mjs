@@ -11,7 +11,8 @@ export const siteConfig = {
   disclaimer:
     "This is an unofficial guide to Open Knowledge Format. It is not affiliated with Google.",
   analytics: {
-    clarityId: "x8c07w7ub7"
+    clarityId: "x8c07w7ub7",
+    googleAnalyticsId: "G-2MNFZ0VFFM"
   }
 };
 
