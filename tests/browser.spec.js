@@ -8,7 +8,10 @@ const mobileRoutes = [
   { path: "/", width: 375 },
   { path: "/okf-validator/", width: 430 },
   { path: "/compare/okf-vs-mcp/", width: 375 },
-  { path: "/compare/okf-vs-openapi/", width: 430 }
+  { path: "/compare/okf-vs-openapi/", width: 430 },
+  { path: "/use-cases/okf-for-ai-agents/", width: 375 },
+  { path: "/templates/metrics-okf-template/", width: 430 },
+  { path: "/guides/how-to-create-an-okf-bundle/", width: 375 }
 ];
 
 for (const route of mobileRoutes) {

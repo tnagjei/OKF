@@ -1,8 +1,8 @@
 # compare
 - 用途：生成 OKF 与相关技术概念的对比页面。
 - 关键入口：`[slug].astro`。
-- 边界/依赖：内容来自 `src/data/content.ts`，不复制第三方站点结构。
+- 边界/依赖：内容来自 `src/data/content.ts` 和 `src/data/seoClusters.ts`，不复制第三方站点结构。
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
-- `[slug].astro`：生成 OKF vs MCP、OKF vs RAG、OKF vs llms.txt、OKF vs OpenAPI。
+- `[slug].astro`：生成 OKF vs MCP、RAG、llms.txt、OpenAPI、AGENTS.md、data catalog、knowledge graph、Markdown。

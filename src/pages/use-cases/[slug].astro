@@ -1,0 +1,18 @@
+---
+// input: use case slug route param
+// output: generated OKF use case page
+// pos: dynamic use case route (update rule: sync this header and src/pages/use-cases README when this file changes)
+import ClusterPage from "../../components/ClusterPage.astro";
+import { useCasePages } from "../../data/seoClusters";
+
+export function getStaticPaths() {
+  return Object.entries(useCasePages).map(([slug, page]) => ({
+    params: { slug },
+    props: { page }
+  }));
+}
+
+const { page } = Astro.props;
+---
+
+<ClusterPage page={page} />

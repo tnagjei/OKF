@@ -1,6 +1,6 @@
 # Open Knowledge Format Guide
 
-- 用途：英文 OKF 非官方指南站，覆盖学习、模板、示例、验证器与对比页面。
+- 用途：英文 OKF 非官方资源中心，覆盖学习、模板、示例、验证器、对比页、场景页与 how-to 问题页。
 - 技术栈：Astro 静态网站框架、TypeScript 类型脚本语言、少量浏览器端 JavaScript 网页脚本语言。
 - 域名：`https://openknowledgeformat.online`
 
@@ -16,6 +16,20 @@
 - `/compare/okf-vs-rag/`：OKF 对比 RAG
 - `/compare/okf-vs-llms-txt/`：OKF 对比 llms.txt
 - `/compare/okf-vs-openapi/`：OKF 对比 OpenAPI
+- `/compare/okf-vs-agents-md/`：OKF 对比 AGENTS.md
+- `/compare/okf-vs-data-catalog/`：OKF 对比 data catalog
+- `/compare/okf-vs-knowledge-graph/`：OKF 对比 knowledge graph
+- `/compare/okf-vs-markdown/`：OKF 对比 Markdown
+- `/use-cases/okf-for-websites/`：网站场景页
+- `/use-cases/okf-for-api-docs/`：API docs 场景页
+- `/use-cases/okf-for-saas/`：SaaS 场景页
+- `/use-cases/okf-for-data-warehouses/`：数据仓库场景页
+- `/use-cases/okf-for-documentation-sites/`：文档站场景页
+- `/use-cases/okf-for-ai-agents/`：AI agents 场景页
+- `/use-cases/okf-for-seo/`：SEO 场景页
+- `/use-cases/okf-for-ai-search/`：AI search 场景页
+- `/templates/*-okf-template/`：独立模板详情页，共 10 个
+- `/guides/*/`：OKF how-to 问题页，共 10 个
 - `/about/`：关于本站
 - `/contact/`：联系方式
 - `/privacy/`：隐私政策

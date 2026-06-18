@@ -1,0 +1,18 @@
+---
+// input: guide slug route param
+// output: generated OKF how-to guide page
+// pos: dynamic guide route (update rule: sync this header and src/pages/guides README when this file changes)
+import ClusterPage from "../../components/ClusterPage.astro";
+import { guidePages } from "../../data/seoClusters";
+
+export function getStaticPaths() {
+  return Object.entries(guidePages).map(([slug, page]) => ({
+    params: { slug },
+    props: { page }
+  }));
+}
+
+const { page } = Astro.props;
+---
+
+<ClusterPage page={page} />

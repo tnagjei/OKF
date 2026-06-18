@@ -1,0 +1,92 @@
+---
+// input: resource cluster page object
+// output: SEO resource page with sections, tables, code, FAQ, related links, and CTA
+// pos: shared SEO cluster renderer (update rule: sync this header and src/components README when this file changes)
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CodeBlock from "./CodeBlock.astro";
+
+const { page } = Astro.props;
+---
+
+<BaseLayout title={page.title} description={page.description} path={page.path}>
+  <main class="page-shell">
+    <section class="page-hero narrow-hero">
+      <p class="eyebrow">{page.eyebrow}</p>
+      <h1>{page.h1}</h1>
+      <p class="hero-copy">{page.intro}</p>
+    </section>
+
+    {page.conclusion && (
+      <section class="content-section conclusion-panel">
+        <h2>Short answer</h2>
+        <p>{page.conclusion}</p>
+      </section>
+    )}
+
+    {page.sections.map((section) => (
+      <section class="content-section">
+        <h2>{section.heading}</h2>
+        {section.paragraphs?.map((paragraph) => <p set:html={paragraph} />)}
+        {section.bullets && (
+          <ul class="check-list">
+            {section.bullets.map((bullet) => <li set:html={bullet} />)}
+          </ul>
+        )}
+        {section.steps && (
+          <ol class="step-list">
+            {section.steps.map((step) => <li set:html={step} />)}
+          </ol>
+        )}
+        {section.table && (
+          <div class="mini-table" role="table" aria-label={section.heading}>
+            <div class="mini-table-row mini-table-head" role="row">
+              {section.table.headers.map((header) => <div role="columnheader">{header}</div>)}
+            </div>
+            {section.table.rows.map((row) => (
+              <div class="mini-table-row" role="row">
+                {row.map((cell) => <div role="cell" set:html={cell} />)}
+              </div>
+            ))}
+          </div>
+        )}
+        {section.code && <CodeBlock code={section.code.value} label={section.code.label} />}
+      </section>
+    ))}
+
+    {page.faq && (
+      <section class="faq-section compact-faq">
+        <p class="eyebrow">FAQ</p>
+        <h2>Common questions</h2>
+        {page.faq.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p set:html={item.answer} />
+          </details>
+        ))}
+      </section>
+    )}
+
+    {page.related && (
+      <section class="content-section">
+        <h2>Related pages</h2>
+        <div class="panel-grid three">
+          {page.related.map((link) => (
+            <article class="info-panel">
+              <h3>{link.label}</h3>
+              <p>{link.note}</p>
+              <a href={link.href}>Open page</a>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {page.cta && (
+      <section class="content-section cta-strip">
+        <h2>{page.cta.heading}</h2>
+        <p>{page.cta.text}</p>
+        <a class="button primary" href={page.cta.href}>{page.cta.label}</a>
+      </section>
+    )}
+  </main>
+</BaseLayout>

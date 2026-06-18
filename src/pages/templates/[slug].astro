@@ -1,0 +1,18 @@
+---
+// input: template slug route param
+// output: generated OKF template detail page
+// pos: dynamic template route (update rule: sync this header and src/pages/templates README when this file changes)
+import ClusterPage from "../../components/ClusterPage.astro";
+import { templateDetailPages } from "../../data/seoClusters";
+
+export function getStaticPaths() {
+  return Object.entries(templateDetailPages).map(([slug, page]) => ({
+    params: { slug },
+    props: { page }
+  }));
+}
+
+const { page } = Astro.props;
+---
+
+<ClusterPage page={page} />

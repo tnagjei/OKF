@@ -1404,6 +1404,15 @@ export const comparePages: Record<string, ComparePage> = {
             text: "No. Use OpenAPI tooling for schema and contract validation."
           }
         ]
+      },
+      {
+        heading: "Related pages",
+        bullets: [
+          '<a href="/okf-validator/">OKF Validator</a> for checking API context files.',
+          '<a href="/templates/api-okf-template/">API OKF template</a> for endpoint context.',
+          '<a href="/use-cases/okf-for-api-docs/">OKF for API docs</a> for a full use case workflow.',
+          '<a href="/guides/how-to-create-okf-for-api-docs/">How to create OKF for API docs</a> for step-by-step setup.'
+        ]
       }
     ]
   }

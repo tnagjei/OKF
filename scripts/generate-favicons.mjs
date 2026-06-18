@@ -1,3 +1,6 @@
+// input: siteConfig brand and analytics-independent visual metadata
+// output: generated favicon, web app manifest, and touch icon files in public/
+// pos: favicon asset generator (update rule: sync this header and scripts README when this file changes)
 import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";

@@ -1,0 +1,8 @@
+# templates
+- 用途：生成独立 OKF 模板详情页。
+- 关键入口：`[slug].astro`。
+- 边界/依赖：内容来自 `src/data/seoClusters.ts`，模板页链接到 validator。
+> 一旦本目录内容变化，请更新本文件
+
+## Files
+- `[slug].astro`：根据 template detail 数据生成模板详情页。

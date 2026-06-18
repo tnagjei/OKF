@@ -1,6 +1,6 @@
 # pages
 - 用途：定义 Astro 路由页面与文本端点。
-- 关键入口：`index.astro`、`[slug].astro`、`okf-validator.astro`。
+- 关键入口：`index.astro`、`[slug].astro`、`okf-validator.astro`、`use-cases/`、`templates/`、`guides/`。
 - 边界/依赖：页面只组合布局、组件和静态数据，不接后端服务。
 > 一旦本目录内容变化，请更新本文件
 
@@ -13,3 +13,6 @@
 - `llms.txt.ts`：生成短版 LLM 说明。
 - `llms-full.txt.ts`：生成完整版 LLM 说明。
 - `compare/`：对比页面路由。
+- `use-cases/`：OKF 场景页路由。
+- `templates/`：OKF 模板详情页路由。
+- `guides/`：OKF how-to 问题页路由。
