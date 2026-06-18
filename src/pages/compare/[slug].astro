@@ -1,9 +1,10 @@
 ---
 // input: comparison slug route param
-// output: generated comparison pages
+// output: generated comparison pages with tables, optional code, videos, and sources
 // pos: dynamic comparison route (update rule: sync this header and src/pages/compare README when this file changes)
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { comparePages } from "../../data/content";
+import CodeBlock from "../../components/CodeBlock.astro";
+import { comparePages, sourceLinks } from "../../data/content";
 
 export function getStaticPaths() {
   return Object.entries(comparePages).map(([slug, page]) => ({
@@ -44,13 +45,51 @@ const { page } = Astro.props;
     {page.sections.map((section) => (
       <section class="content-section">
         <h2>{section.heading}</h2>
-        {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+        {section.paragraphs?.map((paragraph) => <p set:html={paragraph} />)}
         {section.bullets && (
           <ul class="check-list">
-            {section.bullets.map((bullet) => <li>{bullet}</li>)}
+            {section.bullets.map((bullet) => <li set:html={bullet} />)}
           </ul>
+        )}
+        {section.subsections && (
+          <div class="mini-grid">
+            {section.subsections.map((item) => (
+              <article class="mini-panel">
+                <h3>{item.heading}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+        )}
+        {section.code && <CodeBlock code={section.code.value} label={section.code.label} />}
+        {section.video && (
+          <figure class="video-frame">
+            <div class="video-embed">
+              <iframe
+                src={section.video.embedUrl}
+                title={section.video.title}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              />
+            </div>
+            <figcaption>
+              <span>{section.video.note}</span>
+              <a href={section.video.originalUrl} rel="noreferrer">{section.video.fallbackText}</a>
+            </figcaption>
+          </figure>
         )}
       </section>
     ))}
+
+    <section class="content-section source-note">
+      <h2>Source boundary</h2>
+      <p>
+        This comparison uses official sources for definitions where available. Workflow recommendations are practical judgments, not official certification.
+      </p>
+      <ul>
+        {sourceLinks.map((source) => <li><a href={source.href} rel="noreferrer">{source.label}</a></li>)}
+      </ul>
+    </section>
   </main>
 </BaseLayout>

@@ -30,6 +30,7 @@ export const publicRoutes = [
   { path: "/compare/okf-vs-mcp/", label: "OKF vs MCP", priority: "0.8" },
   { path: "/compare/okf-vs-rag/", label: "OKF vs RAG", priority: "0.8" },
   { path: "/compare/okf-vs-llms-txt/", label: "OKF vs llms.txt", priority: "0.8" },
+  { path: "/compare/okf-vs-openapi/", label: "OKF vs OpenAPI", priority: "0.8" },
   { path: "/about/", label: "About", priority: "0.6" },
   { path: "/contact/", label: "Contact", priority: "0.6" },
   { path: "/privacy/", label: "Privacy", priority: "0.5" },

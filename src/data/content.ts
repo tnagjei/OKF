@@ -1,10 +1,21 @@
 // input: no runtime input
-// output: static content collections for pages, examples, templates, and comparisons
+// output: static content collections for pages, examples, templates, comparisons, code blocks, and videos
 // pos: content data layer (update rule: sync this header and src/data README when this file changes)
 export type ContentSection = {
   heading: string;
   paragraphs?: string[];
   bullets?: string[];
+  code?: {
+    label: string;
+    value: string;
+  };
+  video?: {
+    embedUrl: string;
+    originalUrl: string;
+    title: string;
+    fallbackText: string;
+    note: string;
+  };
   subsections?: {
     heading: string;
     text: string;
@@ -41,12 +52,28 @@ export type CodeAsset = {
 
 export const sourceLinks = [
   {
+    label: "Google Cloud introduction to Open Knowledge Format",
+    href: "https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing"
+  },
+  {
     label: "GoogleCloudPlatform knowledge-catalog OKF specification",
     href: "https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md"
   },
   {
     label: "GoogleCloudPlatform knowledge-catalog OKF README",
     href: "https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/README.md"
+  },
+  {
+    label: "OpenAPI Initiative overview",
+    href: "https://www.openapis.org/what-is-openapi"
+  },
+  {
+    label: "Model Context Protocol introduction",
+    href: "https://modelcontextprotocol.io/docs/getting-started/intro"
+  },
+  {
+    label: "llms.txt proposal",
+    href: "https://llmstxt.org/"
   }
 ];
 
@@ -468,17 +495,26 @@ export const longformPages: Record<string, LongformPage> = {
     path: "/what-is-okf/",
     title: "What Is OKF? Open Knowledge Format Explained",
     description:
-      "A plain English explanation of Open Knowledge Format, OKF bundles, YAML frontmatter, Markdown files, required fields, and agent-ready knowledge.",
+      "What is Open Knowledge Format? Learn how OKF uses Markdown, YAML frontmatter, draft fields, and bundles for agent-ready knowledge.",
     h1: "What is Open Knowledge Format?",
     eyebrow: "OKF basics",
     intro:
-      "Open Knowledge Format, or OKF, is a draft format for packaging knowledge as readable Markdown files with small YAML frontmatter fields.",
+      "Open Knowledge Format, or OKF, is a draft way to package knowledge as readable Markdown files with small YAML frontmatter fields. In this guide, OKF means Open Knowledge Format, not Open Knowledge Foundation or any unrelated OKF brand.",
     sections: [
       {
-        heading: "The short definition",
+        heading: "The one-minute answer",
         paragraphs: [
-          "OKF describes knowledge as a directory of Markdown files. Each file represents a concept, such as a data table, API endpoint, product rule, support playbook, documentation topic, or website page.",
-          "The YAML frontmatter at the top of a file gives machines a few stable fields to scan. The Markdown body gives humans and AI agents the context they need to understand the concept."
+          "OKF describes knowledge as a directory of Markdown files. Each file represents one concept, such as a data table, API endpoint, product rule, support playbook, documentation topic, or website page.",
+          "The YAML frontmatter at the top of a file gives machines a few stable fields to scan. The Markdown body gives humans and AI agents the explanation, examples, citations, and links they need before using the concept."
+        ]
+      },
+      {
+        heading: "What OKF means in this guide",
+        bullets: [
+          "OKF here means Open Knowledge Format.",
+          "OKF is not the Open Knowledge Foundation.",
+          "OKF is not an OKF beverage or consumer brand.",
+          "This site is an unofficial learning and tool site, not official Google documentation."
         ]
       },
       {
@@ -493,10 +529,27 @@ export const longformPages: Record<string, LongformPage> = {
         ]
       },
       {
-        heading: "Why OKF is useful for agents",
+        heading: "A minimal OKF example",
+        paragraphs: [
+          "A small OKF file starts with frontmatter, then continues as normal Markdown. The example below keeps one concept per file and points `resource` to the canonical page or asset it describes."
+        ],
+        code: {
+          label: "Minimal OKF concept file",
+          value: minimumExample
+        }
+      },
+      {
+        heading: "When OKF is useful",
         paragraphs: [
           "An agent does not always need a database, embedding pipeline, or custom SDK to understand a knowledge base. If the knowledge is already organized into files, frontmatter, headings, and links, the agent can inspect the structure before loading more content.",
           "That makes OKF useful for teams that want portable context. A bundle can live in Git, ship as a zip archive, or be hosted as static files."
+        ],
+        bullets: [
+          "Website teams can describe important public pages and trust statements.",
+          "API teams can keep endpoint meaning, owners, limits, and examples beside OpenAPI contracts.",
+          "Support teams can package playbooks with boundaries and escalation rules.",
+          "Data teams can describe tables, metrics, dashboards, freshness, and ownership.",
+          "Documentation teams can split large manuals into smaller linked concept files."
         ]
       },
       {
@@ -504,23 +557,28 @@ export const longformPages: Record<string, LongformPage> = {
         bullets: [
           "OKF is not a Google product page or an official Google service.",
           "OKF is not a replacement for MCP, RAG, OpenAPI, or llms.txt.",
-          "OKF is not a database. It is a file format for representing curated knowledge."
+          "OKF is not a database. It is a file format for representing curated knowledge.",
+          "OKF is not proof that every claim inside a bundle is correct or current."
         ]
       },
       {
-        heading: "Who should care",
+        heading: "FAQ",
         subsections: [
           {
-            heading: "Developers",
-            text: "Developers can keep API, product, and operational context close to the code review process."
+            heading: "Is OKF official?",
+            text: "Open Knowledge Format draft materials come from public GoogleCloudPlatform sources. This website is unofficial and not affiliated with Google."
           },
           {
-            heading: "SEO teams",
-            text: "SEO teams can turn important pages into structured knowledge that is easier for AI systems to interpret."
+            heading: "What field is required?",
+            text: "The draft specification treats `type` as required. This site recommends extra fields such as title, description, resource, tags, and timestamp for clearer previews."
           },
           {
-            heading: "Documentation teams",
-            text: "Docs teams can split large manuals into smaller, linked concept files that stay readable outside a single platform."
+            heading: "Does OKF replace OpenAPI?",
+            text: "No. OpenAPI describes API contracts. OKF can describe the surrounding business meaning, examples, owners, and related documentation."
+          },
+          {
+            heading: "Where should I start?",
+            text: "Start with one small bundle, validate each Markdown file, then expand only after the concept boundaries are clear."
           }
         ]
       }
@@ -534,8 +592,33 @@ export const longformPages: Record<string, LongformPage> = {
     h1: "OKF tutorial: build your first knowledge bundle",
     eyebrow: "Step-by-step tutorial",
     intro:
-      "This tutorial walks through a small OKF bundle for a website. You can adapt the same pattern for documentation, APIs, data catalogs, and support playbooks.",
+      "This OKF tutorial builds one small knowledge bundle with `index.md`, three concept files, links, and a validation checklist. Start small before you convert a full site or documentation set.",
     sections: [
+      {
+        heading: "What you will build",
+        paragraphs: [
+          "The final output is a website content bundle with one root index and three focused concept files. The same shape can later be adapted for APIs, documentation, data catalogs, and support playbooks."
+        ],
+        code: {
+          label: "Final bundle tree",
+          value: `bundle/
+  index.md
+  pages/
+    home.md
+    pricing.md
+  support/
+    contact.md`
+        }
+      },
+      {
+        heading: "Before you start",
+        bullets: [
+          "Choose one narrow scope, such as five public pages or three API endpoints.",
+          "Collect canonical source URLs before writing summaries.",
+          "Do not include secrets, private keys, personal data, or internal-only records.",
+          "Use plain Markdown so the bundle remains readable in Git and static hosting."
+        ]
+      },
       {
         heading: "Step 1: choose one knowledge scope",
         paragraphs: [
@@ -576,51 +659,150 @@ export const longformPages: Record<string, LongformPage> = {
         ]
       },
       {
-        heading: "Step 6: publish safely",
+        heading: "Final output",
+        paragraphs: [
+          "A useful first bundle has a root index, one concept per file, canonical resource links, and enough body text for a reviewer to understand the source without guessing."
+        ],
+        code: {
+          label: "Example concept file",
+          value: `---
+type: Website Page
+title: Contact page
+description: Explains how visitors can report corrections, outdated examples, and validator issues.
+resource: https://openknowledgeformat.online/contact/
+tags: [website, contact, corrections]
+timestamp: 2026-06-17T00:00:00Z
+---
+
+# Purpose
+
+This page gives readers a correction path for Open Knowledge Format Guide.
+
+# Related concepts
+
+- [Privacy policy](../pages/privacy.md)
+- [Validator](../products/okf-validator.md)`
+        }
+      },
+      {
+        heading: "Validation checklist",
         bullets: [
+          "The frontmatter parses cleanly and starts at the top of the file.",
+          "`type` is present and describes the concept category.",
+          "`resource` points to a real URL, URN, or stable asset identifier.",
+          "The Markdown body has one clear H1 and focused sections.",
+          "Links point to real related files or public sources.",
           "Remove private keys, personal data, and internal-only material before public hosting.",
-          "Keep `resource` links stable.",
-          "Add a review date or timestamp so stale files are easier to spot."
+          "Add a timestamp or review date so stale files are easier to spot."
+        ]
+      },
+      {
+        heading: "FAQ",
+        subsections: [
+          {
+            heading: "Can I generate OKF from OpenAPI?",
+            text: "You can draft endpoint concept files from OpenAPI, but the business meaning, owners, examples, and warnings still need human review."
+          },
+          {
+            heading: "Do I need a database?",
+            text: "No. A first OKF bundle can be ordinary Markdown files in a folder, Git repo, zip archive, or static site."
+          },
+          {
+            heading: "What should I validate first?",
+            text: "Validate the frontmatter and required guide fields first, then review the actual claims for accuracy."
+          }
         ]
       }
     ]
   },
   "okf-examples": {
     path: "/okf-examples/",
-    title: "OKF Examples: Open Knowledge Format Bundle Patterns",
+    title: "Open Knowledge Format Examples for OKF Bundles",
     description:
-      "Browse practical OKF examples for website content, API endpoints, product documentation, support playbooks, SaaS metrics, and knowledge bases.",
-    h1: "OKF examples for real knowledge bundles",
+      "Browse copy-ready Open Knowledge Format examples with OKF bundle patterns, common mistakes, and validation next steps.",
+    h1: "Open Knowledge Format examples for real knowledge bundles",
     eyebrow: "Example library",
     intro:
-      "These examples show how different teams can organize OKF bundles. They are starter patterns, not official conformance tests.",
+      "These Open Knowledge Format examples show how different teams can organize OKF bundles. They are copy-ready starter patterns, not official conformance tests or certification results.",
     kind: "examples",
     sections: [
       {
-        heading: "How to read these examples",
+        heading: "Copy-ready OKF examples",
         paragraphs: [
           "Each example shows a bundle shape, the fields that matter most, common mistakes, and a practical next step.",
-          "Use the structure as a starting point, then adapt file names, tags, and links to your actual content model."
+          "Use the structure as a starting point, then adapt file names, tags, links, resource URLs, and citations to your actual content model."
+        ]
+      },
+      {
+        heading: "Common mistakes in OKF examples",
+        bullets: [
+          "Copying full HTML pages instead of clean Markdown summaries.",
+          "Leaving `resource` blank or pointing every concept to the home page.",
+          "Mixing many unrelated concepts into one file.",
+          "Adding examples with no citations, owner, or review timestamp.",
+          "Assuming a sample is production-ready because the frontmatter passes."
+        ]
+      },
+      {
+        heading: "How to validate these examples",
+        bullets: [
+          "Copy one example and replace placeholder URLs, tags, and timestamps.",
+          "Paste the Markdown concept file into the browser-only OKF validator.",
+          "Fix frontmatter errors before expanding the body.",
+          "Review claims separately because validation cannot prove knowledge accuracy.",
+          "Use <a href=\"/compare/okf-vs-openapi/\">OKF vs OpenAPI</a> when an API example needs both a contract and surrounding context."
         ]
       }
     ]
   },
   "okf-templates": {
     path: "/okf-templates/",
-    title: "OKF Templates: Copy Open Knowledge Format Frontmatter",
+    title: "OKF Templates: Copy Open Knowledge Format Bundle Templates",
     description:
-      "Copy OKF templates for websites, APIs, SaaS products, documentation, AI agent context, and data catalogs with field notes and mistakes.",
-    h1: "Copy-ready OKF templates",
+      "Copy OKF templates for websites, APIs, SaaS, documentation, agent context, and data catalogs, then validate the bundle fields.",
+    h1: "Copy-ready OKF templates by bundle type",
     eyebrow: "Template library",
     intro:
-      "Use these templates to create a first Open Knowledge Format document. The examples follow a stricter guide profile than the draft specification so the files are easier to search and preview.",
+      "Choose an OKF bundle type, copy the starter frontmatter, replace the resource and timestamp, then validate the Markdown before publishing.",
     kind: "templates",
     sections: [
+      {
+        heading: "Choose your OKF bundle type",
+        paragraphs: [
+          "Use the website template for public pages, the API template for endpoint context, the SaaS template for product concepts, the documentation template for tasks, the agent context template for boundaries, and the data catalog template for tables or metrics."
+        ]
+      },
       {
         heading: "Before you copy a template",
         paragraphs: [
           "Replace placeholder resources, timestamps, and tags before publishing. If a concept is internal and has no URL, use a stable URN or internal identifier instead of a fake public link.",
           "Keep one concept per file. A short, precise OKF file is easier for an agent to load than a broad document that mixes unrelated ideas."
+        ]
+      },
+      {
+        heading: "Validate your template",
+        bullets: [
+          "Paste the copied Markdown into the OKF validator.",
+          "Fix missing `type` first because it is the core draft field.",
+          "Add title, description, resource, tags, and timestamp so previews and internal search work better.",
+          "For API templates, read <a href=\"/compare/okf-vs-openapi/\">OKF vs OpenAPI</a> before treating OKF as an API contract."
+        ]
+      },
+      {
+        heading: "FAQ",
+        subsections: [
+          {
+            heading: "Are these official templates?",
+            text: "No. They are practical starter templates for this unofficial guide."
+          },
+          {
+            heading: "Can I add custom fields?",
+            text: "Yes, if your consumers can tolerate unknown keys and your team documents what each custom field means."
+          },
+          {
+            heading: "Is title required?",
+            text: "The draft specification identifies `type` as required. This site recommends title because it makes previews and review workflows clearer."
+          }
         ]
       }
     ]
@@ -775,7 +957,7 @@ export const comparePages: Record<string, ComparePage> = {
     h1: "OKF vs MCP",
     eyebrow: "Comparison",
     intro:
-      "OKF and MCP solve different problems. OKF organizes knowledge into files. MCP connects models and agents to tools, resources, and prompts.",
+      "Use OKF to organize knowledge. Use MCP to connect tools. Use both when an agent needs structured context and controlled actions.",
     summaryRows: [
       {
         label: "Primary role",
@@ -783,9 +965,19 @@ export const comparePages: Record<string, ComparePage> = {
         other: "Connects AI systems to tools, resources, and external capabilities."
       },
       {
+        label: "Artifact",
+        okf: "A folder, repository, archive, or static bundle of concept files.",
+        other: "A runtime protocol between an AI client and an MCP server."
+      },
+      {
         label: "Best fit",
         okf: "Portable knowledge packages, docs, data catalogs, support playbooks.",
         other: "Runtime tool access, system integration, and controlled agent actions."
+      },
+      {
+        label: "Team owner",
+        okf: "Docs, product, data, support, and SEO teams that curate source knowledge.",
+        other: "Engineering teams that expose tools, resources, prompts, and integrations."
       },
       {
         label: "Relationship",
@@ -795,14 +987,31 @@ export const comparePages: Record<string, ComparePage> = {
     ],
     sections: [
       {
-        heading: "The core difference",
+        heading: "The short answer",
         paragraphs: [
           "MCP is about connection. It gives an AI client a standard way to use tools and resources exposed by a server.",
-          "OKF is about organization. It gives people and agents a consistent way to read curated knowledge from ordinary files."
+          "OKF is about organization. It gives people and agents a consistent way to read curated knowledge from ordinary files. The two ideas can work together, but one is not a substitute for the other."
         ]
       },
       {
-        heading: "How they can work together",
+        heading: "When to use OKF",
+        bullets: [
+          "Use OKF when source knowledge is scattered across docs, website pages, support playbooks, or data notes.",
+          "Use OKF when reviewers need normal Markdown files that can live in Git.",
+          "Use OKF when agents should inspect context, citations, and links before loading large documents.",
+          "Use OKF when the main problem is source clarity, not live tool access."
+        ]
+      },
+      {
+        heading: "When to use MCP",
+        bullets: [
+          "Use MCP when an agent needs controlled access to tools, databases, calendars, ticket systems, or internal resources.",
+          "Use MCP when the important boundary is runtime permission and tool execution.",
+          "Use MCP when a client needs a standard way to discover and call server capabilities."
+        ]
+      },
+      {
+        heading: "How OKF and MCP can work together",
         bullets: [
           "A team stores product, support, and data context as OKF files.",
           "An MCP server exposes search, read, validate, or update operations for those files.",
@@ -810,22 +1019,46 @@ export const comparePages: Record<string, ComparePage> = {
         ]
       },
       {
-        heading: "Decision rule",
+        heading: "Visual explainer for MCP",
         paragraphs: [
-          "Use OKF when the problem is messy knowledge. Use MCP when the problem is controlled access to tools or resources. Use both when an agent needs clean knowledge and safe actions."
+          "This video is included as visual background for MCP only. It does not verify any claim about OKF or prove that OKF and MCP should be combined."
+        ],
+        video: {
+          embedUrl: "https://www.youtube-nocookie.com/embed/ksLab69-Rkw",
+          originalUrl: "https://www.youtube.com/watch?v=ksLab69-Rkw",
+          title: "MCP visual explainer video",
+          fallbackText: "Watch the MCP explainer on YouTube",
+          note: "Evidence boundary: video result used as background only, not as proof of the OKF comparison."
+        }
+      },
+      {
+        heading: "FAQ",
+        subsections: [
+          {
+            heading: "Is OKF a replacement for MCP?",
+            text: "No. OKF organizes knowledge files. MCP connects clients to tools and resources at runtime."
+          },
+          {
+            heading: "Can MCP serve OKF files?",
+            text: "Yes. A server could expose search, read, validate, or update operations for OKF bundles."
+          },
+          {
+            heading: "Which should I build first?",
+            text: "If your knowledge is messy, start with OKF. If your agent cannot reach tools safely, start with MCP."
+          }
         ]
       }
     ]
   },
   "okf-vs-rag": {
     path: "/compare/okf-vs-rag/",
-    title: "OKF vs RAG: Format and Retrieval Method Compared",
+    title: "OKF vs RAG: Source Knowledge and Retrieval Compared",
     description:
-      "Compare Open Knowledge Format and Retrieval Augmented Generation: RAG retrieves context, while OKF structures the source knowledge before retrieval.",
+      "Compare OKF vs RAG: OKF structures source knowledge before indexing, while RAG retrieves relevant context at answer time.",
     h1: "OKF vs RAG",
     eyebrow: "Comparison",
     intro:
-      "RAG is a retrieval method. OKF is a knowledge organization format. A cleaner OKF source can improve the quality of content that a RAG system retrieves.",
+      "Use OKF before retrieval when your source knowledge is messy. Use RAG when the model needs to fetch relevant context at answer time.",
     summaryRows: [
       {
         label: "Primary role",
@@ -833,9 +1066,19 @@ export const comparePages: Record<string, ComparePage> = {
         other: "Retrieves relevant context before a model answers."
       },
       {
+        label: "Layer",
+        okf: "Source preparation and review layer.",
+        other: "Retrieval and generation pipeline layer."
+      },
+      {
         label: "Input quality",
         okf: "Improves source clarity with titles, descriptions, tags, and headings.",
         other: "Depends heavily on chunk quality, metadata, and source freshness."
+      },
+      {
+        label: "Output",
+        okf: "Readable Markdown concept files and metadata.",
+        other: "Selected context chunks used in an answer."
       },
       {
         label: "Relationship",
@@ -845,24 +1088,64 @@ export const comparePages: Record<string, ComparePage> = {
     ],
     sections: [
       {
-        heading: "RAG answers the retrieval question",
+        heading: "The short answer",
         paragraphs: [
-          "A RAG system decides which source chunks to fetch for a user question. It may use embeddings, keyword search, filters, reranking, or a mix of methods.",
-          "RAG does not automatically make poor source documents clearer. If the source corpus is vague, outdated, or mixed together, retrieval can still return weak context."
+          "OKF prepares the source knowledge. RAG retrieves the relevant pieces when a user asks a question. They are two different layers in an AI answer system.",
+          "If source documents are vague, outdated, or mixed together, a retrieval system can still return weak context. OKF can help reviewers clean the source before indexing, but it does not make RAG unnecessary."
         ]
       },
       {
-        heading: "OKF answers the source organization question",
+        heading: "Where OKF fits before RAG",
         paragraphs: [
-          "OKF gives source files predictable metadata and body structure. Titles, descriptions, tags, resource identifiers, and links can help indexing, filtering, and human review."
+          "OKF gives source files predictable metadata and body structure. Titles, descriptions, tags, resource identifiers, citations, and links can help indexing, filtering, and human review before content enters a retrieval pipeline."
         ]
       },
       {
-        heading: "Decision rule",
+        heading: "How RAG retrieves context",
         bullets: [
-          "Use OKF to clean the knowledge before indexing.",
-          "Use RAG to retrieve the right pieces at answer time.",
-          "Review both the OKF bundle and the retrieval behavior when answers are wrong."
+          "A user query is converted into a retrieval request.",
+          "The system searches indexed content using embeddings, keyword search, filters, reranking, or a mix of methods.",
+          "Relevant chunks are attached to the model prompt.",
+          "The model generates an answer that should still be checked against the source."
+        ]
+      },
+      {
+        heading: "Use both together",
+        bullets: [
+          "Write focused OKF files for durable concepts.",
+          "Validate frontmatter and review claims.",
+          "Index the OKF bundle into your retrieval system.",
+          "Evaluate answer quality against source files, not only model output."
+        ]
+      },
+      {
+        heading: "Visual background on RAG",
+        paragraphs: [
+          "This video is included as visual background for RAG. It does not prove that OKF is better than RAG or that RAG results improve after using OKF."
+        ],
+        video: {
+          embedUrl: "https://www.youtube-nocookie.com/embed/TuzpTb56b3s",
+          originalUrl: "https://www.youtube.com/watch?v=TuzpTb56b3s",
+          title: "RAG visual background video",
+          fallbackText: "Watch the RAG background video on YouTube",
+          note: "Evidence boundary: video result used as background only, not as proof of an OKF performance claim."
+        }
+      },
+      {
+        heading: "FAQ",
+        subsections: [
+          {
+            heading: "Does OKF replace a vector database?",
+            text: "No. OKF is source structure. A vector database or search index may still be used for retrieval."
+          },
+          {
+            heading: "Does RAG need OKF?",
+            text: "No. RAG can index many content shapes. OKF is useful when the source corpus needs clearer files, metadata, links, and citations."
+          },
+          {
+            heading: "What should I fix when answers are wrong?",
+            text: "Check both layers: the OKF source quality and the retrieval behavior."
+          }
         ]
       }
     ]
@@ -875,7 +1158,7 @@ export const comparePages: Record<string, ComparePage> = {
     h1: "OKF vs llms.txt",
     eyebrow: "Comparison",
     intro:
-      "llms.txt acts like an AI-readable entry point for a website. OKF acts like a structured knowledge package that can contain many linked Markdown concept files.",
+      "Use llms.txt to point AI readers to important site resources. Use OKF to package deeper structured knowledge and relationships.",
     summaryRows: [
       {
         label: "Primary role",
@@ -883,9 +1166,19 @@ export const comparePages: Record<string, ComparePage> = {
         other: "Lists and explains important AI-readable site resources."
       },
       {
+        label: "Scope",
+        okf: "Multiple concept files with metadata, citations, links, and body content.",
+        other: "A site-level orientation file that points to selected resources."
+      },
+      {
         label: "Shape",
         okf: "Many Markdown files with YAML frontmatter and links.",
         other: "Usually one text file with curated links and summaries."
+      },
+      {
+        label: "SEO evidence",
+        okf: "A structure and readability asset, not a ranking guarantee.",
+        other: "A visibility aid proposal, not a proven ranking guarantee."
       },
       {
         label: "Relationship",
@@ -895,24 +1188,221 @@ export const comparePages: Record<string, ComparePage> = {
     ],
     sections: [
       {
-        heading: "llms.txt is an entry point",
+        heading: "The short answer",
         paragraphs: [
           "A site-level llms.txt file can tell AI systems what the site is, which pages matter, and where useful resources live.",
-          "It is compact and useful for orientation, but it is not a full knowledge model by itself."
+          "It is compact and useful for orientation, but it is not a full knowledge model by itself. OKF is better when you need typed concepts, relationships, citations, and many linked files."
         ]
       },
       {
-        heading: "OKF is a knowledge bundle",
-        paragraphs: [
-          "An OKF bundle can hold many concept files. Each concept can include frontmatter, headings, examples, citations, and links to other concepts."
-        ]
-      },
-      {
-        heading: "Decision rule",
+        heading: "When llms.txt is enough",
         bullets: [
-          "Use llms.txt to introduce the site and route AI readers.",
-          "Use OKF to package deeper knowledge.",
-          "Link the OKF guide, examples, or downloadable bundles from llms.txt when they are ready."
+          "You only need a short site entry point.",
+          "You want to list the most important public pages.",
+          "You want to explain which resources are useful for AI readers.",
+          "You do not need a multi-file knowledge bundle."
+        ]
+      },
+      {
+        heading: "When OKF is better",
+        bullets: [
+          "Use OKF when you need one concept per file.",
+          "Use OKF when metadata, citations, related concepts, and review timestamps matter.",
+          "Use OKF when the content should live in Git, zip archives, or static hosting.",
+          "Use OKF when agents need deeper context than a link list can provide."
+        ]
+      },
+      {
+        heading: "How to use both on one site",
+        bullets: [
+          "Keep `/llms.txt` as the short entry point.",
+          "Keep `/llms-full.txt` as the expanded site guide when useful.",
+          "Link OKF templates, examples, validator, and future downloadable bundles from those files.",
+          "Avoid claiming that either file guarantees AI search traffic."
+        ]
+      },
+      {
+        heading: "Evidence warning for AI search claims",
+        paragraphs: [
+          "The safe claim is that llms.txt and OKF can make site resources easier to orient and inspect. Public evidence is not strong enough to claim that either file directly guarantees ranking, indexing, or AI citations."
+        ]
+      },
+      {
+        heading: "Visual background on llms.txt",
+        paragraphs: [
+          "This video is included as visual background for llms.txt only. It does not prove SEO impact or AI citation gains."
+        ],
+        video: {
+          embedUrl: "https://www.youtube-nocookie.com/embed/r1ZhHme4LjI",
+          originalUrl: "https://www.youtube.com/watch?v=r1ZhHme4LjI&vl=en",
+          title: "llms.txt visual background video",
+          fallbackText: "Watch the llms.txt background video on YouTube",
+          note: "Evidence boundary: video result used as background only, not as proof of SEO benefit."
+        }
+      },
+      {
+        heading: "FAQ",
+        subsections: [
+          {
+            heading: "Do I need both?",
+            text: "Use llms.txt for orientation. Add OKF when you need deeper structured concept files."
+          },
+          {
+            heading: "Does llms.txt guarantee AI search visibility?",
+            text: "No. Treat visibility benefit claims as pending unless a platform publishes direct confirmation."
+          },
+          {
+            heading: "Can llms.txt link to OKF?",
+            text: "Yes. It can point AI readers to OKF guides, examples, templates, and bundles."
+          }
+        ]
+      }
+    ]
+  },
+  "okf-vs-openapi": {
+    path: "/compare/okf-vs-openapi/",
+    title: "OKF vs OpenAPI: Knowledge Context and API Contracts Compared",
+    description:
+      "Compare OKF and OpenAPI: OpenAPI describes API contracts, while OKF adds knowledge context, examples, owners, and related operations.",
+    h1: "OKF vs OpenAPI",
+    eyebrow: "Comparison",
+    intro:
+      "OpenAPI describes API contracts. OKF describes the knowledge context around APIs, data, metrics, and operations. They are complementary.",
+    summaryRows: [
+      {
+        label: "Primary role",
+        okf: "Packages knowledge context around APIs, data, docs, metrics, and operations.",
+        other: "Describes HTTP API contracts, operations, schemas, and request or response behavior."
+      },
+      {
+        label: "Artifact",
+        okf: "Markdown concept files with YAML frontmatter.",
+        other: "OpenAPI description documents, commonly written in YAML or JSON."
+      },
+      {
+        label: "Best fit",
+        okf: "Endpoint meaning, business rules, owners, runbooks, examples, and citations.",
+        other: "API contract design, documentation, testing, mocks, and client or server tooling."
+      },
+      {
+        label: "Owner",
+        okf: "Docs, developer relations, support, product, data, and platform teams.",
+        other: "API platform, backend, developer tooling, and integration teams."
+      },
+      {
+        label: "Do not confuse",
+        okf: "Does not validate OpenAPI schemas or replace an API contract.",
+        other: "Does not explain every surrounding business workflow by itself."
+      },
+      {
+        label: "Relationship",
+        okf: "Can reference OpenAPI resources and explain surrounding context.",
+        other: "Can remain the source of truth for the API contract."
+      }
+    ],
+    sections: [
+      {
+        heading: "The short answer",
+        paragraphs: [
+          "Use OpenAPI for the API contract. Use OKF for the knowledge around that contract: why the endpoint exists, who owns it, what examples matter, what metrics it affects, and which runbooks support it.",
+          "Do not replace an OpenAPI description with an OKF file. OKF can point to OpenAPI and add context that a contract file usually does not carry."
+        ]
+      },
+      {
+        heading: "What OpenAPI describes",
+        paragraphs: [
+          "OpenAPI is used to describe HTTP APIs across their lifecycle. It can capture paths, operations, parameters, schemas, request bodies, responses, authentication, and related API tooling inputs."
+        ],
+        bullets: [
+          "API contract and operation shape.",
+          "Request and response schemas.",
+          "Documentation, mocks, tests, and client or server generation inputs.",
+          "YAML or JSON description files."
+        ]
+      },
+      {
+        heading: "What OKF describes",
+        paragraphs: [
+          "OKF describes curated knowledge as Markdown concept files with frontmatter. Around an API, that context can include endpoint purpose, business rules, owner notes, related metrics, support workflows, and citations."
+        ],
+        bullets: [
+          "Knowledge context around API contracts.",
+          "Links to OpenAPI descriptions, runbooks, metrics, docs, and support notes.",
+          "Reviewable Markdown that can live beside docs or code.",
+          "Draft OKF fields such as `type`, with recommended fields for title, description, resource, tags, and timestamp."
+        ]
+      },
+      {
+        heading: "When to use OpenAPI",
+        bullets: [
+          "You need a precise HTTP API contract.",
+          "You need request and response schemas.",
+          "You need tooling for documentation, mocks, tests, clients, or servers.",
+          "You need contract review between backend and integration teams."
+        ]
+      },
+      {
+        heading: "When to use OKF",
+        bullets: [
+          "You need to explain why an endpoint exists and how it fits the product.",
+          "You need owners, runbooks, escalation notes, or support boundaries.",
+          "You need related metrics, dashboards, data tables, or examples.",
+          "You need citations and review notes beside the API context.",
+          "You need agent-readable context without changing the OpenAPI contract."
+        ]
+      },
+      {
+        heading: "How to use OKF with OpenAPI",
+        bullets: [
+          "Keep OpenAPI as the source of truth for the API contract.",
+          "Create one OKF concept file for each durable endpoint or API area.",
+          "Set `resource` to the canonical API reference, OpenAPI file URL, or stable internal identifier.",
+          "Link related metrics, data tables, support playbooks, and docs.",
+          "Validate the OKF frontmatter, then manually review the business claims."
+        ]
+      },
+      {
+        heading: "Copy an API OKF template",
+        paragraphs: [
+          "Start with an API OKF file only after the OpenAPI contract has a stable reference. Replace the sample URL, method, request fields, response notes, and citations before publishing."
+        ],
+        code: {
+          label: "API OKF template",
+          value: templateLibrary[1].code
+        }
+      },
+      {
+        heading: "Visual background on OpenAPI",
+        paragraphs: [
+          "This video is included as visual background for OpenAPI only. It does not prove any claim about OKF or prove that automatic OpenAPI to OKF conversion is accurate."
+        ],
+        video: {
+          embedUrl: "https://www.youtube-nocookie.com/embed/0iEo0nmNAGQ",
+          originalUrl: "https://www.youtube.com/watch?v=0iEo0nmNAGQ",
+          title: "OpenAPI visual background video",
+          fallbackText: "Watch the OpenAPI explainer on YouTube",
+          note: "Evidence boundary: video result used as background only, not as proof of the OKF relationship."
+        }
+      },
+      {
+        heading: "FAQ",
+        subsections: [
+          {
+            heading: "Is OKF an OpenAPI alternative?",
+            text: "No. Keep OpenAPI for the API contract. Use OKF for surrounding knowledge context."
+          },
+          {
+            heading: "Can OKF reference an OpenAPI file?",
+            text: "Yes. Put the OpenAPI URL or stable internal reference in `resource` or link it from the Markdown body."
+          },
+          {
+            heading: "Can I generate OKF from OpenAPI?",
+            text: "You can generate a draft, but owners, business rules, examples, and warnings need human review."
+          },
+          {
+            heading: "Does OKF validate OpenAPI?",
+            text: "No. Use OpenAPI tooling for schema and contract validation."
+          }
         ]
       }
     ]

@@ -15,6 +15,7 @@
 - `/compare/okf-vs-mcp/`：OKF 对比 MCP
 - `/compare/okf-vs-rag/`：OKF 对比 RAG
 - `/compare/okf-vs-llms-txt/`：OKF 对比 llms.txt
+- `/compare/okf-vs-openapi/`：OKF 对比 OpenAPI
 - `/about/`：关于本站
 - `/contact/`：联系方式
 - `/privacy/`：隐私政策

@@ -8,4 +8,4 @@
 - `CodeBlock.astro`：带复制按钮的代码块。
 - `Footer.astro`：全站页脚与非官方声明。
 - `Header.astro`：全站导航。
-- `LongformPage.astro`：通用内容页渲染组件。
+- `LongformPage.astro`：通用内容页渲染组件，支持正文、代码块与视频嵌入。

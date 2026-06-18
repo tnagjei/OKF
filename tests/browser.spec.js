@@ -7,7 +7,8 @@ const baseUrl = process.env.BASE_URL || "http://127.0.0.1:4321";
 const mobileRoutes = [
   { path: "/", width: 375 },
   { path: "/okf-validator/", width: 430 },
-  { path: "/compare/okf-vs-mcp/", width: 375 }
+  { path: "/compare/okf-vs-mcp/", width: 375 },
+  { path: "/compare/okf-vs-openapi/", width: 430 }
 ];
 
 for (const route of mobileRoutes) {

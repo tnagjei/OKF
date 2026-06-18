@@ -1,6 +1,6 @@
 /*
 input: shared class names from Astro pages and components
-output: responsive visual system for the OKF static site
+output: responsive visual system for the OKF static site, including code and video embeds
 pos: global stylesheet (update rule: sync this header and src/styles README when this file changes)
 */
 :root {
@@ -486,6 +486,38 @@ details p {
 
 .source-note {
   margin-top: 20px;
+}
+
+.video-frame {
+  display: grid;
+  gap: 10px;
+  max-width: 850px;
+  margin: 8px 0 0;
+}
+
+.video-embed {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #151712;
+  aspect-ratio: 16 / 9;
+  box-shadow: var(--shadow);
+}
+
+.video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-frame figcaption {
+  display: grid;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 14px;
 }
 
 .validator-layout {

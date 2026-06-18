@@ -1,6 +1,6 @@
 ---
 // input: pasted Markdown from browser user
-// output: client-side OKF guide profile validation result
+// output: client-side OKF guide profile validation result and repair guidance
 // pos: OKF validator route (update rule: sync this header and src/pages README when this file changes)
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CodeBlock from "../components/CodeBlock.astro";
@@ -12,16 +12,16 @@ This document has a heading but no YAML frontmatter block.`;
 ---
 
 <BaseLayout
-  title="OKF Validator: Check Open Knowledge Format Frontmatter"
-  description="Paste Markdown into a browser-only OKF validator and check YAML frontmatter fields such as type, title, description, and tags."
+  title="OKF Validator: Check Open Knowledge Format Markdown"
+  description="Use a browser-only Open Knowledge Format validator to check Markdown, YAML frontmatter, type, title, description, tags, and common OKF errors."
   path="/okf-validator/"
 >
   <main class="page-shell">
     <section class="page-hero narrow-hero">
       <p class="eyebrow">Browser-only tool</p>
-      <h1>OKF validator</h1>
+      <h1>OKF validator for Markdown knowledge bundles</h1>
       <p class="hero-copy">
-        Paste a Markdown file and check whether it includes the frontmatter fields expected by this guide. Content is processed in your browser and is not uploaded to this website.
+        Paste a Markdown file into this Open Knowledge Format validator and check whether it includes parseable YAML frontmatter, a `type` field, useful guide fields, and a readable body. Content is processed in your browser and is not uploaded to this website.
       </p>
     </section>
 
@@ -48,16 +48,82 @@ This document has a heading but no YAML frontmatter block.`;
     </section>
 
     <section class="content-section">
+      <h2>Browser-only OKF validation</h2>
+      <p>
+        The validator code runs in your browser. Pasted Markdown is not sent to this website by the validator, but you should still avoid testing secrets, private keys, personal data, or confidential business records in any online page.
+      </p>
+    </section>
+
+    <section class="content-section">
       <h2>What this validator checks</h2>
       <ul class="check-list">
         <li>YAML frontmatter exists at the top of the Markdown file.</li>
-        <li>`type`, `title`, `description`, and `tags` are present for this guide profile.</li>
-        <li>Recommended fields `resource` and `timestamp` are reported as warnings when missing.</li>
+        <li>`type` is present as the core OKF draft field checked by this guide.</li>
+        <li>Guide fields `title`, `description`, `tags`, `resource`, and `timestamp` are reported when missing.</li>
+        <li>`tags` uses an inline array such as `[okf, validator, markdown]` for this guide profile.</li>
         <li>The Markdown body is present after the frontmatter block.</li>
+        <li>Relative Markdown links are flagged for manual review because a browser paste cannot prove the target file exists.</li>
       </ul>
       <p>
         The OKF draft treats `type` as the required field. This site checks additional guide fields because they make examples, previews, and SEO-friendly summaries easier to maintain.
       </p>
+    </section>
+
+    <section class="compare-table-section">
+      <h2>Common OKF validation errors</h2>
+      <div class="compare-table" role="table" aria-label="Common OKF validation errors and fixes">
+        <div class="compare-row compare-head" role="row">
+          <div role="columnheader">Error</div>
+          <div role="columnheader">What it means</div>
+          <div role="columnheader">Fix</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div role="cell">Missing type</div>
+          <div role="cell">The file has frontmatter, but no concept category.</div>
+          <div role="cell">Add `type: Website Page`, `type: API Endpoint`, or another clear concept label.</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div role="cell">Invalid YAML</div>
+          <div role="cell">A frontmatter line cannot be parsed as a simple key and value.</div>
+          <div role="cell">Keep each line in `field: value` form and wrap complex values in a simple inline format.</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div role="cell">Tags not array</div>
+          <div role="cell">Tags are easier to scan when they use a predictable list shape.</div>
+          <div role="cell">Use `tags: [okf, validator, markdown]` instead of one unstructured text string.</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div role="cell">Missing resource</div>
+          <div role="cell">The concept does not point to the page, API, table, or stable asset it describes.</div>
+          <div role="cell">Add a canonical URL, URN, or internal stable identifier.</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div role="cell">Broken internal link</div>
+          <div role="cell">A pasted file can contain relative links that this browser check cannot verify.</div>
+          <div role="cell">Review each relative Markdown link inside the real bundle folder.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>How to fix failed OKF files</h2>
+      <ul class="check-list">
+        <li>Copy the validation output before editing.</li>
+        <li>Fix frontmatter parsing problems first because later checks depend on those fields.</li>
+        <li>Add `type`, then fill title, description, resource, tags, and timestamp.</li>
+        <li>Make sure the Markdown body has a clear H1 and does not mix unrelated concepts.</li>
+        <li>Run the validator again, then review the factual claims manually.</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>What this validator cannot prove</h2>
+      <ul class="check-list">
+        <li>It cannot certify official Google or OKF conformance.</li>
+        <li>It cannot prove that the knowledge in the Markdown body is true, current, or complete.</li>
+        <li>It cannot fully validate a multi-file bundle from a pasted single document.</li>
+        <li>It cannot replace OpenAPI schema validation, security review, legal review, or source-owner approval.</li>
+      </ul>
     </section>
 
     <section class="band">
@@ -66,6 +132,27 @@ This document has a heading but no YAML frontmatter block.`;
         <h2>A valid starter document</h2>
       </div>
       <CodeBlock code={minimumExample} label="Correct OKF example" />
+    </section>
+
+    <section class="faq-section">
+      <p class="eyebrow">FAQ</p>
+      <h2>OKF validator questions</h2>
+      <details>
+        <summary>Is this an official OKF validator?</summary>
+        <p>No. It is an unofficial browser-only helper for learning and checking a guide profile.</p>
+      </details>
+      <details>
+        <summary>Does it upload my Markdown?</summary>
+        <p>No. The validation logic runs in the browser. Still avoid pasting secrets or private records into any online page.</p>
+      </details>
+      <details>
+        <summary>What field is required?</summary>
+        <p>The draft field this guide treats as required is `type`. Other fields are recommended for clear previews and review.</p>
+      </details>
+      <details>
+        <summary>Can it validate a full bundle?</summary>
+        <p>Not fully. This page checks pasted Markdown files. Multi-file links and bundle completeness still need manual review.</p>
+      </details>
     </section>
   </main>
 
@@ -77,29 +164,38 @@ This document has a heading but no YAML frontmatter block.`;
     const copyResult = document.querySelector("#copy-result");
     const exampleButtons = document.querySelectorAll("[data-load-example]");
 
-    const requiredFields = ["type", "title", "description", "tags"];
+    const requiredFields = ["type"];
+    const guideFields = ["title", "description", "tags"];
     const recommendedFields = ["resource", "timestamp"];
 
     function parseFrontmatter(markdown) {
       const match = markdown.match(/^---\s*\n([\s\S]*?)\n---\s*(?:\n|$)([\s\S]*)$/);
 
       if (!match) {
-        return { frontmatter: null, body: markdown };
+        return { frontmatter: null, body: markdown, malformedLines: [] };
       }
 
       const raw = match[1];
       const fields = {};
+      const malformedLines = [];
       const lines = raw.split(/\r?\n/);
 
       lines.forEach((line) => {
+        if (!line.trim()) {
+          return;
+        }
+
         const fieldMatch = line.match(/^([A-Za-z0-9_-]+):\s*(.*)$/);
 
         if (fieldMatch) {
           fields[fieldMatch[1]] = fieldMatch[2].trim();
+          return;
         }
+
+        malformedLines.push(line);
       });
 
-      return { frontmatter: fields, body: match[2] };
+      return { frontmatter: fields, body: match[2], malformedLines };
     }
 
     function validate(markdown) {
@@ -117,9 +213,19 @@ This document has a heading but no YAML frontmatter block.`;
         return { valid: false, errors, warnings };
       }
 
+      parsed.malformedLines.forEach((line) => {
+        errors.push(`Invalid YAML-like frontmatter line: ${line}.`);
+      });
+
       requiredFields.forEach((field) => {
         if (!(field in parsed.frontmatter) || parsed.frontmatter[field] === "") {
-          errors.push(`Missing required guide field: ${field}.`);
+          errors.push(`Missing required OKF field: ${field}.`);
+        }
+      });
+
+      guideFields.forEach((field) => {
+        if (!(field in parsed.frontmatter) || parsed.frontmatter[field] === "") {
+          warnings.push(`Missing recommended guide field: ${field}.`);
         }
       });
 
@@ -132,10 +238,9 @@ This document has a heading but no YAML frontmatter block.`;
       if ("tags" in parsed.frontmatter) {
         const tagsValue = parsed.frontmatter.tags;
         const hasInlineArray = /^\[.+\]$/.test(tagsValue);
-        const hasSomeValue = tagsValue.length > 0;
 
-        if (!hasInlineArray && !hasSomeValue) {
-          errors.push("tags should include at least one value.");
+        if (!hasInlineArray) {
+          errors.push("tags should use an inline array such as [okf, markdown].");
         }
       }
 
@@ -145,6 +250,13 @@ This document has a heading but no YAML frontmatter block.`;
 
       if (parsed.body.trim() && !/^#\s+/m.test(parsed.body)) {
         warnings.push("Markdown body has no H1 heading.");
+      }
+
+      const relativeLinks = Array.from(parsed.body.matchAll(/\[[^\]]+\]\((?!https?:|mailto:|urn:|#|\/)([^)]+)\)/g))
+        .map((match) => match[1]);
+
+      if (relativeLinks.length > 0) {
+        warnings.push(`Review relative Markdown link targets manually: ${relativeLinks.join(", ")}.`);
       }
 
       return {

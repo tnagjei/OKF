@@ -5,4 +5,4 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
-- `browser.spec.js`：检查移动端横向溢出、H1 数量和 OKF validator 行为。
+- `browser.spec.js`：检查移动端横向溢出、H1 数量、OpenAPI 对比页和 OKF validator 行为。

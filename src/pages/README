@@ -6,8 +6,8 @@
 
 ## Files
 - `[slug].astro`：普通内容页动态生成路由。
-- `index.astro`：首页。
-- `okf-validator.astro`：浏览器端 OKF 验证器。
+- `index.astro`：首页，承接 OKF 定义、工具入口与对比入口。
+- `okf-validator.astro`：浏览器端 OKF 验证器与常见错误修复说明。
 - `robots.txt.ts`：生成 robots 文件。
 - `sitemap.xml.ts`：生成 sitemap 文件。
 - `llms.txt.ts`：生成短版 LLM 说明。

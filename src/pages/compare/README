@@ -5,4 +5,4 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
-- `[slug].astro`：生成 OKF vs MCP、OKF vs RAG、OKF vs llms.txt。
+- `[slug].astro`：生成 OKF vs MCP、OKF vs RAG、OKF vs llms.txt、OKF vs OpenAPI。
