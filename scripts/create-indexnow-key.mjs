@@ -18,4 +18,3 @@ console.log("");
 console.log("Add this key to INDEXNOW_KEY in your local .env or Cloudflare Pages environment variables.");
 console.log("Set SITE_URL to https://openknowledgeformat.online.");
 console.log("Do not commit the real .env file.");
-
