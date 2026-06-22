@@ -11,10 +11,79 @@ const {
   title,
   description,
   path = "/",
-  image = "/"
+  image = "/og-image.png"
 } = Astro.props;
 
 const canonicalUrl = new URL(path, siteConfig.url).href;
+const ogImageUrl = new URL(image, siteConfig.url).href;
+
+// 构建结构化数据（JSON-LD）：根据路径推断页面类型，集中输出，避免子页面逐个配置
+// 设计意图：所有页面共享 Organization 身份；工具页加 WebApplication；guide/compare 加 Article 系
+const organizationLd = {
+  "@type": "Organization",
+  "@id": `${siteConfig.url}/#organization`,
+  name: siteConfig.name,
+  url: siteConfig.url,
+  logo: `${siteConfig.url}/icon-512.png`,
+  email: siteConfig.email
+};
+
+const websiteLd = {
+  "@type": "WebSite",
+  "@id": `${siteConfig.url}/#website`,
+  url: siteConfig.url,
+  name: siteConfig.name,
+  description: siteConfig.disclaimer,
+  publisher: { "@id": `${siteConfig.url}/#organization` }
+};
+
+const toolPaths = ["/okf-validator/", "/okf-folder-validator/"];
+const isToolPage = toolPaths.includes(path);
+const isGuide = path.startsWith("/guides/");
+const isCompare = path.startsWith("/compare/");
+
+const webApplicationLd = isToolPage
+  ? {
+      "@type": "WebApplication",
+      "@id": `${canonicalUrl}#webapplication`,
+      url: canonicalUrl,
+      name: title,
+      description,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Any",
+      browserRequirements: "Requires a modern web browser with JavaScript enabled.",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      publisher: { "@id": `${siteConfig.url}/#organization` }
+    }
+  : null;
+
+const articleLd =
+  isGuide || isCompare
+    ? {
+        "@type": isGuide ? "TechArticle" : "Article",
+        "@id": `${canonicalUrl}#article`,
+        headline: title,
+        description,
+        url: canonicalUrl,
+        author: { "@id": `${siteConfig.url}/#organization` },
+        publisher: { "@id": `${siteConfig.url}/#organization` },
+        mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl }
+      }
+    : null;
+
+// 首页输出 WebSite + Organization；其他页面只输出 Organization 身份
+// 工具页额外加 WebApplication；guide/compare 额外加 Article 系列
+const jsonLdBlocks = [];
+if (path === "/") {
+  jsonLdBlocks.push({ "@context": "https://schema.org", ...websiteLd });
+}
+jsonLdBlocks.push({ "@context": "https://schema.org", ...organizationLd });
+if (webApplicationLd) {
+  jsonLdBlocks.push({ "@context": "https://schema.org", ...webApplicationLd });
+}
+if (articleLd) {
+  jsonLdBlocks.push({ "@context": "https://schema.org", ...articleLd });
+}
 ---
 
 <!doctype html>
@@ -51,8 +120,11 @@ const canonicalUrl = new URL(path, siteConfig.url).href;
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={new URL(image, siteConfig.url).href} />
+    <meta property="og:image" content={ogImageUrl} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     {siteConfig.analytics?.clarityId && (
       <script type="text/javascript" is:inline set:html={`
         (function(c,l,a,r,i,t,y){
@@ -62,6 +134,9 @@ const canonicalUrl = new URL(path, siteConfig.url).href;
         })(window, document, "clarity", "script", "${siteConfig.analytics.clarityId}");
       `} />
     )}
+    {jsonLdBlocks.map((block) => (
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(block)} />
+    ))}
   </head>
   <body>
     <Header activePath={path} />

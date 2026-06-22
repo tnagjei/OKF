@@ -8,12 +8,12 @@ import { minimumExample } from "../data/content";
 
 const badExample = `# Missing frontmatter
 
-This document has a heading but no YAML frontmatter block.`;
+This document has a heading but no simple frontmatter block.`;
 ---
 
 <BaseLayout
-  title="OKF Validator: Check Open Knowledge Format Markdown"
-  description="Use a browser-only Open Knowledge Format validator to check Markdown, YAML frontmatter, type, title, description, tags, and common OKF errors."
+  title="OKF Validator: Check Markdown Frontmatter"
+  description="Use a browser-only OKF validator to check Markdown, simple frontmatter, type, title, description, tags, and common OKF errors."
   path="/okf-validator/"
 >
   <main class="page-shell">
@@ -21,7 +21,7 @@ This document has a heading but no YAML frontmatter block.`;
       <p class="eyebrow">Browser-only tool</p>
       <h1>OKF validator for Markdown knowledge bundles</h1>
       <p class="hero-copy">
-        Paste a Markdown file into this Open Knowledge Format validator and check whether it includes parseable YAML frontmatter, a `type` field, useful guide fields, and a readable body. Content is processed in your browser and is not uploaded to this website.
+        Paste a Markdown file into this Open Knowledge Format validator and check whether it includes parseable simple frontmatter, a `type` field, useful guide fields, and a readable body. Content is processed in your browser and is not uploaded to this website.
       </p>
     </section>
 
@@ -57,7 +57,7 @@ This document has a heading but no YAML frontmatter block.`;
     <section class="content-section">
       <h2>What this validator checks</h2>
       <ul class="check-list">
-        <li>YAML frontmatter exists at the top of the Markdown file.</li>
+        <li>Simple frontmatter exists at the top of the Markdown file.</li>
         <li>`type` is present as the core OKF draft field checked by this guide.</li>
         <li>Guide fields `title`, `description`, `tags`, `resource`, and `timestamp` are reported when missing.</li>
         <li>`tags` uses an inline array such as `[okf, validator, markdown]` for this guide profile.</li>
@@ -67,6 +67,24 @@ This document has a heading but no YAML frontmatter block.`;
       <p>
         The OKF draft treats `type` as the required field. This site checks additional guide fields because they make examples, previews, and SEO-friendly summaries easier to maintain.
       </p>
+    </section>
+
+    <section class="panel-grid three cta-grid" aria-label="Validator paths">
+      <article class="info-panel action-panel">
+        <h2>Need bundle checks?</h2>
+        <p>Use the folder validator when you need to inspect multiple Markdown files, duplicate resources, and unresolved relative links.</p>
+        <a class="button secondary" href="/okf-folder-validator/">Open Folder Validator</a>
+      </article>
+      <article class="info-panel action-panel">
+        <h2>Need a checklist?</h2>
+        <p>Follow the bundle validation guide before publishing files to a docs repo, static site, or retrieval pipeline.</p>
+        <a class="button ghost" href="/guides/validate-okf-bundle/">Read Bundle Guide</a>
+      </article>
+      <article class="info-panel action-panel">
+        <h2>Need error fixes?</h2>
+        <p>Use the error guide for missing frontmatter, missing type, invalid tags, missing resources, and broken links.</p>
+        <a class="button ghost" href="/guides/common-okf-validation-errors/">Fix Common Errors</a>
+      </article>
     </section>
 
     <section class="compare-table-section">
@@ -80,27 +98,27 @@ This document has a heading but no YAML frontmatter block.`;
         <div class="compare-row" role="row">
           <div role="cell">Missing type</div>
           <div role="cell">The file has frontmatter, but no concept category.</div>
-          <div role="cell">Add `type: Website Page`, `type: API Endpoint`, or another clear concept label.</div>
+          <div role="cell">Add `type: Website Page`, `type: API Endpoint`, or another clear concept label. <a href="/guides/common-okf-validation-errors/#missing-type">Learn more</a>.</div>
         </div>
         <div class="compare-row" role="row">
-          <div role="cell">Invalid YAML</div>
+          <div role="cell">Invalid frontmatter</div>
           <div role="cell">A frontmatter line cannot be parsed as a simple key and value.</div>
-          <div role="cell">Keep each line in `field: value` form and wrap complex values in a simple inline format.</div>
+          <div role="cell">Keep each line in `field: value` form and wrap complex values in a simple inline format. <a href="/guides/common-okf-validation-errors/#invalid-frontmatter">Learn more</a>.</div>
         </div>
         <div class="compare-row" role="row">
           <div role="cell">Tags not array</div>
           <div role="cell">Tags are easier to scan when they use a predictable list shape.</div>
-          <div role="cell">Use `tags: [okf, validator, markdown]` instead of one unstructured text string.</div>
+          <div role="cell">Use `tags: [okf, validator, markdown]` instead of one unstructured text string. <a href="/guides/common-okf-validation-errors/#tags-not-array">Learn more</a>.</div>
         </div>
         <div class="compare-row" role="row">
           <div role="cell">Missing resource</div>
           <div role="cell">The concept does not point to the page, API, table, or stable asset it describes.</div>
-          <div role="cell">Add a canonical URL, URN, or internal stable identifier.</div>
+          <div role="cell">Add a canonical URL, URN, or internal stable identifier. <a href="/guides/common-okf-validation-errors/#missing-resource">Learn more</a>.</div>
         </div>
         <div class="compare-row" role="row">
           <div role="cell">Broken internal link</div>
           <div role="cell">A pasted file can contain relative links that this browser check cannot verify.</div>
-          <div role="cell">Review each relative Markdown link inside the real bundle folder.</div>
+          <div role="cell">Review each relative Markdown link inside the real bundle folder. <a href="/guides/common-okf-validation-errors/#broken-internal-link">Learn more</a>.</div>
         </div>
       </div>
     </section>
@@ -151,7 +169,7 @@ This document has a heading but no YAML frontmatter block.`;
       </details>
       <details>
         <summary>Can it validate a full bundle?</summary>
-        <p>Not fully. This page checks pasted Markdown files. Multi-file links and bundle completeness still need manual review.</p>
+        <p>Not fully. This page checks pasted Markdown files. Use the <a href="/okf-folder-validator/">OKF Folder Validator</a> for local multi-file checks, then review source accuracy manually.</p>
       </details>
     </section>
   </main>
@@ -209,12 +227,12 @@ This document has a heading but no YAML frontmatter block.`;
       }
 
       if (!parsed.frontmatter) {
-        errors.push("Missing YAML frontmatter block at the top of the file.");
+        errors.push("Missing simple frontmatter block at the top of the file.");
         return { valid: false, errors, warnings };
       }
 
       parsed.malformedLines.forEach((line) => {
-        errors.push(`Invalid YAML-like frontmatter line: ${line}.`);
+        errors.push(`Invalid simple frontmatter line: ${line}.`);
       });
 
       requiredFields.forEach((field) => {

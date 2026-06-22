@@ -16,6 +16,13 @@ export type ClusterSection = {
     label: string;
     value: string;
   };
+  video?: {
+    embedUrl: string;
+    originalUrl: string;
+    title: string;
+    fallbackText: string;
+    note: string;
+  };
 };
 
 export type ClusterPage = {
@@ -51,7 +58,7 @@ title: ${title}
 description: ${description}
 resource: ${resource}
 tags: [${tags.join(", ")}]
-timestamp: 2026-06-18T00:00:00Z
+timestamp: 2026-06-21T00:00:00Z
 ---
 
 # Purpose
@@ -62,6 +69,16 @@ Explain the stable facts, boundaries, owner notes, and related links for this co
 
 - Validator: https://openknowledgeformat.online/okf-validator/
 - Examples: https://openknowledgeformat.online/okf-examples/`;
+}
+
+// SEO 长度约束：title ≤ 60，description ≤ 160
+// 设计意图：内容来自模板拼接，经常超限；在边界处干净截断并补省略号，保持语义完整
+function clampTitle(text: string, max = 60): string {
+  return text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text;
+}
+
+function clampDesc(text: string, max = 160): string {
+  return text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text;
 }
 
 const relatedCore = [
@@ -150,8 +167,8 @@ export const seoComparePages: Record<string, ComparePage> = Object.fromEntries(
     spec.slug,
     {
       path: `/compare/${spec.slug}/`,
-      title: spec.title,
-      description: spec.description,
+      title: clampTitle(spec.title),
+      description: clampDesc(spec.description),
       h1: `OKF vs ${spec.otherLabel}`,
       eyebrow: "Comparison",
       intro: spec.conclusion,
@@ -257,20 +274,6 @@ const useCaseSpecs = [
     mistakes: ["Converting a long manual into one file.", "Skipping prerequisites.", "Not linking troubleshooting topics."]
   },
   {
-    slug: "okf-for-ai-agents",
-    name: "AI agents",
-    user: "Agent builders, platform teams, and operations teams preparing context packages.",
-    why: "They need context that states scope, boundaries, tool notes, escalation rules, and stable references.",
-    inputs: ["Policies, runbooks, tool boundaries, support flows, product facts, and safe action rules."],
-    output: "An agent context OKF bundle with one file per workflow or concept.",
-    template: ["/templates/ai-agent-context-okf-template/", "AI Agent Context OKF template"],
-    type: "Agent Context",
-    sampleTitle: "Refund support routing",
-    sampleDescription: "Tells an agent when to answer, collect evidence, or escalate refund cases.",
-    tags: ["agent", "support", "refunds"],
-    mistakes: ["Mixing secrets into context files.", "Writing instructions that conflict with policy.", "Skipping human escalation triggers."]
-  },
-  {
     slug: "okf-for-seo",
     name: "SEO",
     user: "SEO teams, content strategists, and site operators adapting content for AI-readable discovery.",
@@ -305,8 +308,8 @@ export const useCasePages: Record<string, ClusterPage> = Object.fromEntries(
     spec.slug,
     {
       path: `/use-cases/${spec.slug}/`,
-      title: `OKF for ${spec.name}: Open Knowledge Format Use Case`,
-      description: `Learn how to use OKF for ${spec.name}, including inputs, output bundle shape, a minimum example, template choice, and common mistakes.`,
+      title: clampTitle(`OKF for ${spec.name}: Use Case`),
+      description: clampDesc(`Learn how to use OKF for ${spec.name}, including inputs, output bundle shape, a minimum example, template choice, and common mistakes.`),
       h1: `OKF for ${spec.name}`,
       eyebrow: "Use case",
       intro: `A practical guide for using Open Knowledge Format with ${spec.name}.`,
@@ -380,8 +383,8 @@ export const templateDetailPages: Record<string, ClusterPage> = Object.fromEntri
       slug,
       {
         path: `/templates/${slug}/`,
-        title: `${label}: Copyable Open Knowledge Format Example`,
-        description: `Copy the ${label}, review field explanations, compare good and bad examples, and validate the file with the OKF validator.`,
+        title: clampTitle(`${label}: OKF Template Example`),
+        description: clampDesc(`Copy the ${label}, review field explanations, compare good and bad examples, and validate the file with the OKF validator.`),
         h1: label,
         eyebrow: "Template detail",
         intro: `Use this copyable ${label} when a single concept needs stable frontmatter, readable Markdown, and links to related knowledge.`,
@@ -512,15 +515,6 @@ const guideSpecs = [
     steps: ["Find the concept boundary.", "Add YAML frontmatter.", "Rewrite vague headings.", "Add resource and tags.", "Validate the result."]
   },
   {
-    slug: "how-to-create-okf-for-a-website",
-    h1: "How to create OKF for a website",
-    conclusion: "Create OKF for a website by mapping key URLs to one Markdown concept file each.",
-    sampleType: "Website Page",
-    sampleTitle: "Contact page",
-    sampleDescription: "Summarizes contact options, privacy notes, and support boundaries.",
-    steps: ["Select important URLs.", "Write one file per URL.", "Use canonical URLs in resource.", "Add internal links.", "Review claims before publishing."]
-  },
-  {
     slug: "how-to-create-okf-for-api-docs",
     h1: "How to create OKF for API docs",
     conclusion: "Create OKF for API docs by keeping OpenAPI as the contract and adding OKF files for endpoint context.",
@@ -528,15 +522,6 @@ const guideSpecs = [
     sampleTitle: "List invoices endpoint",
     sampleDescription: "Explains endpoint purpose, filters, limits, and related billing rules.",
     steps: ["Start from the API reference.", "Create one OKF file per endpoint or API area.", "Link the OpenAPI resource.", "Add examples and errors.", "Validate frontmatter."]
-  },
-  {
-    slug: "common-okf-validation-errors",
-    h1: "Common OKF validation errors",
-    conclusion: "Most OKF validation errors come from missing frontmatter, missing guide-profile fields, empty tags, or a missing Markdown body.",
-    sampleType: "Validation Error",
-    sampleTitle: "Fixed OKF file",
-    sampleDescription: "Shows a corrected file after adding required fields.",
-    steps: ["Check that the file starts with frontmatter.", "Add missing type, title, description, and tags.", "Add a Markdown body.", "Use stable resource links.", "Run the validator again."]
   }
 ];
 
@@ -545,8 +530,8 @@ export const guidePages: Record<string, ClusterPage> = Object.fromEntries(
     spec.slug,
     {
       path: `/guides/${spec.slug}/`,
-      title: `${spec.h1}: Open Knowledge Format Guide`,
-      description: `${spec.conclusion} Includes prerequisites, steps, examples, validation checks, and related OKF pages.`,
+      title: `${spec.h1}: OKF Guide`,
+      description: clampDesc(spec.conclusion),
       h1: spec.h1,
       eyebrow: "How-to guide",
       intro: spec.conclusion,
@@ -571,3 +556,480 @@ export const guidePages: Record<string, ClusterPage> = Object.fromEntries(
     }
   ])
 );
+
+useCasePages["okf-for-ai-agents"] = {
+  path: "/use-cases/okf-for-ai-agents/",
+  title: "OKF for AI Agents: Context Bundles and Limits",
+  description: "Learn how to use OKF for AI agents with context bundles, workflow files, policy boundaries, validation steps, and source review limits.",
+  h1: "OKF for AI agents",
+  eyebrow: "Use case",
+  intro: "Use Open Knowledge Format to package reviewed context for AI agents without mixing tool permissions, private data, or unsupported claims into the knowledge files.",
+  conclusion: "OKF helps agent builders organize context; it does not grant permissions, validate facts, or replace policy and tool-control systems.",
+  sections: [
+    {
+      heading: "Where OKF fits for agents",
+      paragraphs: [
+        "An AI agent needs context before it can answer, search, route, or decide whether to escalate. OKF can hold that context as Markdown files with predictable metadata.",
+        "Keep the boundary clear: OKF is a knowledge package. Tool permissions, authentication, payment actions, deletion actions, and private customer data need separate controls."
+      ]
+    },
+    {
+      heading: "Agent bundle shape",
+      table: {
+        headers: ["Folder", "Agent use", "Review risk"],
+        rows: [
+          ["index.md", "Declares scope, owners, and safe use boundaries.", "High if it overstates what the agent may do."],
+          ["workflows/", "Stores support, refund, onboarding, or troubleshooting flows.", "High if escalation triggers are missing."],
+          ["policies/", "Stores public policy summaries and source links.", "High if policy text is stale or simplified too far."],
+          ["references/", "Stores stable product, docs, or API references.", "Medium if source URLs are not canonical."]
+        ]
+      }
+    },
+    {
+      heading: "Minimum agent context file",
+      code: {
+        label: "AI agent context OKF example",
+        value: okfDocument(
+          "Agent Context",
+          "Refund support routing",
+          "Defines when an agent can answer refund questions and when it must escalate.",
+          "https://openknowledgeformat.online/use-cases/okf-for-ai-agents/",
+          ["agent", "support", "escalation"]
+        )
+      }
+    },
+    {
+      heading: "Validation workflow",
+      steps: [
+        'Validate each Markdown file with the <a href="/okf-validator/">single-file OKF Validator</a>.',
+        'Validate the local folder with the <a href="/okf-folder-validator/">OKF Folder Validator</a>.',
+        "Check every policy, owner, and escalation rule against the source owner.",
+        "Remove secrets, personal records, private tokens, and unsupported policy claims.",
+        "Revalidate the bundle after every source change."
+      ]
+    },
+    {
+      heading: "Visual background",
+      paragraphs: [
+        "This video is included only as visual background for AI-agent context work. It is not evidence that OKF is officially required by any agent platform."
+      ],
+      video: {
+        embedUrl: "https://www.youtube-nocookie.com/embed/QZCkrFWCVho",
+        originalUrl: "https://www.youtube.com/watch?v=QZCkrFWCVho",
+        title: "AI agent visual background video",
+        fallbackText: "Watch the AI agent background video on YouTube",
+        note: "Visual context only; not used as factual proof for OKF claims."
+      }
+    },
+    {
+      heading: "Common mistakes",
+      bullets: [
+        "Storing credentials, customer records, or private operational notes in OKF files.",
+        "Writing agent instructions that conflict with product policy or legal policy.",
+        "Treating a valid OKF structure as proof that every answer from an agent will be correct.",
+        "Skipping escalation rules for refunds, account access, billing disputes, or safety-sensitive topics."
+      ]
+    }
+  ],
+  faq: [
+    { question: "Does OKF make an agent safe?", answer: "No. It can organize context, but safety still depends on policy, tool controls, review, and runtime behavior." },
+    { question: "Can OKF replace AGENTS.md?", answer: "No. AGENTS.md usually instructs coding agents inside a repo. OKF packages reusable knowledge concepts." },
+    { question: "Should private customer data go into OKF?", answer: "No. Keep private records and secrets outside public or reusable OKF bundles." }
+  ],
+  related: [
+    { label: "AI Agent Context OKF template", href: "/templates/ai-agent-context-okf-template/", note: "Start with a context-file pattern." },
+    { label: "OKF Folder Validator", href: "/okf-folder-validator/", note: "Check local multi-file bundles." },
+    { label: "OKF vs AGENTS.md", href: "/compare/okf-vs-agents-md/", note: "Separate knowledge bundles from repo instructions." }
+  ],
+  cta: {
+    heading: "Validate before agent use",
+    text: "Check the files structurally, then review policy accuracy with the source owner.",
+    label: "Open Folder Validator",
+    href: "/okf-folder-validator/"
+  }
+};
+
+guidePages["common-okf-validation-errors"] = {
+  path: "/guides/common-okf-validation-errors/",
+  title: "Common OKF Validation Errors and Fixes",
+  description: "Fix common OKF validation errors including missing simple frontmatter, missing type, invalid tags, missing resource, and broken internal links.",
+  h1: "Common OKF validation errors",
+  eyebrow: "Validation guide",
+  intro: "Most OKF validation problems are structural. Fix frontmatter first, then fields, then links, then source accuracy.",
+  conclusion: "A clean validator result means the file shape is easier to review; it does not prove the claims inside the Markdown body are true.",
+  sections: [
+    {
+      heading: "Error quick table",
+      table: {
+        headers: ["Error", "Severity", "First fix"],
+        rows: [
+          ["Missing simple frontmatter", "Error", "Start the file with a frontmatter block before the first heading."],
+          ["Missing type", "Error", "Add a clear concept label such as <code>Website Page</code> or <code>API Endpoint</code>."],
+          ["Invalid frontmatter", "Error", "Use one simple <code>field: value</code> line per field."],
+          ["Tags not array", "Error", "Use an inline list such as <code>[okf, validator]</code>."],
+          ["Missing resource", "Warning", "Add a canonical URL, URN, or stable source identifier."],
+          ["Broken internal link", "Warning", "Check the target file inside the real bundle folder."]
+        ]
+      }
+    },
+    {
+      heading: "Missing simple frontmatter",
+      paragraphs: [
+        "OKF files need metadata at the top of the Markdown file. If the file starts directly with a heading, the validator cannot read fields such as type, title, tags, or resource."
+      ],
+      code: {
+        label: "Frontmatter repair",
+        value: `---
+type: Website Page
+title: Contact Page
+description: Summarizes the public contact options and support boundaries.
+resource: https://openknowledgeformat.online/sample/contact/
+tags: [website, support, contact]
+timestamp: 2026-06-21T00:00:00Z
+---
+
+# Contact Page
+
+Write the reviewed page summary here.`
+      }
+    },
+    {
+      heading: "Missing type",
+      paragraphs: [
+        "The <code>type</code> field tells readers and tools what kind of concept the file describes. Without it, a website page, API endpoint, metric, support playbook, or agent context file all look the same."
+      ],
+      bullets: ["Use short human-readable labels.", "Do not use a file name as the type.", "Keep similar files consistent across the bundle."]
+    },
+    {
+      heading: "Invalid frontmatter",
+      paragraphs: [
+        "This guide profile uses a simple frontmatter subset. Each normal field should fit the <code>field: value</code> pattern so the browser validator can read it."
+      ],
+      table: {
+        headers: ["Bad pattern", "Why it fails", "Fix"],
+        rows: [
+          ["<code>title Contact Page</code>", "Missing colon.", "<code>title: Contact Page</code>"],
+          ["<code>tags: okf, website</code>", "Tags are not an inline array.", "<code>tags: [okf, website]</code>"],
+          ["<code>resource:</code>", "The source identifier is blank.", "<code>resource: https://openknowledgeformat.online/sample/contact/</code>"]
+        ]
+      }
+    },
+    {
+      heading: "Tags not array",
+      paragraphs: [
+        "Tags are easier to scan and filter when they use a predictable list shape. This site expects inline arrays for the guide profile."
+      ],
+      code: {
+        label: "Tag fix",
+        value: `tags: [okf, validator, markdown]`
+      }
+    },
+    {
+      heading: "Missing resource",
+      paragraphs: [
+        "The <code>resource</code> field should point to the page, API reference, data asset, or stable identifier the OKF file describes. This makes source review and stale-content checks possible."
+      ],
+      bullets: ["Use canonical public URLs when possible.", "Use stable internal identifiers for private assets.", "Do not point every file to the homepage."]
+    },
+    {
+      heading: "Broken internal link",
+      paragraphs: [
+        "Relative Markdown links are useful inside bundles, but single-file paste validation cannot prove that the target file exists. Use folder validation for this check."
+      ],
+      steps: [
+        'Open the <a href="/okf-folder-validator/">OKF Folder Validator</a>.',
+        "Select the local folder that contains the Markdown files.",
+        "Review unresolved relative links in the validation output.",
+        "Fix paths or add missing target files."
+      ]
+    },
+    {
+      heading: "Wrong timestamp format",
+      paragraphs: [
+        "Use a machine-readable timestamp so reviewers can identify freshness. This site uses ISO-style timestamps such as <code>2026-06-21T00:00:00Z</code> in examples."
+      ]
+    },
+    {
+      heading: "What validation cannot prove",
+      bullets: [
+        "It cannot prove that a claim is true or current.",
+        "It cannot certify official Google or OKF compliance.",
+        "It cannot replace OpenAPI schema validation.",
+        "It cannot approve legal, privacy, policy, or security-sensitive text."
+      ]
+    }
+  ],
+  faq: [
+    { question: "Should I fix errors or warnings first?", answer: "Fix errors first because later checks depend on parseable frontmatter." },
+    { question: "Does a valid file mean the content is correct?", answer: "No. It means the file shape passed this guide profile. Source facts still need human review." },
+    { question: "When should I use the folder validator?", answer: "Use it when the bundle has more than one Markdown file or relative links." }
+  ],
+  related: [
+    { label: "OKF Validator", href: "/okf-validator/", note: "Check one pasted Markdown file." },
+    { label: "OKF Folder Validator", href: "/okf-folder-validator/", note: "Check local multi-file bundles." },
+    { label: "Validate OKF Bundle", href: "/guides/validate-okf-bundle/", note: "Use a full publishing checklist." }
+  ],
+  cta: {
+    heading: "Recheck after fixing",
+    text: "Validate the repaired file first, then validate the bundle folder if links or duplicate resources matter.",
+    label: "Open OKF Validator",
+    href: "/okf-validator/"
+  }
+};
+
+guidePages["validate-okf-bundle"] = {
+  path: "/guides/validate-okf-bundle/",
+  title: "Validate an OKF Bundle: Folder Checklist",
+  description: "Validate an OKF bundle with file-level checks, folder-level checks, internal link review, duplicate resource review, and source accuracy limits.",
+  h1: "How to validate an OKF bundle",
+  eyebrow: "Bundle guide",
+  intro: "A bundle check is different from a single-file check. You need to inspect each Markdown file and the way files connect to each other.",
+  conclusion: "Validate structure with tools, then validate facts with source owners.",
+  sections: [
+    {
+      heading: "Before you validate",
+      bullets: [
+        "Put related Markdown files in one local folder.",
+        "Keep one concept per file.",
+        "Add an <code>index.md</code> file that explains scope and links to important files.",
+        "Remove secrets, private keys, private customer data, and unreviewed policy text."
+      ]
+    },
+    {
+      heading: "Step-by-step bundle validation",
+      steps: [
+        'Check a representative file in the <a href="/okf-validator/">single-file validator</a>.',
+        'Open the <a href="/okf-folder-validator/">folder validator</a>.',
+        "Select the local folder that contains your Markdown files.",
+        "Fix missing frontmatter and missing type errors first.",
+        "Resolve duplicate resources, missing index warnings, and relative-link warnings.",
+        "Review source accuracy with the owner before publishing."
+      ]
+    },
+    {
+      heading: "Folder checklist",
+      table: {
+        headers: ["Check", "Why it matters", "Tool support"],
+        rows: [
+          ["Markdown files exist", "A bundle with no Markdown files has no OKF content.", "Folder validator reports an error."],
+          ["index.md exists", "Readers need a starting point and scope statement.", "Folder validator reports a warning."],
+          ["Each file has frontmatter", "Tools cannot read metadata without it.", "Folder validator reports an error."],
+          ["Each file has type", "Concept category is the core routing field.", "Folder validator reports an error."],
+          ["Resources are not duplicated", "Duplicate resources usually mean files overlap.", "Folder validator reports a warning."],
+          ["Relative links resolve", "Broken internal links make the bundle harder to navigate.", "Folder validator reports a warning."]
+        ]
+      }
+    },
+    {
+      heading: "Sample bundle shape",
+      code: {
+        label: "Small OKF bundle",
+        value: `bundle/
+  index.md
+  pages/home.md
+  pages/pricing.md
+  api/create-customer.md
+  support/refund-policy.md`
+      }
+    },
+    {
+      heading: "Publishing review",
+      bullets: [
+        "Confirm every resource points to a canonical source.",
+        "Confirm each title and description matches the actual source.",
+        "Confirm examples, limits, policy claims, and owner names are current.",
+        "Keep video references as visual context only unless they are the factual source."
+      ]
+    },
+    {
+      heading: "Known limits",
+      paragraphs: [
+        "The browser folder validator reads files selected by the user. It does not upload the bundle, run a server-side crawler, fetch URLs, or prove that the factual claims are current."
+      ]
+    }
+  ],
+  faq: [
+    { question: "Can I validate private folders?", answer: "The current page reads files in the browser, but you should still avoid using online pages for secrets or confidential records." },
+    { question: "Does folder validation replace source review?", answer: "No. It checks structure and some file relationships, not factual truth." },
+    { question: "Should I publish a bundle without index.md?", answer: "No. Use index.md to declare scope, owners, and the most important links." }
+  ],
+  related: [
+    { label: "OKF Folder Validator", href: "/okf-folder-validator/", note: "Run a local folder check." },
+    { label: "Common OKF Validation Errors", href: "/guides/common-okf-validation-errors/", note: "Fix the most common failures." },
+    { label: "OKF Examples", href: "/okf-examples/", note: "Compare bundle shapes." }
+  ],
+  cta: {
+    heading: "Run a folder check",
+    text: "Start with the sample bundle, then select your own local Markdown folder.",
+    label: "Open Folder Validator",
+    href: "/okf-folder-validator/"
+  }
+};
+
+guidePages["how-to-create-okf-for-a-website"] = {
+  path: "/guides/how-to-create-okf-for-a-website/",
+  title: "Create OKF for a Website: URL Mapping Guide",
+  description: "Create OKF for a website by mapping key URLs to Markdown concept files, adding frontmatter, linking pages, and validating the bundle.",
+  h1: "How to create OKF for a website",
+  eyebrow: "Website guide",
+  intro: "Turn a website into OKF by mapping important URLs to reviewed Markdown files. Do not scrape everything blindly or create a file for thin pages.",
+  conclusion: "Start with high-value URLs, write one OKF file per stable page, and validate the folder before publishing.",
+  sections: [
+    {
+      heading: "Choose URLs first",
+      bullets: [
+        "Start with homepage, pricing, product, documentation, FAQ, about, contact, privacy, terms, and high-value guides.",
+        "Skip duplicate, thin, outdated, or private pages until the source owner reviews them.",
+        "Use canonical URLs as the <code>resource</code> field."
+      ]
+    },
+    {
+      heading: "Website conversion workflow",
+      steps: [
+        "Create a local folder for the website bundle.",
+        "Add index.md with scope, source owner, update date, and top links.",
+        "Create one Markdown file per important URL.",
+        "Write a short title, description, source URL, tags, and reviewed page summary.",
+        'Validate files with the <a href="/okf-validator/">single-file validator</a>.',
+        'Validate links and duplicate resources with the <a href="/okf-folder-validator/">folder validator</a>.'
+      ]
+    },
+    {
+      heading: "Per-page OKF example",
+      code: {
+        label: "Website page OKF example",
+        value: okfDocument(
+          "Website Page",
+          "Pricing Page",
+          "Summarizes pricing tiers, plan limits, refund notes, and upgrade paths.",
+          "https://openknowledgeformat.online/sample/pricing/",
+          ["website", "pricing", "product"]
+        )
+      }
+    },
+    {
+      heading: "SEO review rules",
+      bullets: [
+        "Do not keyword-stuff OKF fields.",
+        "Do not claim OKF guarantees AI search visibility.",
+        "Keep descriptions factual and short.",
+        "Use internal links only when they help users understand the concept boundary.",
+        "Update timestamps when source pages materially change."
+      ]
+    },
+    {
+      heading: "Bad website OKF pattern",
+      paragraphs: [
+        "The weak pattern is one giant file that summarizes the whole site with no canonical resource for each page. That makes review, freshness, and retrieval weaker."
+      ]
+    },
+    {
+      heading: "Generator boundary",
+      paragraphs: [
+        "You can generate first drafts from a URL list, but generated OKF should remain draft content until a human checks source accuracy, page scope, links, and privacy boundaries."
+      ]
+    }
+  ],
+  faq: [
+    { question: "Should every URL become an OKF file?", answer: "No. Start with stable pages that matter to users, support, search, or agents." },
+    { question: "Can OKF replace a sitemap?", answer: "No. A sitemap lists URLs for crawlers. OKF adds reviewed knowledge files around selected URLs." },
+    { question: "Can I use generated drafts?", answer: "Yes, but treat them as drafts until reviewed." }
+  ],
+  related: [
+    { label: "Website OKF template", href: "/templates/website-okf-template/", note: "Copy a starter file." },
+    { label: "OKF Folder Validator", href: "/okf-folder-validator/", note: "Check the finished folder." },
+    { label: "OKF for Websites", href: "/use-cases/okf-for-websites/", note: "Review the use-case framing." }
+  ],
+  cta: {
+    heading: "Validate the website bundle",
+    text: "After drafting the first files, run both single-file and folder checks before publishing.",
+    label: "Open Folder Validator",
+    href: "/okf-folder-validator/"
+  }
+};
+
+guidePages["openapi-to-okf"] = {
+  path: "/guides/openapi-to-okf/",
+  title: "OpenAPI to OKF: Convert Context, Keep Contracts",
+  description: "Convert OpenAPI context to OKF by keeping OpenAPI as the API contract and adding endpoint knowledge files for owners, examples, limits, and review notes.",
+  h1: "OpenAPI to OKF",
+  eyebrow: "API guide",
+  intro: "Use OpenAPI for the API contract. Use OKF for the surrounding knowledge that helps humans and agents understand why an endpoint exists and how it should be used.",
+  conclusion: "Do not replace OpenAPI with OKF. Convert endpoint context, not the contract itself.",
+  sections: [
+    {
+      heading: "Keep the contract boundary",
+      paragraphs: [
+        "OpenAPI describes paths, methods, parameters, schemas, responses, and authentication patterns. OKF can describe owner notes, workflow context, examples, limits, support rules, and related docs."
+      ]
+    },
+    {
+      heading: "Conversion map",
+      table: {
+        headers: ["OpenAPI source", "OKF destination", "Review note"],
+        rows: [
+          ["Operation summary", "OKF title and description", "Rewrite for business meaning, not just method names."],
+          ["Path and method", "Markdown body and resource link", "Keep OpenAPI as source of truth."],
+          ["Request and response examples", "Examples section", "Remove secrets and private identifiers."],
+          ["Error responses", "Warnings and troubleshooting section", "Explain user-facing impact."],
+          ["Tags", "OKF tags", "Use a small, consistent tag set."]
+        ]
+      }
+    },
+    {
+      heading: "Endpoint OKF example",
+      code: {
+        label: "OpenAPI endpoint context OKF",
+        value: okfDocument(
+          "API Endpoint",
+          "Create customer endpoint",
+          "Explains endpoint purpose, owner notes, request context, response notes, and support warnings.",
+          "https://openknowledgeformat.online/sample/openapi.yaml#/paths/~1customers/post",
+          ["api", "openapi", "customers"]
+        )
+      }
+    },
+    {
+      heading: "Step-by-step conversion",
+      steps: [
+        "Pick one stable endpoint or API area.",
+        "Link the OpenAPI file or API reference as the resource.",
+        "Write the endpoint purpose in normal language.",
+        "Add examples, limits, warnings, owner notes, and related docs.",
+        'Validate the file with the <a href="/okf-validator/">OKF Validator</a>.',
+        'Validate the API bundle with the <a href="/okf-folder-validator/">OKF Folder Validator</a>.'
+      ]
+    },
+    {
+      heading: "What not to do",
+      bullets: [
+        "Do not claim OKF validates OpenAPI schemas.",
+        "Do not generate client code from OKF.",
+        "Do not let OKF contradict the OpenAPI contract.",
+        "Do not include tokens, private request bodies, or customer data in examples."
+      ]
+    },
+    {
+      heading: "Related comparison",
+      paragraphs: [
+        'Read <a href="/compare/okf-vs-openapi/">OKF vs OpenAPI</a> when you need the difference between contract validation and knowledge context.'
+      ]
+    }
+  ],
+  faq: [
+    { question: "Can OKF replace OpenAPI?", answer: "No. OpenAPI remains the API contract. OKF adds context around that contract." },
+    { question: "Can I generate OKF drafts from OpenAPI?", answer: "Yes, but owner notes, warnings, examples, and support rules still need human review." },
+    { question: "Does OKF validate schemas?", answer: "No. Use OpenAPI tooling for schema and contract validation." }
+  ],
+  related: [
+    { label: "OKF vs OpenAPI", href: "/compare/okf-vs-openapi/", note: "Compare contracts and context." },
+    { label: "API OKF template", href: "/templates/api-okf-template/", note: "Copy an endpoint context pattern." },
+    { label: "OKF Folder Validator", href: "/okf-folder-validator/", note: "Check API context bundles." }
+  ],
+  cta: {
+    heading: "Convert one endpoint first",
+    text: "Start with one stable endpoint, validate it, then expand the API context bundle.",
+    label: "Open API OKF Template",
+    href: "/templates/api-okf-template/"
+  }
+};

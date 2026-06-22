@@ -54,6 +54,7 @@ const templateDetailRoutes = [
 const guideRoutes = [
   { path: "/guides/how-to-create-an-okf-bundle/", label: "Create an OKF Bundle", priority: "0.75" },
   { path: "/guides/how-to-validate-okf-files/", label: "Validate OKF Files", priority: "0.75" },
+  { path: "/guides/validate-okf-bundle/", label: "Validate OKF Bundle", priority: "0.75" },
   { path: "/guides/how-to-add-yaml-frontmatter-for-okf/", label: "Add YAML Frontmatter for OKF", priority: "0.75" },
   { path: "/guides/how-to-link-okf-concept-files/", label: "Link OKF Concept Files", priority: "0.75" },
   { path: "/guides/how-to-use-okf-with-rag/", label: "Use OKF with RAG", priority: "0.75" },
@@ -61,6 +62,7 @@ const guideRoutes = [
   { path: "/guides/how-to-convert-markdown-to-okf/", label: "Convert Markdown to OKF", priority: "0.75" },
   { path: "/guides/how-to-create-okf-for-a-website/", label: "Create OKF for a Website", priority: "0.75" },
   { path: "/guides/how-to-create-okf-for-api-docs/", label: "Create OKF for API Docs", priority: "0.75" },
+  { path: "/guides/openapi-to-okf/", label: "OpenAPI to OKF", priority: "0.75" },
   { path: "/guides/common-okf-validation-errors/", label: "Common OKF Validation Errors", priority: "0.75" }
 ];
 
@@ -71,6 +73,7 @@ export const publicRoutes = [
   { path: "/okf-examples/", label: "OKF Examples", priority: "0.9" },
   { path: "/okf-templates/", label: "OKF Templates", priority: "0.9" },
   { path: "/okf-validator/", label: "OKF Validator", priority: "0.9" },
+  { path: "/okf-folder-validator/", label: "OKF Folder Validator", priority: "0.85" },
   { path: "/compare/okf-vs-mcp/", label: "OKF vs MCP", priority: "0.8" },
   { path: "/compare/okf-vs-rag/", label: "OKF vs RAG", priority: "0.8" },
   { path: "/compare/okf-vs-llms-txt/", label: "OKF vs llms.txt", priority: "0.8" },

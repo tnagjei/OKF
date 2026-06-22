@@ -1,13 +1,15 @@
 # pages
 - 用途：定义 Astro 路由页面与文本端点。
-- 关键入口：`index.astro`、`[slug].astro`、`okf-validator.astro`、`use-cases/`、`templates/`、`guides/`。
+- 关键入口：`index.astro`、`[slug].astro`、`okf-validator.astro`、`okf-folder-validator.astro`、`use-cases/`、`templates/`、`guides/`。
 - 边界/依赖：页面只组合布局、组件和静态数据，不接后端服务。
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
 - `[slug].astro`：普通内容页动态生成路由。
 - `index.astro`：首页，承接 OKF 定义、工具入口与对比入口。
-- `okf-validator.astro`：浏览器端 OKF 验证器与常见错误修复说明。
+- `404.astro`：自定义 404 错误页面，显示 "This OKF page does not exist"。
+- `okf-validator.astro`：浏览器端单文件 OKF 验证器与常见错误修复说明。
+- `okf-folder-validator.astro`：浏览器端 OKF 文件夹验证器，检查 bundle 结构、重复 resource 与相对链接。
 - `robots.txt.ts`：生成 robots 文件。
 - `sitemap.xml.ts`：生成 sitemap 文件。
 - `llms.txt.ts`：生成短版 LLM 说明。

@@ -1,0 +1,54 @@
+---
+// input: no route params
+// output: custom 404 page returned when a path does not match any route
+// pos: not-found route (update rule: sync this header and src/pages README when this file changes)
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Page not found | Open Knowledge Format Guide";
+const description =
+  "The OKF page you requested does not exist. Return to the Open Knowledge Format guide, OKF validator, templates, or examples.";
+---
+
+<BaseLayout title={title} description={description} path="/404.html">
+  <main class="page-shell">
+    <section class="page-hero narrow-hero">
+      <p class="eyebrow">404</p>
+      <h1>This OKF page does not exist</h1>
+      <p class="hero-copy">
+        The URL may be outdated, mistyped, or not published yet. Pick a starting point below to keep learning Open Knowledge Format.
+      </p>
+      <div class="hero-actions">
+        <a class="button primary" href="/">Back to home</a>
+        <a class="button secondary" href="/okf-validator/">Open OKF Validator</a>
+        <a class="button ghost" href="/okf-templates/">Browse templates</a>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="section-heading">
+        <p class="eyebrow">Quick links</p>
+        <h2>What this site covers</h2>
+        <p>
+          Open Knowledge Format is described in public Google Cloud draft materials. This is an unofficial guide that helps you validate files, copy templates, and study practical examples.
+        </p>
+      </div>
+      <div class="panel-grid three">
+        <article class="info-panel">
+          <h3>What is OKF</h3>
+          <p>A one-minute explanation of how OKF packages Markdown knowledge with YAML frontmatter.</p>
+          <a href="/what-is-okf/">Read the explainer</a>
+        </article>
+        <article class="info-panel">
+          <h3>OKF tutorial</h3>
+          <p>Build your first OKF bundle step by step with copyable Markdown examples.</p>
+          <a href="/okf-tutorial/">Start the tutorial</a>
+        </article>
+        <article class="info-panel">
+          <h3>Folder validator</h3>
+          <p>Check a local OKF folder for frontmatter, duplicate resources, and broken links.</p>
+          <a href="/okf-folder-validator/">Open folder validator</a>
+        </article>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

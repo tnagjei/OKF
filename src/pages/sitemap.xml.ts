@@ -6,7 +6,7 @@ import { publicRoutes, siteConfig } from "../../site.config.mjs";
 export const prerender = true;
 
 export function GET() {
-  const lastmod = "2026-06-17";
+  const lastmod = "2026-06-21";
   const urls = publicRoutes
     .map((route) => {
       const loc = new URL(route.path, siteConfig.url).href;

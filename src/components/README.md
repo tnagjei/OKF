@@ -6,7 +6,7 @@
 
 ## Files
 - `CodeBlock.astro`：带复制按钮的代码块。
-- `ClusterPage.astro`：SEO 资源中心页面渲染组件，支持步骤、表格、FAQ、内链和 CTA。
+- `ClusterPage.astro`：SEO 资源中心页面渲染组件，支持步骤、表格、视频、FAQ、内链和 CTA。
 - `Footer.astro`：全站页脚与非官方声明。
 - `Header.astro`：全站导航。
 - `LongformPage.astro`：通用内容页渲染组件，支持正文、代码块与视频嵌入。

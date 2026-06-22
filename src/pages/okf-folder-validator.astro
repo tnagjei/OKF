@@ -1,0 +1,474 @@
+---
+// input: user-selected local Markdown files from a folder or multi-file picker
+// output: browser-only OKF bundle validation report with file, link, and resource checks
+// pos: OKF folder validator route (update rule: sync this header and src/pages README when this file changes)
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CodeBlock from "../components/CodeBlock.astro";
+
+const sampleBundle = `bundle/
+  index.md
+  pages/home.md
+  support/contact.md`;
+---
+
+<BaseLayout
+  title="OKF Folder Validator: Check Your Bundle"
+  description="Validate an OKF bundle folder in your browser for Markdown files, frontmatter, type fields, index.md, links, and resource warnings."
+  path="/okf-folder-validator/"
+>
+  <main class="page-shell">
+    <section class="page-hero narrow-hero">
+      <p class="eyebrow">Browser-only bundle tool</p>
+      <h1>OKF folder validator for Open Knowledge Format bundles</h1>
+      <p class="hero-copy">
+        Check a local OKF bundle folder before publishing. This MVP reads selected Markdown files in your browser, reports structural errors, and does not upload your files to this website.
+      </p>
+    </section>
+
+    <section class="validator-layout">
+      <div class="validator-panel">
+        <div class="tool-header">
+          <h2>Choose folder or files</h2>
+          <button type="button" class="button ghost small" id="load-sample-bundle">Load sample bundle</button>
+        </div>
+        <label class="tool-label" for="folder-input">Choose OKF folder or Markdown files</label>
+        <input id="folder-input" class="file-input" type="file" multiple webkitdirectory aria-describedby="folder-input-note" />
+        <p class="tool-note" id="folder-input-note">
+          Chrome and Edge support folder selection. If your browser does not, select multiple `.md` or `.markdown` files instead. The page reads Markdown files only, with size limits to protect the browser.
+        </p>
+        <button type="button" class="button primary" id="validate-folder-button">Validate OKF bundle</button>
+      </div>
+      <aside class="validator-panel result-panel">
+        <div class="tool-header">
+          <h2>Bundle report</h2>
+          <button type="button" class="button ghost small" id="copy-folder-result">Copy report</button>
+        </div>
+        <div id="folder-validator-status" class="status-badge">Not checked</div>
+        <pre id="folder-validator-output" tabindex="0">Choose a folder or load the sample bundle.</pre>
+      </aside>
+    </section>
+
+    <section class="content-section">
+      <h2>Validate a bundle, not just one file</h2>
+      <p>
+        The single-file OKF validator checks one pasted Markdown document. This folder validator checks how files work together: bundle layout, `index.md`, repeated resources, and relative links between Markdown files.
+      </p>
+    </section>
+
+    <section class="compare-table-section">
+      <h2>Bundle checks</h2>
+      <div class="compare-table" role="table" aria-label="OKF bundle validation checks">
+        <div class="compare-row compare-head" role="row">
+          <div role="columnheader">Check</div>
+          <div role="columnheader">Why it matters</div>
+          <div role="columnheader">Severity</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div role="cell">Markdown files</div>
+          <div role="cell">A bundle should contain reviewable `.md` concept files.</div>
+          <div role="cell">Error if none are selected.</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div role="cell">Simple frontmatter</div>
+          <div role="cell">Machines need predictable metadata before reading the body.</div>
+          <div role="cell">Error when missing.</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div role="cell">type field</div>
+          <div role="cell">The draft OKF field checked by this guide must identify the concept kind.</div>
+          <div role="cell">Error when missing.</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div role="cell">index.md</div>
+          <div role="cell">A root index helps humans and agents inspect the bundle before opening every file.</div>
+          <div role="cell">Warning when missing.</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div role="cell">Internal links</div>
+          <div role="cell">Relative Markdown links should point to files that exist inside the selected bundle.</div>
+          <div role="cell">Warning when unresolved.</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div role="cell">Duplicate resource</div>
+          <div role="cell">Repeated canonical resources usually mean two files describe the same concept.</div>
+          <div role="cell">Warning for review.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>How the browser-only workflow works</h2>
+      <ol class="step-list">
+        <li>Select an OKF folder or several Markdown files.</li>
+        <li>The page filters for Markdown files before reading file text locally in your browser.</li>
+        <li>The report checks frontmatter, `type`, recommended fields, links, and duplicate resources.</li>
+        <li>Copy the report, fix errors first, then review warnings with the content owner.</li>
+      </ol>
+      <CodeBlock code={sampleBundle} label="Expected bundle shape" />
+    </section>
+
+    <section class="content-section">
+      <h2>What this tool cannot prove</h2>
+      <ul class="check-list">
+        <li>It cannot certify official OKF conformance.</li>
+        <li>It cannot prove that the facts inside the Markdown body are true or current.</li>
+        <li>It cannot read files you do not select.</li>
+        <li>It cannot replace CI, command-line conformance tools, security review, or source-owner approval.</li>
+      </ul>
+    </section>
+
+    <section class="faq-section">
+      <p class="eyebrow">FAQ</p>
+      <h2>OKF folder validator questions</h2>
+      <details>
+        <summary>Does this upload my files?</summary>
+        <p>No. The validation logic uses browser File APIs and prints the report in the page.</p>
+      </details>
+      <details>
+        <summary>Does this support ZIP upload?</summary>
+        <p>Not in this MVP. Select a folder in a supported browser or select multiple Markdown files.</p>
+      </details>
+      <details>
+        <summary>Is a passing bundle officially certified?</summary>
+        <p>No. Passing means this guide profile did not find structural errors. It is not official certification.</p>
+      </details>
+      <details>
+        <summary>Can I use this in CI?</summary>
+        <p>No. Use this page for browser review. For CI, use a local script or command-line validator.</p>
+      </details>
+    </section>
+  </main>
+
+  <script>
+    const folderInput = document.querySelector("#folder-input");
+    const validateButton = document.querySelector("#validate-folder-button");
+    const loadSampleButton = document.querySelector("#load-sample-bundle");
+    const output = document.querySelector("#folder-validator-output");
+    const status = document.querySelector("#folder-validator-status");
+    const copyResult = document.querySelector("#copy-folder-result");
+    const maxMarkdownFiles = 200;
+    const maxFileSizeBytes = 1024 * 1024;
+    const maxTotalBytes = 5 * 1024 * 1024;
+
+    let sampleFiles = null;
+
+    function formatBytes(bytes) {
+      if (bytes < 1024) {
+        return `${bytes} B`;
+      }
+
+      if (bytes < 1024 * 1024) {
+        return `${Math.round(bytes / 1024)} KB`;
+      }
+
+      return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+    }
+
+    function normalizePath(path) {
+      return path.replaceAll("\\", "/").replace(/^\.?\//, "");
+    }
+
+    function isMarkdownPath(path) {
+      return /\.(md|markdown)$/i.test(normalizePath(path));
+    }
+
+    function normalizeSegments(path) {
+      const parts = [];
+
+      normalizePath(path).split("/").forEach((part) => {
+        if (!part || part === ".") {
+          return;
+        }
+
+        if (part === "..") {
+          parts.pop();
+          return;
+        }
+
+        parts.push(part);
+      });
+
+      return parts.join("/");
+    }
+
+    function dirname(path) {
+      const clean = normalizePath(path);
+      const index = clean.lastIndexOf("/");
+      return index === -1 ? "" : clean.slice(0, index);
+    }
+
+    function parseFrontmatter(markdown) {
+      const match = markdown.match(/^---\s*\n([\s\S]*?)\n---\s*(?:\n|$)([\s\S]*)$/);
+
+      if (!match) {
+        return { frontmatter: null, body: markdown, malformedLines: [] };
+      }
+
+      const fields = {};
+      const malformedLines = [];
+
+      match[1].split(/\r?\n/).forEach((line) => {
+        if (!line.trim()) {
+          return;
+        }
+
+        const fieldMatch = line.match(/^([A-Za-z0-9_-]+):\s*(.*)$/);
+
+        if (fieldMatch) {
+          fields[fieldMatch[1]] = fieldMatch[2].trim();
+          return;
+        }
+
+        malformedLines.push(line);
+      });
+
+      return { frontmatter: fields, body: match[2], malformedLines };
+    }
+
+    function decodeLinkPath(path) {
+      try {
+        return decodeURIComponent(path);
+      } catch {
+        return path;
+      }
+    }
+
+    function resolveLink(filePath, target) {
+      const trimmedTarget = target.trim();
+
+      if (/^(https?:|mailto:|urn:|#|\/)/i.test(trimmedTarget)) {
+        return null;
+      }
+
+      const withoutHash = trimmedTarget.split("#")[0];
+      const withoutQuery = withoutHash.split("?")[0];
+      const decodedPath = decodeLinkPath(withoutQuery);
+
+      if (!decodedPath || !isMarkdownPath(decodedPath)) {
+        return null;
+      }
+
+      return normalizeSegments(`${dirname(filePath)}/${decodedPath}`);
+    }
+
+    function validateBundle(files, preflightWarnings = []) {
+      const errors = [];
+      const warnings = [...preflightWarnings];
+      const markdownFiles = files
+        .map((file) => ({ ...file, path: normalizePath(file.path) }))
+        .filter((file) => isMarkdownPath(file.path));
+      const pathSet = new Set(markdownFiles.map((file) => file.path));
+      const resources = new Map();
+
+      if (markdownFiles.length === 0) {
+        errors.push("No Markdown files were selected.");
+      }
+
+      if (!pathSet.has("index.md") && !Array.from(pathSet).some((path) => path.endsWith("/index.md"))) {
+        warnings.push("No index.md file found. Add one to explain the bundle scope.");
+      }
+
+      markdownFiles.forEach((file) => {
+        const parsed = parseFrontmatter(file.text.trim());
+        const prefix = `${file.path}:`;
+
+        if (!parsed.frontmatter) {
+          errors.push(`${prefix} missing simple frontmatter block.`);
+          return;
+        }
+
+        parsed.malformedLines.forEach((line) => {
+          errors.push(`${prefix} invalid frontmatter line "${line}".`);
+        });
+
+        if (!parsed.frontmatter.type) {
+          errors.push(`${prefix} missing required OKF field type.`);
+        }
+
+        ["title", "description", "resource", "tags", "timestamp"].forEach((field) => {
+          if (!parsed.frontmatter[field]) {
+            warnings.push(`${prefix} missing recommended guide field ${field}.`);
+          }
+        });
+
+        if (parsed.frontmatter.tags && !/^\[.+\]$/.test(parsed.frontmatter.tags)) {
+          errors.push(`${prefix} tags should use an inline array such as [okf, bundle].`);
+        }
+
+        if (parsed.frontmatter.resource) {
+          const existing = resources.get(parsed.frontmatter.resource);
+
+          if (existing) {
+            warnings.push(`${prefix} resource duplicates ${existing}.`);
+          } else {
+            resources.set(parsed.frontmatter.resource, file.path);
+          }
+        }
+
+        if (!parsed.body.trim()) {
+          warnings.push(`${prefix} Markdown body is empty.`);
+        }
+
+        const relativeLinks = Array.from(parsed.body.matchAll(/\[[^\]]+\]\(([^)]+)\)/g));
+
+        relativeLinks.forEach((match) => {
+          const resolved = resolveLink(file.path, match[1]);
+
+          if (resolved && !pathSet.has(resolved)) {
+            warnings.push(`${prefix} relative link target not selected: ${match[1]}.`);
+          }
+        });
+      });
+
+      return {
+        valid: errors.length === 0,
+        checked: markdownFiles.length,
+        errors,
+        warnings
+      };
+    }
+
+    function renderReport(result) {
+      const lines = [
+        `valid: ${result.valid}`,
+        `markdown_files_checked: ${result.checked}`,
+        "errors:",
+        ...(result.errors.length ? result.errors.map((item) => `  - ${item}`) : ["  - none"]),
+        "warnings:",
+        ...(result.warnings.length ? result.warnings.map((item) => `  - ${item}`) : ["  - none"])
+      ];
+
+      output.textContent = lines.join("\n");
+      status.textContent = result.valid ? "Valid" : "Invalid";
+      status.classList.toggle("is-valid", result.valid);
+      status.classList.toggle("is-invalid", !result.valid);
+    }
+
+    async function selectedFiles() {
+      if (sampleFiles) {
+        return { files: sampleFiles, preflightWarnings: [] };
+      }
+
+      const selected = Array.from(folderInput.files || []);
+      const preflightWarnings = [];
+      const markdownCandidates = selected.filter((file) => isMarkdownPath(file.webkitRelativePath || file.name));
+      const skippedNonMarkdownCount = selected.length - markdownCandidates.length;
+      let candidates = markdownCandidates;
+      let totalBytes = 0;
+      const files = [];
+
+      if (skippedNonMarkdownCount > 0) {
+        preflightWarnings.push(`${skippedNonMarkdownCount} non-Markdown file(s) skipped before reading.`);
+      }
+
+      if (candidates.length > maxMarkdownFiles) {
+        preflightWarnings.push(`Only the first ${maxMarkdownFiles} Markdown file(s) were read. ${candidates.length - maxMarkdownFiles} file(s) were skipped.`);
+        candidates = candidates.slice(0, maxMarkdownFiles);
+      }
+
+      for (const file of candidates) {
+        const path = file.webkitRelativePath || file.name;
+
+        if (file.size > maxFileSizeBytes) {
+          preflightWarnings.push(`${path}: skipped because ${formatBytes(file.size)} exceeds the ${formatBytes(maxFileSizeBytes)} per-file limit.`);
+          continue;
+        }
+
+        if (totalBytes + file.size > maxTotalBytes) {
+          preflightWarnings.push(`${path}: skipped because the selected Markdown files exceed the ${formatBytes(maxTotalBytes)} total read limit.`);
+          continue;
+        }
+
+        totalBytes += file.size;
+        files.push({
+          path,
+          text: await file.text()
+        });
+      }
+
+      return { files, preflightWarnings };
+    }
+
+    validateButton.addEventListener("click", async () => {
+      const selection = await selectedFiles();
+      renderReport(validateBundle(selection.files, selection.preflightWarnings));
+    });
+
+    folderInput.addEventListener("change", () => {
+      const selected = Array.from(folderInput.files || []);
+      const markdownCount = selected.filter((file) => isMarkdownPath(file.webkitRelativePath || file.name)).length;
+
+      sampleFiles = null;
+      status.textContent = "Ready";
+      status.classList.remove("is-valid", "is-invalid");
+      output.textContent = `${selected.length} local file(s) selected; ${markdownCount} Markdown file(s) will be read. Run validation to inspect the bundle.`;
+    });
+
+    loadSampleButton.addEventListener("click", () => {
+      sampleFiles = [
+        {
+          path: "index.md",
+          text: `---
+type: Knowledge Bundle
+title: Website support bundle
+description: Indexes reviewed website support pages.
+resource: urn:okf-bundle:website-support
+tags: [okf, bundle, website]
+timestamp: 2026-06-21T00:00:00Z
+---
+
+# Bundle index
+
+- [Home page](pages/home.md)
+- [Contact page](support/contact.md)`
+        },
+        {
+          path: "pages/home.md",
+          text: `---
+type: Website Page
+title: Home page
+description: Explains the site purpose and links to key tools.
+resource: https://openknowledgeformat.online/
+tags: [website, home, okf]
+timestamp: 2026-06-21T00:00:00Z
+---
+
+# Home page
+
+The page introduces OKF tools and links back to [the index](../index.md).`
+        },
+        {
+          path: "support/contact.md",
+          text: `---
+type: Support Page
+title: Contact page
+description: Explains how users can report corrections.
+resource: https://openknowledgeformat.online/contact/
+tags: [support, contact, corrections]
+timestamp: 2026-06-21T00:00:00Z
+---
+
+# Contact page
+
+Use this file for correction routing and support boundaries.`
+        }
+      ];
+      renderReport(validateBundle(sampleFiles));
+    });
+
+    copyResult.addEventListener("click", async () => {
+      const original = copyResult.textContent;
+
+      try {
+        await navigator.clipboard.writeText(output.textContent || "");
+        copyResult.textContent = "Copied";
+      } catch {
+        copyResult.textContent = "Copy failed";
+      }
+
+      window.setTimeout(() => {
+        copyResult.textContent = original;
+      }, 1600);
+    });
+  </script>
+</BaseLayout>

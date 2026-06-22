@@ -6,9 +6,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import CodeBlock from "../components/CodeBlock.astro";
 import { homePanels, minimumExample } from "../data/content";
 
-const title = "Open Knowledge Format: OKF Examples, Validator, Templates";
+const title = "OKF Examples, Validator & Templates";
 const description =
-  "Learn Open Knowledge Format v0.1 with copy-ready OKF examples, templates, validation rules, and comparisons with MCP, RAG, llms.txt, and OpenAPI.";
+  "Learn Open Knowledge Format with OKF validators, folder checks, examples, templates, and guides for websites, APIs, AI agents, and data teams.";
 ---
 
 <BaseLayout title={title} description={description} path="/">
@@ -18,12 +18,12 @@ const description =
         <p class="eyebrow">Unofficial OKF guide</p>
         <h1>Open Knowledge Format guide for OKF bundles</h1>
         <p class="hero-copy">
-          Open Knowledge Format uses Markdown files and YAML frontmatter to package AI-agent-readable knowledge. This unofficial guide helps you validate OKF Markdown, copy templates, and study practical examples.
+          Open Knowledge Format uses Markdown files and YAML frontmatter to package AI-agent-readable knowledge. This unofficial guide helps you validate one OKF file, check a folder bundle, copy templates, and study practical examples.
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="/okf-validator/">Validate OKF Markdown</a>
-          <a class="button secondary" href="/okf-templates/">Copy OKF templates</a>
-          <a class="button ghost" href="/okf-examples/">Read OKF examples</a>
+          <a class="button primary" href="/okf-validator/">Validate one OKF file</a>
+          <a class="button secondary" href="/okf-folder-validator/">Validate a folder</a>
+          <a class="button ghost" href="/guides/validate-okf-bundle/">Bundle checklist</a>
         </div>
       </div>
       <div class="knowledge-visual" aria-label="OKF bundle preview">
@@ -85,22 +85,49 @@ const description =
       <CodeBlock code={minimumExample} label="OKF minimum example" />
     </section>
 
-    <section class="panel-grid three cta-grid" aria-label="Primary tools">
+    <section class="panel-grid three cta-grid" aria-label="Primary validation tools">
       <article class="info-panel action-panel">
-        <h2>Validator</h2>
+        <h2>Single-file validator</h2>
         <p>Paste Markdown and check whether the guide profile fields are present. The check runs in your browser.</p>
         <a class="button primary" href="/okf-validator/">Try OKF Validator</a>
       </article>
       <article class="info-panel action-panel">
-        <h2>Templates</h2>
-        <p>Copy starter frontmatter for websites, APIs, SaaS products, docs, agent context, and data catalogs.</p>
-        <a class="button secondary" href="/okf-templates/">Copy OKF Template</a>
+        <h2>Folder validator</h2>
+        <p>Select a local OKF folder and check frontmatter, duplicate resources, index coverage, and relative Markdown links.</p>
+        <a class="button secondary" href="/okf-folder-validator/">Check OKF Folder</a>
       </article>
       <article class="info-panel action-panel">
-        <h2>Examples</h2>
-        <p>Review bundle shapes for real teams before building your own OKF folder.</p>
-        <a class="button ghost" href="/okf-examples/">View OKF Examples</a>
+        <h2>Error guide</h2>
+        <p>Fix missing frontmatter, missing type, invalid tags, broken links, and bundle-level warnings before publishing.</p>
+        <a class="button ghost" href="/guides/common-okf-validation-errors/">Fix OKF Errors</a>
       </article>
+    </section>
+
+    <section class="band">
+      <div class="section-heading">
+        <p class="eyebrow">Conversion paths</p>
+        <h2>Turn existing websites, APIs, and docs into reviewable OKF bundles</h2>
+        <p>
+          These guides help you draft OKF files from existing source material without treating generated drafts as verified truth.
+        </p>
+      </div>
+      <div class="panel-grid three">
+        <article class="info-panel">
+          <h3>Website to OKF</h3>
+          <p>Map important URLs to one Markdown concept file each, then validate the bundle before publishing.</p>
+          <a href="/guides/how-to-create-okf-for-a-website/">Create website OKF</a>
+        </article>
+        <article class="info-panel">
+          <h3>OpenAPI to OKF</h3>
+          <p>Keep OpenAPI as the API contract and use OKF for endpoint context, owner notes, examples, and warnings.</p>
+          <a href="/guides/openapi-to-okf/">Convert OpenAPI context</a>
+        </article>
+        <article class="info-panel">
+          <h3>Templates and examples</h3>
+          <p>Copy starter files and compare bundle shapes before expanding a generated draft.</p>
+          <a href="/okf-templates/">Open OKF templates</a>
+        </article>
+      </div>
     </section>
 
     <section class="band">

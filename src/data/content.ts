@@ -98,7 +98,7 @@ title: Open Knowledge Format Validator
 description: A browser-only tool that checks basic OKF frontmatter fields.
 resource: https://openknowledgeformat.online/okf-validator/
 tags: [okf, validator, markdown]
-timestamp: 2026-06-17T00:00:00Z
+timestamp: 2026-06-21T00:00:00Z
 ---
 
 # Purpose
@@ -116,7 +116,7 @@ title: Pricing Page
 description: Explains plan tiers, billing limits, refund policy, and upgrade paths.
 resource: https://openknowledgeformat.online/sample/pricing/
 tags: [website, pricing, conversion]
-timestamp: 2026-06-17T00:00:00Z
+timestamp: 2026-06-21T00:00:00Z
 ---
 
 # Audience
@@ -153,7 +153,7 @@ title: Create customer endpoint
 description: Creates a customer record and returns the new customer identifier.
 resource: https://openknowledgeformat.online/sample-api/v1/customers
 tags: [api, customers, write]
-timestamp: 2026-06-17T00:00:00Z
+timestamp: 2026-06-21T00:00:00Z
 ---
 
 # Method
@@ -191,7 +191,7 @@ title: Workspace seats
 description: Defines how seats are counted, invited, removed, and billed.
 resource: https://openknowledgeformat.online/sample/docs/workspace-seats
 tags: [saas, billing, workspace]
-timestamp: 2026-06-17T00:00:00Z
+timestamp: 2026-06-21T00:00:00Z
 ---
 
 # Definition
@@ -228,7 +228,7 @@ title: Import contacts from CSV
 description: Guides admins through CSV preparation, upload, validation, and rollback.
 resource: https://openknowledgeformat.online/sample/docs/import-csv
 tags: [docs, import, csv]
-timestamp: 2026-06-17T00:00:00Z
+timestamp: 2026-06-21T00:00:00Z
 ---
 
 # Prerequisites
@@ -268,7 +268,7 @@ title: Refund support routing
 description: Tells the support agent when to answer, when to request proof, and when to escalate refund cases.
 resource: urn:agent-context:refund-support-routing
 tags: [agent, support, refunds]
-timestamp: 2026-06-17T00:00:00Z
+timestamp: 2026-06-21T00:00:00Z
 ---
 
 # Scope
@@ -305,7 +305,7 @@ title: Orders fact table
 description: One row per submitted order with revenue, customer, and fulfillment fields.
 resource: bigquery://acme.analytics.orders
 tags: [data, orders, revenue]
-timestamp: 2026-06-17T00:00:00Z
+timestamp: 2026-06-21T00:00:00Z
 ---
 
 # Schema
@@ -384,7 +384,7 @@ export const exampleLibrary: CodeAsset[] = [
       "Omitting error responses.",
       "Letting samples drift from the live API reference."
     ],
-    nextStep: "Generate a draft from OpenAPI, then manually review examples and warnings."
+    nextStep: "Draft endpoint context from OpenAPI, then use the OpenAPI to OKF guide for manual review."
   },
   {
     title: "Product documentation bundle",
@@ -509,7 +509,7 @@ export const longformPages: Record<string, LongformPage> = {
         ]
       },
       {
-        heading: "What OKF means in this guide",
+        heading: "Not the Open Knowledge Foundation",
         bullets: [
           "OKF here means Open Knowledge Format.",
           "OKF is not the Open Knowledge Foundation.",
@@ -536,6 +536,19 @@ export const longformPages: Record<string, LongformPage> = {
         code: {
           label: "Minimal OKF concept file",
           value: minimumExample
+        }
+      },
+      {
+        heading: "Visual overview",
+        paragraphs: [
+          "This video is included as a visual aid for the definition page. Use the official Google Cloud post and GoogleCloudPlatform specification for factual claims."
+        ],
+        video: {
+          embedUrl: "https://www.youtube-nocookie.com/embed/wczuwg9EZdg",
+          originalUrl: "https://www.youtube.com/watch?v=wczuwg9EZdg",
+          title: "Open Knowledge Format overview video",
+          fallbackText: "Watch the OKF overview on YouTube",
+          note: "Evidence boundary: video used as visual background only, not as official definition proof."
         }
       },
       {
@@ -586,9 +599,9 @@ export const longformPages: Record<string, LongformPage> = {
   },
   "okf-tutorial": {
     path: "/okf-tutorial/",
-    title: "OKF Tutorial: Build Your First Open Knowledge Format Bundle",
+    title: "OKF Tutorial: Build Your First OKF Bundle",
     description:
-      "Follow a beginner-friendly OKF tutorial to create an Open Knowledge Format bundle with Markdown files, YAML frontmatter, index pages, and links.",
+      "Follow a beginner-friendly OKF tutorial to build your first Open Knowledge Format bundle with Markdown files, YAML frontmatter, and links.",
     h1: "OKF tutorial: build your first knowledge bundle",
     eyebrow: "Step-by-step tutorial",
     intro:
@@ -671,7 +684,7 @@ title: Contact page
 description: Explains how visitors can report corrections, outdated examples, and validator issues.
 resource: https://openknowledgeformat.online/contact/
 tags: [website, contact, corrections]
-timestamp: 2026-06-17T00:00:00Z
+timestamp: 2026-06-21T00:00:00Z
 ---
 
 # Purpose
@@ -717,7 +730,7 @@ This page gives readers a correction path for Open Knowledge Format Guide.
   },
   "okf-examples": {
     path: "/okf-examples/",
-    title: "Open Knowledge Format Examples for OKF Bundles",
+    title: "Open Knowledge Format Examples for Bundles",
     description:
       "Browse copy-ready Open Knowledge Format examples with OKF bundle patterns, common mistakes, and validation next steps.",
     h1: "Open Knowledge Format examples for real knowledge bundles",
@@ -752,12 +765,46 @@ This page gives readers a correction path for Open Knowledge Format Guide.
           "Review claims separately because validation cannot prove knowledge accuracy.",
           "Use <a href=\"/compare/okf-vs-openapi/\">OKF vs OpenAPI</a> when an API example needs both a contract and surrounding context."
         ]
+      },
+      {
+        heading: "Downloadable sample bundles",
+        paragraphs: [
+          "Downloadable ZIP bundles are a planned next step. Until real files are published, treat this section as pending and use the visible bundle trees as copy-ready starting points."
+        ],
+        bullets: [
+          "Pending: website content bundle ZIP.",
+          "Pending: API endpoint bundle ZIP.",
+          "Pending: support playbook bundle ZIP.",
+          "Do not treat planned downloads as already validated assets."
+        ]
+      },
+      {
+        heading: "Example validation status",
+        bullets: [
+          "Current status: examples are guide patterns, not official conformance results.",
+          "Next check: paste individual concept files into the OKF validator.",
+          "Bundle-level check: use the OKF folder validator when you assemble a full folder.",
+          "Manual review still has to confirm source links, owners, privacy risk, and timestamps."
+        ]
+      },
+      {
+        heading: "Visual walkthrough",
+        paragraphs: [
+          "This video is included as visual background for OKF examples. It does not prove that this site's examples pass validation."
+        ],
+        video: {
+          embedUrl: "https://www.youtube-nocookie.com/embed/MY9F9K7wWX4",
+          originalUrl: "https://www.youtube.com/watch?v=MY9F9K7wWX4",
+          title: "OKF examples visual walkthrough video",
+          fallbackText: "Watch the OKF walkthrough on YouTube",
+          note: "Evidence boundary: video used as visual background only, not as validation proof."
+        }
       }
     ]
   },
   "okf-templates": {
     path: "/okf-templates/",
-    title: "OKF Templates: Copy Open Knowledge Format Bundle Templates",
+    title: "OKF Templates: Copy Bundle Template Starters",
     description:
       "Copy OKF templates for websites, APIs, SaaS, documentation, agent context, and data catalogs, then validate the bundle fields.",
     h1: "Copy-ready OKF templates by bundle type",
@@ -780,12 +827,47 @@ This page gives readers a correction path for Open Knowledge Format Guide.
         ]
       },
       {
+        heading: "Bad example vs fixed example",
+        paragraphs: [
+          "The fastest way to misuse an OKF template is to copy the sample without replacing source-specific fields. The fixed example keeps the same concept but adds the missing frontmatter and review boundary."
+        ],
+        code: {
+          label: "Bad example",
+          value: `---
+title: Pricing
+---
+
+# Pricing
+
+This page has everything about pricing.`
+        }
+      },
+      {
+        heading: "Fixed template example",
+        code: {
+          label: "Fixed OKF template",
+          value: `---
+type: Website Page
+title: Pricing page
+description: Explains public plan tiers, billing limits, refunds, and upgrade paths.
+resource: https://openknowledgeformat.online/sample/pricing/
+tags: [website, pricing, billing]
+timestamp: 2026-06-21T00:00:00Z
+---
+
+# Pricing page
+
+Use this file for stable pricing facts, exclusions, source links, and review notes.`
+        }
+      },
+      {
         heading: "Validate your template",
         bullets: [
           "Paste the copied Markdown into the OKF validator.",
           "Fix missing `type` first because it is the core draft field.",
           "Add title, description, resource, tags, and timestamp so previews and internal search work better.",
-          "For API templates, read <a href=\"/compare/okf-vs-openapi/\">OKF vs OpenAPI</a> before treating OKF as an API contract."
+          "For API templates, read <a href=\"/compare/okf-vs-openapi/\">OKF vs OpenAPI</a> before treating OKF as an API contract.",
+          "For full folders, use the <a href=\"/okf-folder-validator/\">OKF folder validator</a> and the <a href=\"/guides/validate-okf-bundle/\">bundle validation guide</a>."
         ]
       },
       {
@@ -1358,7 +1440,8 @@ export const comparePages: Record<string, ComparePage> = {
           "Create one OKF concept file for each durable endpoint or API area.",
           "Set `resource` to the canonical API reference, OpenAPI file URL, or stable internal identifier.",
           "Link related metrics, data tables, support playbooks, and docs.",
-          "Validate the OKF frontmatter, then manually review the business claims."
+          "Validate the OKF frontmatter, then manually review the business claims.",
+          "For a conversion workflow, use the <a href=\"/guides/openapi-to-okf/\">OpenAPI to OKF guide</a> before expanding a full API bundle."
         ]
       },
       {

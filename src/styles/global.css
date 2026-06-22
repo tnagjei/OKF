@@ -43,6 +43,7 @@ a {
 }
 
 button,
+input,
 textarea {
   font: inherit;
 }
@@ -380,7 +381,7 @@ main {
 
 .mini-table-row {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   border-top: 1px solid var(--line);
 }
 
@@ -601,6 +602,25 @@ details p {
   align-items: center;
   justify-content: space-between;
   gap: 14px;
+}
+
+.tool-label {
+  color: var(--ink);
+  font-weight: 760;
+}
+
+.file-input {
+  width: 100%;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  background: #fffefa;
+  color: var(--ink);
+}
+
+.tool-note {
+  color: var(--muted);
+  font-size: 14px;
 }
 
 textarea {

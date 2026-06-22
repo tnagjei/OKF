@@ -1,11 +1,16 @@
 ---
 // input: resource cluster page object
-// output: SEO resource page with sections, tables, code, FAQ, related links, and CTA
+// output: SEO resource page with sections, tables, code, video, FAQ, related links, and CTA
 // pos: shared SEO cluster renderer (update rule: sync this header and src/components README when this file changes)
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CodeBlock from "./CodeBlock.astro";
 
 const { page } = Astro.props;
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 ---
 
 <BaseLayout title={page.title} description={page.description} path={page.path}>
@@ -25,7 +30,7 @@ const { page } = Astro.props;
 
     {page.sections.map((section) => (
       <section class="content-section">
-        <h2>{section.heading}</h2>
+        <h2 id={slugify(section.heading)}>{section.heading}</h2>
         {section.paragraphs?.map((paragraph) => <p set:html={paragraph} />)}
         {section.bullets && (
           <ul class="check-list">
@@ -50,6 +55,23 @@ const { page } = Astro.props;
           </div>
         )}
         {section.code && <CodeBlock code={section.code.value} label={section.code.label} />}
+        {section.video && (
+          <figure class="video-frame">
+            <div class="video-embed">
+              <iframe
+                src={section.video.embedUrl}
+                title={section.video.title}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              />
+            </div>
+            <figcaption>
+              <span>{section.video.note}</span>
+              <a href={section.video.originalUrl} rel="noreferrer">{section.video.fallbackText}</a>
+            </figcaption>
+          </figure>
+        )}
       </section>
     ))}
 

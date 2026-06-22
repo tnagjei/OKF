@@ -1,5 +1,5 @@
 # guides
-- 用途：生成 OKF how-to 问题页。
+- 用途：生成 OKF how-to 问题页，包含文件、bundle、网站与 API 转换指南。
 - 关键入口：`[slug].astro`。
 - 边界/依赖：内容来自 `src/data/seoClusters.ts`，问题页链接到 tutorial、examples 和 validator。
 > 一旦本目录内容变化，请更新本文件

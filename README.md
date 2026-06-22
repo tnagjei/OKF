@@ -1,6 +1,6 @@
 # Open Knowledge Format Guide
 
-- 用途：英文 OKF 非官方资源中心，覆盖学习、模板、示例、验证器、对比页、场景页与 how-to 问题页。
+- 用途：英文 OKF 非官方资源中心，覆盖学习、模板、示例、单文件与文件夹验证器、对比页、场景页与 how-to 问题页。
 - 技术栈：Astro 静态网站框架、TypeScript 类型脚本语言、少量浏览器端 JavaScript 网页脚本语言。
 - 域名：`https://openknowledgeformat.online`
 
@@ -12,6 +12,7 @@
 - `/okf-examples/`：示例库
 - `/okf-templates/`：模板库
 - `/okf-validator/`：浏览器端 OKF 验证器
+- `/okf-folder-validator/`：浏览器端 OKF 文件夹验证器
 - `/compare/okf-vs-mcp/`：OKF 对比 MCP
 - `/compare/okf-vs-rag/`：OKF 对比 RAG
 - `/compare/okf-vs-llms-txt/`：OKF 对比 llms.txt
@@ -29,7 +30,7 @@
 - `/use-cases/okf-for-seo/`：SEO 场景页
 - `/use-cases/okf-for-ai-search/`：AI search 场景页
 - `/templates/*-okf-template/`：独立模板详情页，共 10 个
-- `/guides/*/`：OKF how-to 问题页，共 10 个
+- `/guides/*/`：OKF how-to 问题页，共 12 个
 - `/about/`：关于本站
 - `/contact/`：联系方式
 - `/privacy/`：隐私政策
@@ -63,14 +64,17 @@ npm run dev -- --host 127.0.0.1 --port 4321
 npm run verify:browser
 ```
 
-浏览器验证会检查 375px 与 430px 移动端宽度、横向溢出、H1 数量，以及 OKF validator 正确示例和错误示例。
+浏览器验证会检查 375px 与 430px 移动端宽度、横向溢出、H1 数量，以及 OKF validator 正确示例、错误示例和 folder validator 示例 bundle。
 
-## SEO 文件说明
+## SEO 与基础文件说明
 
+- `src/pages/404.astro`：生成自定义 404.html 错误页面（不包含在 sitemap.xml 中）。
 - `src/pages/robots.txt.ts`：生成 `robots.txt`，包含 sitemap 与 AI crawler 提示。
 - `src/pages/sitemap.xml.ts`：根据 `site.config.mjs` 的路由注册表生成 sitemap。
 - `src/pages/llms.txt.ts`：生成给大语言模型读取的短版站点说明。
 - `src/pages/llms-full.txt.ts`：生成给大语言模型读取的完整版站点说明。
+- `scripts/generate-og-image.mjs`：在 prebuild 阶段自动绘制生成尺寸为 1200x630 的社交分享图 `public/og-image.png`。
+
 
 ## 关键配置
 
