@@ -7,9 +7,10 @@ import CodeBlock from "../../components/CodeBlock.astro";
 import { comparePages, sourceLinks } from "../../data/content";
 import { comparePageOverrides } from "../../data/pageOverrides";
 import { seoComparePages } from "../../data/seoClusters";
+import { comparePageAdditions } from "../../data/longTailPages";
 
 export function getStaticPaths() {
-  const pages = { ...comparePages, ...seoComparePages, ...comparePageOverrides };
+  const pages = { ...comparePages, ...seoComparePages, ...comparePageOverrides, ...comparePageAdditions };
 
   return Object.entries(pages).map(([slug, page]) => ({
     params: { slug },
