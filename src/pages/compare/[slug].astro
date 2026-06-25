@@ -4,6 +4,7 @@
 // pos: dynamic comparison route (update rule: sync this header and src/pages/compare README when this file changes)
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CodeBlock from "../../components/CodeBlock.astro";
+import LazyVideo from "../../components/LazyVideo.astro";
 import { comparePages, sourceLinks } from "../../data/content";
 import { comparePageOverrides } from "../../data/pageOverrides";
 import { seoComparePages } from "../../data/seoClusters";
@@ -69,19 +70,7 @@ const { page } = Astro.props;
         {section.code && <CodeBlock code={section.code.value} label={section.code.label} />}
         {section.video && (
           <figure class="video-frame">
-            <div class="video-embed">
-              <iframe
-                src={section.video.embedUrl}
-                title={section.video.title}
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              />
-            </div>
-            <figcaption>
-              <span>{section.video.note}</span>
-              <a href={section.video.originalUrl} rel="noreferrer">{section.video.fallbackText}</a>
-            </figcaption>
+            <LazyVideo video={section.video} />
           </figure>
         )}
       </section>

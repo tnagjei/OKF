@@ -4,6 +4,8 @@
 // pos: shared SEO cluster renderer (update rule: sync this header and src/components README when this file changes)
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CodeBlock from "./CodeBlock.astro";
+import LazyVideo from "./LazyVideo.astro";
+import { siteConfig } from "../../site.config.mjs";
 
 const { page } = Astro.props;
 const slugify = (value: string) =>
@@ -49,7 +51,7 @@ const slugify = (value: string) =>
             </div>
             {section.table.rows.map((row) => (
               <div class="mini-table-row" role="row">
-                {row.map((cell) => <div role="cell" set:html={cell} />)}
+                {row.map((cell) => <div role="cell" set:html={cell.replace(/https:\/\/example\.com/g, siteConfig.url)} />)}
               </div>
             ))}
           </div>
@@ -57,19 +59,7 @@ const slugify = (value: string) =>
         {section.code && <CodeBlock code={section.code.value} label={section.code.label} />}
         {section.video && (
           <figure class="video-frame">
-            <div class="video-embed">
-              <iframe
-                src={section.video.embedUrl}
-                title={section.video.title}
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              />
-            </div>
-            <figcaption>
-              <span>{section.video.note}</span>
-              <a href={section.video.originalUrl} rel="noreferrer">{section.video.fallbackText}</a>
-            </figcaption>
+            <LazyVideo video={section.video} />
           </figure>
         )}
       </section>

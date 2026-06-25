@@ -71,14 +71,28 @@ Explain the stable facts, boundaries, owner notes, and related links for this co
 - Examples: https://openknowledgeformat.online/okf-examples/`;
 }
 
+// 智能截断：超长时优先在空格处截断，不斩断英文单词，最后保留省略号
+function clampSmart(text: string, max: number): string {
+  if (text.length <= max) return text;
+  
+  const limit = max - 1; // 留 1 个字符位给省略号
+  const sliced = text.slice(0, limit);
+  const lastSpace = sliced.lastIndexOf(" ");
+  
+  if (lastSpace > 0) {
+    return `${sliced.slice(0, lastSpace).trimEnd()}…`;
+  }
+  return `${sliced.trimEnd()}…`;
+}
+
 // SEO 长度约束：title ≤ 60，description ≤ 160
 // 设计意图：内容来自模板拼接，经常超限；在边界处干净截断并补省略号，保持语义完整
 function clampTitle(text: string, max = 60): string {
-  return text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text;
+  return clampSmart(text, max);
 }
 
 function clampDesc(text: string, max = 160): string {
-  return text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text;
+  return clampSmart(text, max);
 }
 
 const relatedCore = [
@@ -362,6 +376,69 @@ export const useCasePages: Record<string, ClusterPage> = Object.fromEntries(
   ])
 );
 
+const templateRelatedMap: Record<string, { label: string; href: string; note: string }[]> = {
+  "website-okf-template": [
+    relatedCore[0],
+    relatedCore[1],
+    { label: "Product Docs OKF template", href: "/templates/product-docs-okf-template/", note: "Use for feature detail files." },
+    { label: "OKF for websites", href: "/use-cases/okf-for-websites/", note: "Study the full website catalog use case." }
+  ],
+  "api-okf-template": [
+    relatedCore[0],
+    relatedCore[1],
+    { label: "AI Agent Context OKF template", href: "/templates/ai-agent-context-okf-template/", note: "Use for tools routing details." },
+    { label: "OKF for API docs", href: "/use-cases/okf-for-api-docs/", note: "Read the full API catalog integration guide." }
+  ],
+  "saas-okf-template": [
+    relatedCore[0],
+    relatedCore[1],
+    { label: "Support Playbook OKF template", href: "/templates/support-playbook-okf-template/", note: "Use for triage escalation playbooks." },
+    { label: "OKF for SaaS", href: "/use-cases/okf-for-saas/", note: "Understand workspaces and role modeling." }
+  ],
+  "documentation-okf-template": [
+    relatedCore[0],
+    relatedCore[1],
+    { label: "Product Docs OKF template", href: "/templates/product-docs-okf-template/", note: "Use for product and limit guides." },
+    { label: "OKF for documentation sites", href: "/use-cases/okf-for-documentation-sites/", note: "Learn how to structure public developer documentation." }
+  ],
+  "ai-agent-context-okf-template": [
+    relatedCore[0],
+    relatedCore[1],
+    { label: "API OKF template", href: "/templates/api-okf-template/", note: "Use for model endpoint routing rules." },
+    { label: "OKF for AI agents", href: "/use-cases/okf-for-ai-agents/", note: "Expose structured context through MCP." }
+  ],
+  "data-catalog-okf-template": [
+    relatedCore[0],
+    relatedCore[1],
+    { label: "Metrics OKF template", href: "/templates/metrics-okf-template/", note: "Use for formulas and dashboard descriptions." },
+    { label: "OKF for data warehouses", href: "/use-cases/okf-for-data-warehouses/", note: "Organize metrics and tables for data consumers." }
+  ],
+  "support-playbook-okf-template": [
+    relatedCore[0],
+    relatedCore[1],
+    { label: "SaaS OKF template", href: "/templates/saas-okf-template/", note: "Use for account rules and billing limits." },
+    { label: "Common OKF errors", href: "/guides/common-okf-validation-errors/", note: "Fix frontmatter mistakes before indexing." }
+  ],
+  "product-docs-okf-template": [
+    relatedCore[0],
+    relatedCore[1],
+    { label: "Documentation OKF template", href: "/templates/documentation-okf-template/", note: "Use for CSV import templates." },
+    { label: "Create an OKF bundle", href: "/guides/how-to-create-an-okf-bundle/", note: "Create a support bundle from scratch." }
+  ],
+  "runbook-okf-template": [
+    relatedCore[0],
+    relatedCore[1],
+    { label: "Support Playbook OKF template", href: "/templates/support-playbook-okf-template/", note: "Use for escalation guidelines." },
+    { label: "Validate OKF files", href: "/guides/how-to-validate-okf-files/", note: "Learn how to inspect concepts before deployment." }
+  ],
+  "metrics-okf-template": [
+    relatedCore[0],
+    relatedCore[1],
+    { label: "Data Catalog OKF template", href: "/templates/data-catalog-okf-template/", note: "Use for dataset descriptions." },
+    { label: "OKF for data warehouses", href: "/use-cases/okf-for-data-warehouses/", note: "Define tables and schemas for consumers." }
+  ]
+};
+
 const templateSpecs = [
   ["website-okf-template", "Website OKF template", "Website Page", "Website teams turning important public URLs into reviewed knowledge files.", "Teams that need raw HTML archives or CMS migrations."],
   ["api-okf-template", "API OKF template", "API Endpoint", "API teams documenting endpoint context around OpenAPI contracts.", "Teams looking for schema validation or client generation."],
@@ -433,12 +510,8 @@ This file is missing type, description, tags, resource, and a clear concept boun
           { question: "Can I publish the template unchanged?", answer: "No. Replace sample resource links, tags, and body content first." },
           { question: "Does validation prove the content is correct?", answer: "No. Validation checks structure; humans still need to review facts and sources." }
         ],
-        related: [
-          relatedCore[0],
-          { label: "Website OKF template", href: "/templates/website-okf-template/", note: "Use for public page knowledge." },
-          { label: "API OKF template", href: "/templates/api-okf-template/", note: "Use for endpoint context." },
-          { label: "Metrics OKF template", href: "/templates/metrics-okf-template/", note: "Use for formulas and dashboards." }
-        ].slice(0, index % 3 === 0 ? 4 : 3),
+        related: templateRelatedMap[slug] || relatedCore,
+
         cta: {
           heading: "Check this template",
           text: "Paste your edited file into the validator before adding it to a bundle.",
