@@ -5,9 +5,10 @@
 import LongformPage from "../components/LongformPage.astro";
 import { longformPages } from "../data/content";
 import { longformPageOverrides } from "../data/pageOverrides";
+import { longformThirdRoundOverrides } from "../data/longTailPages";
 
 export function getStaticPaths() {
-  const pages = { ...longformPages, ...longformPageOverrides };
+  const pages = { ...longformPages, ...longformPageOverrides, ...longformThirdRoundOverrides };
 
   return Object.entries(pages).map(([slug, page]) => ({
     params: { slug },
