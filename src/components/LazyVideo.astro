@@ -1,0 +1,114 @@
+---
+// input: video embed metadata
+// output: lightweight video placeholder that loads iframe only after click
+// pos: shared lazy video component (update rule: sync this header and src/components README when this file changes)
+export type Props = {
+  embedUrl: string;
+  originalUrl: string;
+  title: string;
+  fallbackText: string;
+  note: string;
+};
+
+const { embedUrl, originalUrl, title, fallbackText, note } = Astro.props;
+---
+
+<figure class="lazy-video-frame">
+  <div class="lazy-video-placeholder" data-lazy-video data-video-src={embedUrl} data-video-title={title}>
+    <div class="lazy-video-copy">
+      <p class="eyebrow">Watch video</p>
+      <p>Load the embedded video only when needed.</p>
+      <button type="button" class="button secondary small" data-load-video>Load video</button>
+    </div>
+  </div>
+  <figcaption>
+    <span>{note}</span>
+    <a href={originalUrl} rel="noreferrer">{fallbackText}</a>
+  </figcaption>
+</figure>
+
+<script>
+  document.querySelectorAll("[data-load-video]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const placeholder = button.closest("[data-lazy-video]");
+
+      if (!placeholder || placeholder.querySelector("iframe")) {
+        return;
+      }
+
+      const iframe = document.createElement("iframe");
+      iframe.src = placeholder.getAttribute("data-video-src") || "";
+      iframe.title = placeholder.getAttribute("data-video-title") || "Embedded video";
+      iframe.loading = "lazy";
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.allowFullscreen = true;
+
+      placeholder.replaceChildren(iframe);
+      placeholder.classList.add("is-loaded");
+    });
+  });
+</script>
+
+<style>
+  .lazy-video-frame {
+    display: grid;
+    gap: 10px;
+    max-width: 850px;
+    min-width: 0;
+    margin: 8px 0 0;
+  }
+
+  .lazy-video-placeholder {
+    position: relative;
+    display: grid;
+    min-height: 220px;
+    min-width: 0;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #151712;
+    aspect-ratio: 16 / 9;
+    box-shadow: var(--shadow);
+  }
+
+  .lazy-video-placeholder iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .lazy-video-copy {
+    display: grid;
+    max-width: min(100% - 32px, 420px);
+    gap: 10px;
+    justify-items: center;
+    color: #dcebd7;
+    text-align: center;
+  }
+
+  .lazy-video-copy p:not(.eyebrow) {
+    color: #dcebd7;
+  }
+
+  .lazy-video-frame figcaption {
+    display: grid;
+    gap: 4px;
+    color: var(--muted);
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 480px) {
+    .lazy-video-placeholder {
+      min-height: 190px;
+    }
+
+    .lazy-video-copy {
+      max-width: min(100% - 24px, 360px);
+    }
+  }
+</style>
