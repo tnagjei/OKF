@@ -4,9 +4,12 @@
 // pos: dynamic guide route (update rule: sync this header and src/pages/guides README when this file changes)
 import ClusterPage from "../../components/ClusterPage.astro";
 import { guidePages } from "../../data/seoClusters";
+import { guidePageAdditions } from "../../data/longTailPages";
 
 export function getStaticPaths() {
-  return Object.entries(guidePages).map(([slug, page]) => ({
+  const pages = { ...guidePages, ...guidePageAdditions };
+
+  return Object.entries(pages).map(([slug, page]) => ({
     params: { slug },
     props: { page }
   }));
