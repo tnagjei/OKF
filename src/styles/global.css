@@ -856,3 +856,128 @@ textarea {
     margin-left: 12px;
   }
 }
+
+/* Mobile overflow guardrails for first-round SEO content updates. */
+img,
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+}
+
+.home-hero,
+.page-hero,
+.band,
+.split-section,
+.panel-grid,
+.faq-section,
+.validator-layout,
+.compare-table-section,
+.content-section,
+.library-section,
+.mini-grid,
+.library-item,
+.library-copy,
+.compare-table,
+.compare-row,
+.mini-table,
+.mini-table-row,
+.code-frame,
+.video-frame,
+.frontmatter-card,
+.info-panel,
+.mini-panel,
+.validator-panel,
+.conclusion-panel,
+.cta-strip,
+.result-panel {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.home-hero > *,
+.split-section > *,
+.panel-grid > *,
+.validator-layout > *,
+.content-section > *,
+.compare-table-section > *,
+.library-section > *,
+.library-item > *,
+.mini-grid > *,
+.compare-row > div,
+.mini-table-row > div,
+.footer-grid > * {
+  min-width: 0;
+}
+
+.page-hero,
+.hero-copy,
+.content-section,
+.content-section p,
+.content-section li,
+.library-copy,
+.library-copy p,
+.library-copy li,
+.faq-section p,
+.mini-panel,
+.info-panel,
+.validator-panel,
+.compare-row > div,
+.mini-table-row > div,
+.video-frame figcaption,
+p code,
+li code,
+a {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.code-frame {
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.code-frame figcaption {
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.code-frame figcaption span {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.copy-button {
+  flex: 0 0 auto;
+  max-width: 100%;
+}
+
+.code-frame pre,
+.result-panel pre {
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.code-frame pre code,
+.result-panel pre code {
+  overflow-wrap: normal;
+  word-break: normal;
+  white-space: pre;
+}
+
+@media (max-width: 480px) {
+  .code-frame figcaption {
+    align-items: flex-start;
+  }
+
+  .copy-button {
+    width: auto;
+  }
+}
