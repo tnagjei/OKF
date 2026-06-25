@@ -8,6 +8,9 @@ import { exampleLibrary, templateLibrary, sourceLinks } from "../data/content";
 
 const { page } = Astro.props;
 const library = page.kind === "templates" ? templateLibrary : page.kind === "examples" ? exampleLibrary : [];
+const libraryScenarioLabel = page.kind === "examples" ? "Who it is for" : "Use case";
+const libraryCodeLabel = page.kind === "examples" ? "Copy-ready example" : "Copy-ready template";
+const libraryMistakeLabel = page.kind === "examples" ? "Common mistake" : "Common mistakes";
 ---
 
 <BaseLayout title={page.title} description={page.description} path={page.path}>
@@ -65,12 +68,15 @@ const library = page.kind === "templates" ? templateLibrary : page.kind === "exa
             <div class="library-copy">
               <p class="eyebrow">{page.kind === "templates" ? "Template" : "Example"}</p>
               <h2>{item.title}</h2>
+              <h3>{libraryScenarioLabel}</h3>
               <p>{item.scenario}</p>
+              <h3>{libraryCodeLabel}</h3>
+              <p>Use the code block beside this note as the starting point, then update the sample paths and field values.</p>
               <h3>Field notes</h3>
               <ul>
                 {item.fields.map((field) => <li set:html={field} />)}
               </ul>
-              <h3>Common mistakes</h3>
+              <h3>{libraryMistakeLabel}</h3>
               <ul>
                 {item.mistakes.map((mistake) => <li>{mistake}</li>)}
               </ul>
@@ -78,6 +84,9 @@ const library = page.kind === "templates" ? templateLibrary : page.kind === "exa
               <p>{item.nextStep}</p>
               {page.kind === "templates" && (
                 <p><a href="/okf-validator/">Validate this OKF template</a></p>
+              )}
+              {page.kind === "examples" && (
+                <p><a href="/okf-validator/">Validate this example</a></p>
               )}
             </div>
             <CodeBlock code={item.code} label={item.title} />
