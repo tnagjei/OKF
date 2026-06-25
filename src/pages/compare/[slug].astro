@@ -1,0 +1,99 @@
+---
+// input: comparison slug route param
+// output: generated comparison pages with tables, optional code, videos, and sources
+// pos: dynamic comparison route (update rule: sync this header and src/pages/compare README when this file changes)
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import { comparePages, sourceLinks } from "../../data/content";
+import { comparePageOverrides } from "../../data/pageOverrides";
+import { seoComparePages } from "../../data/seoClusters";
+
+const mergedComparePages = { ...comparePages, ...seoComparePages, ...comparePageOverrides };
+
+export function getStaticPaths() {
+  return Object.entries(mergedComparePages).map(([slug, page]) => ({
+    params: { slug },
+    props: { page }
+  }));
+}
+
+const { page } = Astro.props;
+---
+
+<BaseLayout title={page.title} description={page.description} path={page.path}>
+  <main class="page-shell">
+    <section class="page-hero narrow-hero">
+      <p class="eyebrow">{page.eyebrow}</p>
+      <h1>{page.h1}</h1>
+      <p class="hero-copy">{page.intro}</p>
+    </section>
+
+    <section class="compare-table-section">
+      <h2>Quick comparison</h2>
+      <div class="compare-table" role="table" aria-label={`${page.h1} comparison table`}>
+        <div class="compare-row compare-head" role="row">
+          <div role="columnheader">Question</div>
+          <div role="columnheader">OKF</div>
+          <div role="columnheader">Other concept</div>
+        </div>
+        {page.summaryRows.map((row) => (
+          <div class="compare-row" role="row">
+            <div role="cell">{row.label}</div>
+            <div role="cell">{row.okf}</div>
+            <div role="cell">{row.other}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {page.sections.map((section) => (
+      <section class="content-section">
+        <h2>{section.heading}</h2>
+        {section.paragraphs?.map((paragraph) => <p set:html={paragraph} />)}
+        {section.bullets && (
+          <ul class="check-list">
+            {section.bullets.map((bullet) => <li set:html={bullet} />)}
+          </ul>
+        )}
+        {section.subsections && (
+          <div class="mini-grid">
+            {section.subsections.map((item) => (
+              <article class="mini-panel">
+                <h3>{item.heading}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+        )}
+        {section.code && <CodeBlock code={section.code.value} label={section.code.label} />}
+        {section.video && (
+          <figure class="video-frame">
+            <div class="video-embed">
+              <iframe
+                src={section.video.embedUrl}
+                title={section.video.title}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              />
+            </div>
+            <figcaption>
+              <span>{section.video.note}</span>
+              <a href={section.video.originalUrl} rel="noreferrer">{section.video.fallbackText}</a>
+            </figcaption>
+          </figure>
+        )}
+      </section>
+    ))}
+
+    <section class="content-section source-note">
+      <h2>Source boundary</h2>
+      <p>
+        This comparison uses official sources for definitions where available. Workflow recommendations are practical judgments, not official certification.
+      </p>
+      <ul>
+        {sourceLinks.map((source) => <li><a href={source.href} rel="noreferrer">{source.label}</a></li>)}
+      </ul>
+    </section>
+  </main>
+</BaseLayout>
