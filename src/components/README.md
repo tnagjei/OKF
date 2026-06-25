@@ -9,4 +9,4 @@
 - `ClusterPage.astro`：SEO 资源中心页面渲染组件，支持步骤、表格、视频、FAQ、内链和 CTA。
 - `Footer.astro`：全站页脚与非官方声明。
 - `Header.astro`：全站导航。
-- `LongformPage.astro`：通用内容页渲染组件，支持正文、代码块、视频嵌入，并在模板库模块中追加验证器入口。
+- `LongformPage.astro`：通用内容页渲染组件，支持正文、代码块、视频嵌入，并在模板库和示例库模块中追加验证器入口。
