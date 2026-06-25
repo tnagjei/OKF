@@ -1,0 +1,21 @@
+---
+// input: slug route param
+// output: generated longform content pages
+// pos: dynamic standard page route (update rule: sync this header and src/pages README when this file changes)
+import LongformPage from "../components/LongformPage.astro";
+import { longformPages } from "../data/content";
+import { longformPageOverrides } from "../data/pageOverrides";
+
+export function getStaticPaths() {
+  const pages = { ...longformPages, ...longformPageOverrides };
+
+  return Object.entries(pages).map(([slug, page]) => ({
+    params: { slug },
+    props: { page }
+  }));
+}
+
+const { page } = Astro.props;
+---
+
+<LongformPage page={page} />
