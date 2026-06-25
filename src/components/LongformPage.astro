@@ -76,6 +76,9 @@ const library = page.kind === "templates" ? templateLibrary : page.kind === "exa
               </ul>
               <h3>Recommended next step</h3>
               <p>{item.nextStep}</p>
+              {page.kind === "templates" && (
+                <p><a href="/okf-validator/">Validate this OKF template</a></p>
+              )}
             </div>
             <CodeBlock code={item.code} label={item.title} />
           </article>

@@ -5,10 +5,13 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CodeBlock from "../../components/CodeBlock.astro";
 import { comparePages, sourceLinks } from "../../data/content";
+import { comparePageOverrides } from "../../data/pageOverrides";
 import { seoComparePages } from "../../data/seoClusters";
 
 export function getStaticPaths() {
-  return Object.entries({ ...comparePages, ...seoComparePages }).map(([slug, page]) => ({
+  const pages = { ...comparePages, ...seoComparePages, ...comparePageOverrides };
+
+  return Object.entries(pages).map(([slug, page]) => ({
     params: { slug },
     props: { page }
   }));
