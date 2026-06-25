@@ -11,7 +11,8 @@ const {
   title,
   description,
   path = "/",
-  image = "/og-image.png"
+  image = "/og-image.png",
+  noindex = false
 } = Astro.props;
 
 const canonicalUrl = new URL(path, siteConfig.url).href;
@@ -84,11 +85,122 @@ if (webApplicationLd) {
 if (articleLd) {
   jsonLdBlocks.push({ "@context": "https://schema.org", ...articleLd });
 }
+
+// 动态计算 siteRoot 域名（非 www、且带尾斜杠）
+const siteRoot = siteConfig.url.endsWith("/") ? siteConfig.url : `${siteConfig.url}/`;
+
+// 绝对路径生成函数，确保域名非 www、带尾斜杠且与 canonical 共享数据源
+const absoluteUrl = (subPath: string) => {
+  const cleanPath = subPath.startsWith("/") ? subPath.slice(1) : subPath;
+  return new URL(cleanPath, siteRoot).href;
+};
+
+// 规范化 path 为以 / 开头且以 / 结尾的格式；首页 "/" 保持为 "/"
+const formatPath = (p: string) => {
+  if (p === "/") return "/";
+  let clean = p;
+  if (!clean.startsWith("/")) clean = "/" + clean;
+  if (!clean.endsWith("/")) clean = clean + "/";
+  return clean;
+};
+const normalizedPath = formatPath(path);
+
+const baseBreadcrumb = { name: "Home", item: siteRoot };
+const breadcrumbMap: Record<string, { name: string; item: string }[]> = {
+  "/what-is-okf/": [
+    baseBreadcrumb,
+    { name: "What is OKF", item: absoluteUrl("/what-is-okf/") }
+  ],
+  "/okf-templates/": [
+    baseBreadcrumb,
+    { name: "Templates", item: absoluteUrl("/okf-templates/") }
+  ],
+  "/okf-tutorial/": [
+    baseBreadcrumb,
+    { name: "Tutorial", item: absoluteUrl("/okf-tutorial/") }
+  ],
+  "/okf-examples/": [
+    baseBreadcrumb,
+    { name: "Examples", item: absoluteUrl("/okf-examples/") }
+  ],
+  "/okf-validator/": [
+    baseBreadcrumb,
+    { name: "Validator", item: absoluteUrl("/okf-validator/") }
+  ],
+  "/okf-folder-validator/": [
+    baseBreadcrumb,
+    { name: "Folder Validator", item: absoluteUrl("/okf-folder-validator/") }
+  ],
+  "/compare/okf-vs-rag/": [
+    baseBreadcrumb,
+    { name: "OKF vs RAG", item: absoluteUrl("/compare/okf-vs-rag/") }
+  ],
+  "/compare/okf-vs-mcp/": [
+    baseBreadcrumb,
+    { name: "OKF vs MCP", item: absoluteUrl("/compare/okf-vs-mcp/") }
+  ],
+  "/guides/how-to-create-an-okf-bundle/": [
+    baseBreadcrumb,
+    { name: "How to create an OKF bundle", item: absoluteUrl("/guides/how-to-create-an-okf-bundle/") }
+  ],
+  "/guides/how-to-validate-okf-files/": [
+    baseBreadcrumb,
+    { name: "How to validate OKF files", item: absoluteUrl("/guides/how-to-validate-okf-files/") }
+  ]
+};
+
+// 检查是否命中面包屑映射表
+const matchedBreadcrumbs = breadcrumbMap[normalizedPath];
+if (matchedBreadcrumbs) {
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": matchedBreadcrumbs.map((crumb, idx) => ({
+      "@type": "ListItem",
+      "position": idx + 1,
+      "name": crumb.name,
+      "item": crumb.item
+    }))
+  };
+  jsonLdBlocks.push(breadcrumbLd);
+}
+
+// 仅 compare 和 guides 设为 article，其余全为 website
+const ogType = (path.startsWith("/compare/") || path.startsWith("/guides/")) ? "article" : "website";
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="yandex-verification" content="91c4416c6b7be047" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Open Knowledge Format Guide" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {jsonLdBlocks.map((block) => (
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(block)} />
+    ))}
     {siteConfig.analytics?.googleAnalyticsId && (
       <>
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analytics.googleAnalyticsId}`} is:inline></script>
@@ -103,28 +215,6 @@ if (articleLd) {
     {siteConfig.analytics?.adsenseClient && (
       <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${siteConfig.analytics.adsenseClient}`} crossorigin="anonymous" is:inline></script>
     )}
-    <meta charset="utf-8" />
-    <meta name="yandex-verification" content="91c4416c6b7be047" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta name="keywords" content="" />
-    <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/icon-32.png" sizes="32x32" type="image/png" />
-    <link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={ogImageUrl} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={ogImageUrl} />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
     {siteConfig.analytics?.clarityId && (
       <script type="text/javascript" is:inline set:html={`
         (function(c,l,a,r,i,t,y){
@@ -134,9 +224,6 @@ if (articleLd) {
         })(window, document, "clarity", "script", "${siteConfig.analytics.clarityId}");
       `} />
     )}
-    {jsonLdBlocks.map((block) => (
-      <script type="application/ld+json" is:inline set:html={JSON.stringify(block)} />
-    ))}
   </head>
   <body>
     <Header activePath={path} />
