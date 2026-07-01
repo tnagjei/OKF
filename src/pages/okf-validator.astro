@@ -47,22 +47,25 @@ This document has a heading but no simple frontmatter block.`;
       </aside>
     </section>
 
-    <section class="panel-grid three cta-grid" aria-label="Validator quick actions">
-      <article class="info-panel action-panel">
-        <h2>Paste OKF Markdown</h2>
-        <p>Use one Markdown file with YAML frontmatter at the top.</p>
-        <a class="button secondary" href="/guides/okf-file-example/">View File Example</a>
-      </article>
-      <article class="info-panel action-panel">
-        <h2>Check YAML frontmatter</h2>
-        <p>Review type, title, description, tags, resource, and timestamp fields.</p>
-        <a class="button ghost" href="/guides/okf-yaml-frontmatter/">Read Frontmatter Guide</a>
-      </article>
-      <article class="info-panel action-panel">
-        <h2>No upload</h2>
-        <p>The check runs in the browser. The pasted Markdown is not sent to this website by the validator.</p>
-        <a class="button ghost" href="/okf-templates/">Copy Templates</a>
-      </article>
+    <section class="content-section">
+      <h2>Validator quick actions</h2>
+      <div class="panel-grid three cta-grid" aria-label="Validator quick actions">
+        <article class="info-panel action-panel">
+          <h3>Paste OKF Markdown</h3>
+          <p>Use one Markdown file with YAML frontmatter at the top.</p>
+          <a class="button secondary" href="/guides/okf-file-example/">View File Example</a>
+        </article>
+        <article class="info-panel action-panel">
+          <h3>Check YAML frontmatter</h3>
+          <p>Review type, title, description, tags, resource, and timestamp fields.</p>
+          <a class="button ghost" href="/guides/okf-yaml-frontmatter/">Read Frontmatter Guide</a>
+        </article>
+        <article class="info-panel action-panel">
+          <h3>No upload</h3>
+          <p>The check runs in the browser. The pasted Markdown is not sent to this website by the validator.</p>
+          <a class="button ghost" href="/okf-templates/">Copy Templates</a>
+        </article>
+      </div>
     </section>
 
     <section class="content-section">
@@ -79,11 +82,14 @@ This document has a heading but no simple frontmatter block.`;
 
     <section class="content-section">
       <h2>Required OKF fields</h2>
-      <p>
-        This validator treats <code>type</code> as the required OKF field. It also reports missing recommended fields because they make snippets, previews, indexes, and bundle review easier.
-      </p>
+      <h3>Required field</h3>
+      <p>This validator treats <code>type</code> as the required OKF field.</p>
       <ul class="check-list">
         <li><code>type</code>: the concept category.</li>
+      </ul>
+      <h3>Recommended fields</h3>
+      <p>These fields are not required, but they make snippets, previews, indexes, and bundle review easier.</p>
+      <ul class="check-list">
         <li><code>title</code>: the readable file name.</li>
         <li><code>description</code>: a one-sentence summary.</li>
         <li><code>tags</code>: an inline array for grouping related files.</li>
