@@ -1039,65 +1039,64 @@ export const comparePages: Record<string, ComparePage> = {
     h1: "OKF vs MCP",
     eyebrow: "Comparison",
     intro:
-      "Use OKF to organize knowledge. Use MCP to connect tools. Use both when an agent needs structured context and controlled actions.",
+      "MCP connects tools. OKF organizes knowledge. Use both when an agent needs structured context and controlled actions.",
     summaryRows: [
       {
-        label: "Primary role",
-        okf: "Organizes curated knowledge as Markdown files with frontmatter.",
-        other: "Connects AI systems to tools, resources, and external capabilities."
+        label: "Purpose",
+        okf: "Organize knowledge content into readable files with metadata.",
+        other: "Connect AI applications to tools, resources, and data sources."
       },
       {
-        label: "Artifact",
-        okf: "A folder, repository, archive, or static bundle of concept files.",
-        other: "A runtime protocol between an AI client and an MCP server."
+        label: "Best for",
+        okf: "Stable knowledge packs, documentation context, support notes, and data catalogs.",
+        other: "Tool access, runtime integration, controlled actions, and resource discovery."
       },
       {
-        label: "Best fit",
-        okf: "Portable knowledge packages, docs, data catalogs, support playbooks.",
-        other: "Runtime tool access, system integration, and controlled agent actions."
+        label: "Input",
+        okf: "Markdown files with YAML metadata, links, citations, and body sections.",
+        other: "Client requests, server capabilities, tools, resources, and prompts."
       },
       {
-        label: "Team owner",
-        okf: "Docs, product, data, support, and SEO teams that curate source knowledge.",
-        other: "Engineering teams that expose tools, resources, prompts, and integrations."
+        label: "Output",
+        okf: "Structured knowledge that an agent or reviewer can inspect before use.",
+        other: "A connection layer for calling tools or reading resources through a protocol."
       },
       {
-        label: "Relationship",
-        okf: "Can provide clean context that an MCP server exposes or reads.",
-        other: "Can serve, search, or update OKF bundles through a tool interface."
+        label: "Can work together",
+        okf: "Yes. OKF can be the structured input an MCP server reads or exposes.",
+        other: "Yes. MCP can serve, search, validate, or update OKF bundles."
       }
     ],
     sections: [
       {
         heading: "The short answer",
         paragraphs: [
-          "MCP is about connection. It gives an AI client a standard way to use tools and resources exposed by a server.",
-          "OKF is about organization. It gives people and agents a consistent way to read curated knowledge from ordinary files. The two ideas can work together, but one is not a substitute for the other."
+          "MCP connects tools. OKF organizes knowledge. MCP, Model Context Protocol, is not a replacement for OKF, Open Knowledge Format.",
+          "OKF can act as structured input when an MCP server reads knowledge. MCP is closer to a connection layer. OKF is closer to a knowledge format layer."
         ]
       },
       {
-        heading: "When to use OKF",
-        bullets: [
-          "Use OKF when source knowledge is scattered across docs, website pages, support playbooks, or data notes.",
-          "Use OKF when reviewers need normal Markdown files that can live in Git.",
-          "Use OKF when agents should inspect context, citations, and links before loading large documents.",
-          "Use OKF when the main problem is source clarity, not live tool access."
-        ]
-      },
-      {
-        heading: "When to use MCP",
-        bullets: [
-          "Use MCP when an agent needs controlled access to tools, databases, calendars, ticket systems, or internal resources.",
-          "Use MCP when the important boundary is runtime permission and tool execution.",
-          "Use MCP when a client needs a standard way to discover and call server capabilities."
-        ]
-      },
-      {
-        heading: "How OKF and MCP can work together",
-        bullets: [
-          "A team stores product, support, and data context as OKF files.",
-          "An MCP server exposes search, read, validate, or update operations for those files.",
-          "An agent uses MCP to access the right OKF document instead of loading an unstructured folder."
+        heading: "Choosing the right layer",
+        paragraphs: [
+          'Use this section to decide whether your current problem is tool access, knowledge structure, or both. For retrieval context, compare <a href="/compare/okf-vs-rag/">OKF vs RAG</a>. For source files, start with <a href="/okf-templates/">OKF templates</a>, inspect working <a href="/okf-examples/">OKF examples</a>, and check files with the <a href="/okf-validator/">OKF validator</a>.'
+        ],
+        subsections: [
+          {
+            heading: "When to use MCP",
+            text: "Use MCP when an AI client needs controlled access to tools, databases, calendars, ticket systems, internal resources, or live actions."
+          },
+          {
+            heading: "When to use OKF",
+            text: "Use OKF when source knowledge is scattered and needs readable files, YAML metadata, links, citations, and stable review boundaries."
+          },
+          {
+            heading: "How MCP and OKF work together",
+            text: "Store knowledge as OKF files, then let an MCP server expose search, read, validate, or update operations for those files."
+          },
+          {
+            heading: "Common confusion between MCP and OKF",
+            text: "MCP does not organize your knowledge by itself. OKF does not connect an agent to live tools by itself."
+          }
         ]
       },
       {
@@ -1127,6 +1126,10 @@ export const comparePages: Record<string, ComparePage> = {
           {
             heading: "Which should I build first?",
             text: "If your knowledge is messy, start with OKF. If your agent cannot reach tools safely, start with MCP."
+          },
+          {
+            heading: "Can OKF be used as MCP input?",
+            text: "Yes. OKF files can provide structured knowledge for an MCP server to read, search, or return as context."
           }
         ]
       }
@@ -1172,14 +1175,49 @@ export const comparePages: Record<string, ComparePage> = {
       {
         heading: "The short answer",
         paragraphs: [
-          "OKF prepares the source knowledge. RAG retrieves the relevant pieces when a user asks a question. They are two different layers in an AI answer system.",
-          "If source documents are vague, outdated, or mixed together, a retrieval system can still return weak context. OKF can help reviewers clean the source before indexing, but it does not make RAG unnecessary."
+          "RAG, Retrieval Augmented Generation, is a retrieval and generation method. OKF, Open Knowledge Format, is a knowledge organization format.",
+          "RAG solves how to find content. OKF solves how content is organized before it is searched, reviewed, or indexed. They are not replacements for each other and can work together."
         ]
       },
       {
-        heading: "Where OKF fits before RAG",
+        heading: "How the two layers differ",
         paragraphs: [
-          "OKF gives source files predictable metadata and body structure. Titles, descriptions, tags, resource identifiers, citations, and links can help indexing, filtering, and human review before content enters a retrieval pipeline."
+          "OKF gives source files predictable metadata and body structure. Titles, descriptions, tags, resource identifiers, citations, and links can help indexing, filtering, and human review before content enters a retrieval pipeline.",
+          'If you are new to the format, start with <a href="/what-is-okf/">what OKF means</a>, then compare <a href="/okf-templates/">OKF templates</a> and <a href="/okf-examples/">OKF examples</a> before checking files in the <a href="/okf-validator/">OKF validator</a>.'
+        ],
+        subsections: [
+          {
+            heading: "OKF vs RAG: quick difference",
+            text: "OKF shapes the source corpus. RAG searches that corpus and passes selected context to a model at answer time."
+          },
+          {
+            heading: "When to use OKF with RAG",
+            text: "Use OKF before RAG when documents are inconsistent, metadata is missing, citations are weak, or reviewers need cleaner files before indexing."
+          }
+        ]
+      },
+      {
+        heading: "Workflow example",
+        paragraphs: [
+          "A simple OKF RAG workflow keeps content cleanup separate from retrieval behavior. That separation makes it easier to test whether poor answers come from weak source files or weak retrieval."
+        ],
+        bullets: [
+          "Collect source documents.",
+          "Structure knowledge with OKF.",
+          "Add YAML metadata.",
+          "Index the content for retrieval.",
+          "Use RAG to retrieve relevant context.",
+          "Generate answers with cleaner context."
+        ],
+        subsections: [
+          {
+            heading: "RAG vs OKF workflow example",
+            text: "RAG starts from a query and retrieves context. OKF starts earlier by making the source documents easier to index, filter, and review."
+          },
+          {
+            heading: "Common mistakes when using OKF with RAG",
+            text: "Do not treat OKF as a retrieval engine, skip retrieval evaluation, or assume cleaner files automatically fix stale or missing source facts."
+          }
         ]
       },
       {
@@ -1198,6 +1236,10 @@ export const comparePages: Record<string, ComparePage> = {
           "Validate frontmatter and review claims.",
           "Index the OKF bundle into your retrieval system.",
           "Evaluate answer quality against source files, not only model output."
+        ],
+        paragraphs: [
+          "Can OKF improve RAG retrieval? It can improve the source structure that retrieval uses: cleaner titles, metadata, tags, and citations can make filtering and review easier. It does not guarantee better ranking, recall, or answer accuracy by itself.",
+          "Is OKF a replacement for RAG? No. A RAG system still needs retrieval logic, indexing, ranking, prompt assembly, and evaluation."
         ]
       },
       {
@@ -1217,16 +1259,20 @@ export const comparePages: Record<string, ComparePage> = {
         heading: "FAQ",
         subsections: [
           {
-            heading: "Does OKF replace a vector database?",
-            text: "No. OKF is source structure. A vector database or search index may still be used for retrieval."
+            heading: "Is OKF the same as RAG?",
+            text: "No. OKF is a format for organizing knowledge. RAG is a method for retrieving context and generating answers."
           },
           {
-            heading: "Does RAG need OKF?",
-            text: "No. RAG can index many content shapes. OKF is useful when the source corpus needs clearer files, metadata, links, and citations."
+            heading: "Does OKF replace RAG?",
+            text: "No. OKF can prepare source files, but RAG still handles retrieval, context selection, and answer generation."
           },
           {
-            heading: "What should I fix when answers are wrong?",
-            text: "Check both layers: the OKF source quality and the retrieval behavior."
+            heading: "Can OKF improve RAG retrieval quality?",
+            text: "It can help when poor structure is the problem. It does not fix weak indexing, stale content, or bad ranking rules."
+          },
+          {
+            heading: "When should I use OKF before building a RAG system?",
+            text: "Use it before indexing when documents are mixed, duplicated, hard to review, or missing useful metadata."
           }
         ]
       }

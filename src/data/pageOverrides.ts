@@ -251,14 +251,25 @@ export const comparePageOverrides = {
       {
         heading: "The short answer",
         paragraphs: [
-          "OKF prepares the source knowledge. RAG retrieves the relevant pieces when a user asks a question. They are two different layers in an AI answer system.",
-          "If source documents are vague, outdated, or mixed together, a retrieval system can still return weak context. OKF can help reviewers clean the source before indexing, but it does not make RAG unnecessary."
+          "RAG, Retrieval Augmented Generation, is a retrieval and generation method. OKF, Open Knowledge Format, is a knowledge organization format.",
+          "RAG solves how to find content. OKF solves how content is organized before it is searched, reviewed, or indexed. They are not replacements for each other and can work together."
         ]
       },
       {
-        heading: "Where OKF fits before RAG",
+        heading: "How the two layers differ",
         paragraphs: [
-          "OKF gives source files predictable metadata and body structure. Titles, descriptions, tags, resource identifiers, citations, and links can help indexing, filtering, and human review before content enters a retrieval pipeline."
+          "OKF gives source files predictable metadata and body structure. Titles, descriptions, tags, resource identifiers, citations, and links can help indexing, filtering, and human review before content enters a retrieval pipeline.",
+          'If you are new to the format, start with <a href="/what-is-okf/">what OKF means</a>, then compare <a href="/okf-templates/">OKF templates</a> and <a href="/okf-examples/">OKF examples</a> before checking files in the <a href="/okf-validator/">OKF validator</a>.'
+        ],
+        subsections: [
+          {
+            heading: "OKF vs RAG: quick difference",
+            text: "OKF shapes the source corpus. RAG searches that corpus and passes selected context to a model at answer time."
+          },
+          {
+            heading: "When to use OKF with RAG",
+            text: "Use OKF before RAG when documents are inconsistent, metadata is missing, citations are weak, or reviewers need cleaner files before indexing."
+          }
         ]
       },
       {
@@ -271,30 +282,28 @@ export const comparePageOverrides = {
         ]
       },
       {
-        heading: "When to use OKF with RAG",
-        bullets: [
-          "Use OKF with RAG when your source corpus contains many overlapping documents that need clearer boundaries.",
-          "Use OKF when reviewers need to add titles, descriptions, tags, citations, and canonical resource links before indexing.",
-          "Use OKF when answers fail because retrieved chunks lack source ownership, freshness, or business context.",
-          "Use OKF when your team wants Markdown files that can be reviewed in Git before they enter a retrieval pipeline.",
-          "Do not use OKF as a substitute for retrieval evaluation, chunk testing, or answer-quality review."
-        ]
-      },
-      {
-        heading: "OKF and RAG workflow example",
+        heading: "Workflow example",
         paragraphs: [
-          "A practical workflow starts with source cleanup, not model tuning. First, split durable concepts into OKF files. Second, validate the frontmatter. Third, index the OKF bundle in your retrieval system. Fourth, test whether user questions retrieve the right OKF files before judging the generated answer."
+          "A simple OKF RAG workflow keeps content cleanup separate from retrieval behavior. That separation makes it easier to test whether poor answers come from weak source files or weak retrieval."
         ],
         bullets: [
-          "Docs team creates one OKF file for each product concept, API endpoint, support playbook, or data table.",
-          "Each file gets type, title, description, resource, tags, timestamp, body sections, and citations.",
-          "The retrieval system indexes those files and keeps metadata available for filtering and reranking.",
-          "Evaluation checks both retrieval quality and source accuracy."
+          "Collect source documents.",
+          "Structure knowledge with OKF.",
+          "Add YAML metadata.",
+          "Index the content for retrieval.",
+          "Use RAG to retrieve relevant context.",
+          "Generate answers with cleaner context."
         ],
-        code: {
-          label: "OKF to RAG workflow",
-          value: `Source docs -> OKF files -> frontmatter validation -> indexing -> retrieval test -> answer evaluation`
-        }
+        subsections: [
+          {
+            heading: "RAG vs OKF workflow example",
+            text: "RAG starts from a query and retrieves context. OKF starts earlier by making the source documents easier to index, filter, and review."
+          },
+          {
+            heading: "Common mistakes when using OKF with RAG",
+            text: "Do not treat OKF as a retrieval engine, skip retrieval evaluation, or assume cleaner files automatically fix stale or missing source facts."
+          }
+        ]
       },
       {
         heading: "Use both together",
@@ -303,6 +312,10 @@ export const comparePageOverrides = {
           "Validate frontmatter and review claims.",
           "Index the OKF bundle into your retrieval system.",
           "Evaluate answer quality against source files, not only model output."
+        ],
+        paragraphs: [
+          "Can OKF improve RAG retrieval? It can improve the source structure that retrieval uses: cleaner titles, metadata, tags, and citations can make filtering and review easier. It does not guarantee better ranking, recall, or answer accuracy by itself.",
+          "Is OKF a replacement for RAG? No. A RAG system still needs retrieval logic, indexing, ranking, prompt assembly, and evaluation."
         ]
       },
       {
@@ -331,16 +344,20 @@ export const comparePageOverrides = {
         heading: "FAQ",
         subsections: [
           {
-            heading: "Does OKF replace a vector database?",
-            text: "No. OKF is source structure. A vector database or search index may still be used for retrieval."
+            heading: "Is OKF the same as RAG?",
+            text: "No. OKF is a format for organizing knowledge. RAG is a method for retrieving context and generating answers."
           },
           {
-            heading: "Does RAG need OKF?",
-            text: "No. RAG can index many content shapes. OKF is useful when the source corpus needs clearer files, metadata, links, and citations."
+            heading: "Does OKF replace RAG?",
+            text: "No. OKF can prepare source files, but RAG still handles retrieval, context selection, and answer generation."
           },
           {
-            heading: "What should I fix when answers are wrong?",
-            text: "Check both layers: the OKF source quality and the retrieval behavior."
+            heading: "Can OKF improve RAG retrieval quality?",
+            text: "It can help when poor structure is the problem. It does not fix weak indexing, stale content, or bad ranking rules."
+          },
+          {
+            heading: "When should I use OKF before building a RAG system?",
+            text: "Use it before indexing when documents are mixed, duplicated, hard to review, or missing useful metadata."
           }
         ]
       }
