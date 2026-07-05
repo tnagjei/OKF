@@ -1356,6 +1356,15 @@ export const comparePages: Record<string, ComparePage> = {
         ]
       },
       {
+        heading: "Related OKF resources",
+        bullets: [
+          '<a href="/okf-examples/">OKF Examples</a> for deeper bundle patterns after a link-list entry point.',
+          '<a href="/okf-templates/">OKF Templates</a> for copy-ready concept files.',
+          '<a href="/okf-folder-validator/">OKF Folder Validator</a> for checking local bundle structure.',
+          '<a href="/guides/validate-okf-bundle/">Validate OKF Bundle</a> before publishing a multi-file knowledge package.'
+        ]
+      },
+      {
         heading: "Visual background on llms.txt",
         paragraphs: [
           "This video is included as visual background for llms.txt only. It does not prove SEO impact or AI citation gains."

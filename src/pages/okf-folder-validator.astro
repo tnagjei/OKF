@@ -12,8 +12,8 @@ const sampleBundle = `bundle/
 ---
 
 <BaseLayout
-  title="OKF Folder Validator: Check Your Bundle"
-  description="Validate an OKF bundle folder in your browser for Markdown files, frontmatter, type fields, index.md, links, and resource warnings."
+  title="OKF Folder Validator: Check Open Knowledge Format Bundles"
+  description="Validate an OKF bundle folder in your browser for Markdown files, frontmatter, type fields, index.md, internal links, and duplicate resources."
   path="/okf-folder-validator/"
 >
   <main class="page-shell">
@@ -56,7 +56,7 @@ const sampleBundle = `bundle/
     </section>
 
     <section class="compare-table-section">
-      <h2>Bundle checks</h2>
+      <h2>OKF bundle validation checks</h2>
       <div class="compare-table" role="table" aria-label="OKF bundle validation checks">
         <div class="compare-row compare-head" role="row">
           <div role="columnheader">Check</div>
@@ -97,7 +97,7 @@ const sampleBundle = `bundle/
     </section>
 
     <section class="content-section">
-      <h2>How the browser-only workflow works</h2>
+      <h2>How to check an OKF folder</h2>
       <ol class="step-list">
         <li>Select an OKF folder or several Markdown files.</li>
         <li>The page filters for Markdown files before reading file text locally in your browser.</li>
@@ -108,12 +108,16 @@ const sampleBundle = `bundle/
     </section>
 
     <section class="content-section">
-      <h2>What this tool cannot prove</h2>
+      <h2>Evidence and limits</h2>
+      <p>
+        This folder validator checks this site's guide-profile structure for selected local files. It is useful before publishing, but it is not official OKF conformance, OpenAPI contract validation, or proof that the Markdown body is factually current.
+      </p>
       <ul class="check-list">
         <li>It cannot certify official OKF conformance.</li>
         <li>It cannot prove that the facts inside the Markdown body are true or current.</li>
         <li>It cannot read files you do not select.</li>
         <li>It cannot replace CI, command-line conformance tools, security review, or source-owner approval.</li>
+        <li>Use the <a href="/guides/validate-okf-bundle/">bundle validation checklist</a> and <a href="/guides/common-okf-validation-errors/">common validation errors</a> guide to fix findings before publishing.</li>
       </ul>
     </section>
 

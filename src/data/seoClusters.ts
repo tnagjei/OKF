@@ -672,6 +672,16 @@ useCasePages["okf-for-ai-agents"] = {
       }
     },
     {
+      heading: "Build a small OKF bundle for an agent",
+      steps: [
+        "Pick one narrow agent task such as support routing, refund triage, onboarding, or documentation lookup.",
+        "Create index.md with scope, owner, safe-use boundaries, and escalation triggers.",
+        "Add only the workflows, policies, and references the agent needs for that task.",
+        'Validate one file with the <a href="/okf-validator/">OKF Validator</a>, then validate the folder with the <a href="/okf-folder-validator/">OKF Folder Validator</a>.',
+        "Review stale context, unsupported policy claims, secrets, and private records before using the bundle."
+      ]
+    },
+    {
       heading: "Validation workflow",
       steps: [
         'Validate each Markdown file with the <a href="/okf-validator/">single-file OKF Validator</a>.',
@@ -741,9 +751,21 @@ guidePages["common-okf-validation-errors"] = {
           ["Invalid frontmatter", "Error", "Use one simple <code>field: value</code> line per field."],
           ["Tags not array", "Error", "Use an inline list such as <code>[okf, validator]</code>."],
           ["Missing resource", "Warning", "Add a canonical URL, URN, or stable source identifier."],
-          ["Broken internal link", "Warning", "Check the target file inside the real bundle folder."]
+          ["Duplicate resource", "Warning", "Decide whether two files describe the same source and merge or rename the overlap."],
+          ["Broken internal link", "Warning", "Check the target file inside the real bundle folder."],
+          ["Stale timestamp", "Review", "Update the timestamp only after the source content has materially changed."]
         ]
       }
+    },
+    {
+      heading: "How to fix errors in order",
+      steps: [
+        "Fix fatal parsing errors first, because field checks depend on readable frontmatter.",
+        "Add the required <code>type</code> field before tuning optional metadata.",
+        "Repair tags, resource, title, and description warnings so previews and indexes stay useful.",
+        'Use the <a href="/okf-folder-validator/">OKF Folder Validator</a> after single-file errors are fixed.',
+        "Review duplicate resources, broken relative links, and stale timestamps before publishing."
+      ]
     },
     {
       heading: "Missing simple frontmatter",
@@ -880,7 +902,7 @@ guidePages["validate-okf-bundle"] = {
       ]
     },
     {
-      heading: "Folder checklist",
+      heading: "OKF bundle validation checklist",
       table: {
         headers: ["Check", "Why it matters", "Tool support"],
         rows: [
@@ -890,6 +912,18 @@ guidePages["validate-okf-bundle"] = {
           ["Each file has type", "Concept category is the core routing field.", "Folder validator reports an error."],
           ["Resources are not duplicated", "Duplicate resources usually mean files overlap.", "Folder validator reports a warning."],
           ["Relative links resolve", "Broken internal links make the bundle harder to navigate.", "Folder validator reports a warning."]
+        ]
+      }
+    },
+    {
+      heading: "Fix validation errors before publishing",
+      table: {
+        headers: ["Finding", "Repair path", "Next page"],
+        rows: [
+          ["Missing frontmatter or type", "Repair the single Markdown file before reviewing the rest of the bundle.", '<a href="/okf-validator/">OKF Validator</a>'],
+          ["Invalid tags or blank resource", "Fix metadata shape so previews, search, and review notes stay useful.", '<a href="/guides/common-okf-validation-errors/">Common validation errors</a>'],
+          ["Duplicate resource", "Merge overlapping files or make the concept boundary explicit.", '<a href="/okf-folder-validator/">OKF Folder Validator</a>'],
+          ["Broken internal link", "Add the missing Markdown file or correct the relative path.", '<a href="/guides/common-okf-validation-errors/">Common validation errors</a>']
         ]
       }
     },
@@ -957,7 +991,7 @@ guidePages["how-to-create-okf-for-a-website"] = {
       ]
     },
     {
-      heading: "Website conversion workflow",
+      heading: "Map website pages into OKF files",
       steps: [
         "Create a local folder for the website bundle.",
         "Add index.md with scope, source owner, update date, and top links.",
@@ -966,6 +1000,19 @@ guidePages["how-to-create-okf-for-a-website"] = {
         'Validate files with the <a href="/okf-validator/">single-file validator</a>.',
         'Validate links and duplicate resources with the <a href="/okf-folder-validator/">folder validator</a>.'
       ]
+    },
+    {
+      heading: "Website page to OKF file mapping",
+      table: {
+        headers: ["Website source", "OKF file pattern", "Review note"],
+        rows: [
+          ["Homepage", "index.md or pages/home.md", "Use the canonical homepage as the resource and keep the site summary short."],
+          ["Product or feature page", "pages/product-name.md", "Capture stable positioning, limitations, and related docs."],
+          ["Help or FAQ page", "support/topic-name.md", "Preserve support boundaries and escalation notes."],
+          ["Policy page", "policies/policy-name.md", "Do not simplify legal or privacy language without owner review."],
+          ["Thin or duplicate URL", "No file until reviewed", "Merge into a stronger concept instead of creating thin OKF files."]
+        ]
+      }
     },
     {
       heading: "Per-page OKF example",
@@ -1037,15 +1084,16 @@ guidePages["openapi-to-okf"] = {
       ]
     },
     {
-      heading: "Conversion map",
+      heading: "Convert an OpenAPI spec into OKF context",
       table: {
-        headers: ["OpenAPI source", "OKF destination", "Review note"],
+        headers: ["OpenAPI input", "OKF output", "Review note"],
         rows: [
           ["Operation summary", "OKF title and description", "Rewrite for business meaning, not just method names."],
           ["Path and method", "Markdown body and resource link", "Keep OpenAPI as source of truth."],
           ["Request and response examples", "Examples section", "Remove secrets and private identifiers."],
           ["Error responses", "Warnings and troubleshooting section", "Explain user-facing impact."],
-          ["Tags", "OKF tags", "Use a small, consistent tag set."]
+          ["Tags", "OKF tags", "Use a small, consistent tag set."],
+          ["Many small operations", "One concept file or section per durable business concept", "Do not turn every endpoint into a thin OKF page."]
         ]
       }
     },
@@ -1079,6 +1127,7 @@ guidePages["openapi-to-okf"] = {
         "Do not claim OKF validates OpenAPI schemas.",
         "Do not generate client code from OKF.",
         "Do not let OKF contradict the OpenAPI contract.",
+        "Do not mechanically convert every endpoint into a separate thin concept file.",
         "Do not include tokens, private request bodies, or customer data in examples."
       ]
     },

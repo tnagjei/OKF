@@ -12,16 +12,16 @@ This document has a heading but no simple frontmatter block.`;
 ---
 
 <BaseLayout
-  title="OKF Validator: Check Open Knowledge Format Frontmatter"
-  description="Use this OKF Validator to check YAML frontmatter in Markdown. Paste an OKF file, validate required fields, and keep content browser-only with no upload."
+  title="OKF Validator: Check One Open Knowledge Format File"
+  description="Use this OKF Validator to check one Markdown file. Paste an OKF file, validate required fields, and use the folder validator for bundles."
   path="/okf-validator/"
 >
   <main class="page-shell">
     <section class="page-hero narrow-hero">
       <p class="eyebrow">Browser-only OKF Validator</p>
-      <h1>OKF Validator: check YAML frontmatter</h1>
+      <h1>OKF Validator for one OKF file</h1>
       <p class="hero-copy">
-        Paste OKF Markdown, check YAML frontmatter, and review missing fields. The validator runs in your browser with no upload.
+        Paste one OKF Markdown file, check YAML frontmatter, and review missing fields. The validator runs in your browser with no upload. For a multi-file bundle, use the folder validator.
       </p>
     </section>
 
@@ -77,6 +77,18 @@ This document has a heading but no simple frontmatter block.`;
         <li>Whether <code>tags</code> uses an inline array such as <code>[okf, validator, markdown]</code>.</li>
         <li>Whether the Markdown body exists after the frontmatter block.</li>
         <li>Whether relative Markdown links should be manually reviewed in the real bundle.</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>Single-file validator vs folder validator</h2>
+      <p>
+        Use this page when you need to repair one pasted Markdown file. Use the <a href="/okf-folder-validator/">OKF Folder Validator</a> when you need to check `index.md`, duplicate resources, and relative links across a local bundle.
+      </p>
+      <ul class="check-list">
+        <li>Single-file check: frontmatter, required <code>type</code>, recommended metadata, body, and local link warnings.</li>
+        <li>Folder check: multiple Markdown files, bundle entry point, duplicate <code>resource</code> values, and unresolved relative links.</li>
+        <li>Both checks are browser-only helpers and do not prove factual accuracy or official conformance.</li>
       </ul>
     </section>
 
@@ -148,8 +160,8 @@ This document has a heading but no simple frontmatter block.`;
       <ul class="check-list">
         <li><a href="/guides/okf-file-example/">OKF file example</a> for a full Markdown and YAML starter.</li>
         <li><a href="/guides/okf-yaml-frontmatter/">OKF YAML frontmatter</a> for required and recommended fields.</li>
+        <li><a href="/okf-folder-validator/">OKF Folder Validator</a> for checking local multi-file bundles.</li>
         <li><a href="/okf-templates/">OKF Templates</a> for copy-ready starter files.</li>
-        <li><a href="/okf-examples/">OKF Examples</a> for bundle patterns.</li>
       </ul>
     </section>
 

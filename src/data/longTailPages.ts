@@ -409,6 +409,7 @@ export const comparePageAdditions: Record<string, ComparePage> = {
           "Set resource to the canonical API reference URL or stable endpoint identifier.",
           "Add human-readable purpose, request notes, common errors, owner notes, and related docs.",
           'Validate the OKF file with the <a href="/okf-validator/">OKF Validator</a>.',
+          'Use the <a href="/guides/openapi-to-okf/">OpenAPI to OKF guide</a> before expanding a full API context bundle.',
           "Review the file when the OpenAPI contract changes."
         ],
         code: {
@@ -442,6 +443,7 @@ Use the canonical OpenAPI reference as the source of truth for schema details.
         bullets: [
           '<a href="/compare/okf-vs-rag/">OKF vs RAG</a> for retrieval context.',
           '<a href="/compare/okf-vs-mcp/">OKF vs MCP</a> for tool and context boundaries.',
+          '<a href="/guides/openapi-to-okf/">OpenAPI to OKF</a> for the conversion workflow.',
           '<a href="/okf-templates/">OKF Templates</a> for copy-ready starters.',
           '<a href="/okf-examples/">OKF Examples</a> for bundle patterns.',
           '<a href="/okf-validator/">OKF Validator</a> for checking frontmatter.'
@@ -472,9 +474,15 @@ export const longformThirdRoundOverrides: Record<string, LongformPage> = {
     kind: "examples",
     sections: [
       {
-        heading: "Use examples as bundle patterns",
+        heading: "OKF examples by source type",
         paragraphs: [
           "The examples below show bundle shapes rather than official certification tests. Use them to choose folders, file boundaries, and review notes before creating your own Open Knowledge Format files."
+        ],
+        bullets: [
+          "Website examples show how to describe public pages, help pages, and policy pages.",
+          "API endpoint examples show how to add context around OpenAPI references without replacing the contract.",
+          "Support and policy examples show where escalation notes and owner review matter.",
+          "Data catalog examples show how to describe metrics, tables, owners, and freshness boundaries."
         ]
       },
       {
@@ -486,6 +494,16 @@ export const longformThirdRoundOverrides: Record<string, LongformPage> = {
           label: "Minimal OKF file example",
           value: okfFileExample
         }
+      },
+      {
+        heading: "How to read an OKF example",
+        bullets: [
+          "Read <code>type</code> first to understand what concept the file represents.",
+          "Check <code>title</code> and <code>description</code> for a narrow, reviewable scope.",
+          "Use <code>resource</code> to trace the source page, API reference, policy, table, or stable identifier.",
+          "Treat <code>tags</code> as grouping hints, not proof that the file is complete.",
+          "Review the Markdown body for boundaries, examples, citations, and related links before copying the pattern."
+        ]
       },
       {
         heading: "How to use these examples",
@@ -503,6 +521,8 @@ export const longformThirdRoundOverrides: Record<string, LongformPage> = {
           '<a href="/guides/okf-file-example/">OKF file example</a> for a complete single-file starter.',
           '<a href="/guides/okf-yaml-frontmatter/">OKF YAML frontmatter</a> for field rules and examples.',
           '<a href="/okf-validator/">OKF Validator</a> for checking one Markdown file.',
+          '<a href="/okf-folder-validator/">OKF Folder Validator</a> for checking example bundles.',
+          '<a href="/guides/validate-okf-bundle/">Validate OKF Bundle</a> before publishing a copied pattern.',
           '<a href="/okf-templates/">OKF Templates</a> for copy-ready file starters.'
         ]
       }

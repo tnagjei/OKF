@@ -117,7 +117,7 @@ export const longformPageOverrides = {
         ]
       },
       {
-        heading: "Which OKF template should you use?",
+        heading: "How to choose the right OKF template",
         bullets: [
           "Use the Website OKF template for public pages, landing pages, pricing pages, help pages, and trust pages.",
           "Use the API OKF template for endpoint meaning, request notes, errors, limits, and surrounding business context.",
@@ -177,6 +177,7 @@ Use this file for stable pricing facts, exclusions, source links, and review not
           '<a href="/okf-validator/">Open the OKF Validator</a>.',
           "Paste the copied template Markdown.",
           "Fix missing `type`, `title`, `description`, or `tags` warnings before publishing.",
+          '<a href="/okf-folder-validator/">Run the OKF Folder Validator</a> when the template becomes part of a multi-file bundle.',
           "Manually review factual claims because frontmatter validation cannot prove the content is true.",
           '<a href="/compare/okf-vs-rag/">Read OKF vs RAG</a> and <a href="/compare/okf-vs-mcp/">OKF vs MCP</a> if the template will be used in an agent workflow.'
         ]
