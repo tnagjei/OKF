@@ -357,13 +357,13 @@ export const comparePageAdditions: Record<string, ComparePage> = {
         ]
       },
       {
-        heading: "What OpenAPI is",
+        heading: "Where OpenAPI is stronger",
         paragraphs: [
           "OpenAPI is a specification for describing HTTP APIs. It can define paths, methods, parameters, request bodies, response shapes, status codes, authentication, examples, and other contract-level details used by documentation and developer tooling."
         ]
       },
       {
-        heading: "What OKF is",
+        heading: "Where OKF is different",
         paragraphs: [
           "Open Knowledge Format is a Markdown-and-frontmatter approach for packaging knowledge files. An OKF file can describe an API endpoint in plain language, link to its OpenAPI reference, explain support boundaries, and add review notes that do not belong inside the contract itself."
         ]
@@ -396,7 +396,7 @@ export const comparePageAdditions: Record<string, ComparePage> = {
         ]
       },
       {
-        heading: "Can OKF and OpenAPI work together?",
+        heading: "When to use both",
         paragraphs: [
           "Yes. A practical pattern is to keep OpenAPI as the canonical contract and create OKF files that reference important endpoints. The OKF file should explain business purpose, common mistakes, support boundaries, and related documentation without pretending to replace the API contract."
         ]
@@ -506,7 +506,7 @@ export const longformThirdRoundOverrides: Record<string, LongformPage> = {
         ]
       },
       {
-        heading: "How to use these examples",
+        heading: "Copy safely into a template",
         bullets: [
           "Pick the example closest to your source material.",
           "Copy the bundle shape, not the sample facts.",
@@ -516,7 +516,7 @@ export const longformThirdRoundOverrides: Record<string, LongformPage> = {
         ]
       },
       {
-        heading: "Related resources",
+        heading: "Validate the result",
         bullets: [
           '<a href="/guides/okf-file-example/">OKF file example</a> for a complete single-file starter.',
           '<a href="/guides/okf-yaml-frontmatter/">OKF YAML frontmatter</a> for field rules and examples.',

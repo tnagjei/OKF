@@ -12,14 +12,14 @@ This document has a heading but no simple frontmatter block.`;
 ---
 
 <BaseLayout
-  title="OKF Validator: Check One Open Knowledge Format File"
-  description="Use this OKF Validator to check one Markdown file. Paste an OKF file, validate required fields, and use the folder validator for bundles."
+  title="OKF Validator: Check Open Knowledge Format Markdown"
+  description="Paste an OKF Markdown file, check frontmatter and links, then decide when to use the OKF Folder Validator for bundle-level checks."
   path="/okf-validator/"
 >
   <main class="page-shell">
     <section class="page-hero narrow-hero">
       <p class="eyebrow">Browser-only OKF Validator</p>
-      <h1>OKF Validator for one OKF file</h1>
+      <h1>OKF validator for Open Knowledge Format files</h1>
       <p class="hero-copy">
         Paste one OKF Markdown file, check YAML frontmatter, and review missing fields. The validator runs in your browser with no upload. For a multi-file bundle, use the folder validator.
       </p>
@@ -137,6 +137,16 @@ This document has a heading but no simple frontmatter block.`;
           <div role="cell">The file does not identify the source it describes.</div>
           <div role="cell">Add a canonical URL, URN, or stable source identifier.</div>
         </div>
+        <div class="compare-row" role="row">
+          <div role="cell">Relative link warning</div>
+          <div role="cell">The pasted file links to another Markdown file.</div>
+          <div role="cell">Use the folder validator to check whether the target exists.</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div role="cell">Empty body</div>
+          <div role="cell">The file has metadata but no useful Markdown explanation.</div>
+          <div role="cell">Add a focused body before publishing.</div>
+        </div>
       </div>
     </section>
 
@@ -161,6 +171,8 @@ This document has a heading but no simple frontmatter block.`;
         <li><a href="/guides/okf-file-example/">OKF file example</a> for a full Markdown and YAML starter.</li>
         <li><a href="/guides/okf-yaml-frontmatter/">OKF YAML frontmatter</a> for required and recommended fields.</li>
         <li><a href="/okf-folder-validator/">OKF Folder Validator</a> for checking local multi-file bundles.</li>
+        <li><a href="/guides/common-okf-validation-errors/">Common OKF validation errors</a> for repair steps.</li>
+        <li><a href="/guides/validate-okf-bundle/">Validate OKF Bundle</a> before publishing a folder.</li>
         <li><a href="/okf-templates/">OKF Templates</a> for copy-ready starter files.</li>
       </ul>
     </section>

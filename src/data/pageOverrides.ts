@@ -72,7 +72,14 @@ export const longformPageOverrides = {
           '<a href="/okf-tutorial/">Read the OKF tutorial</a> to build a first bundle.',
           '<a href="/okf-examples/">Browse OKF examples</a> to see bundle patterns.',
           '<a href="/okf-templates/">Copy OKF templates</a> for websites, API docs, SaaS, documentation, and data catalogs.',
-          '<a href="/okf-validator/">Use the OKF validator</a> to check frontmatter before publishing.'
+          '<a href="/okf-validator/">Use the OKF validator</a> to check frontmatter before publishing.',
+          '<a href="/okf-folder-validator/">Use the OKF folder validator</a> before publishing a multi-file bundle.'
+        ]
+      },
+      {
+        heading: "Evidence and limits",
+        paragraphs: [
+          "This site is an unofficial guide. Public Google Cloud and GoogleCloudPlatform materials are useful references, but this site does not certify official OKF conformance or guarantee AI search visibility."
         ]
       },
       {
@@ -180,6 +187,16 @@ Use this file for stable pricing facts, exclusions, source links, and review not
           '<a href="/okf-folder-validator/">Run the OKF Folder Validator</a> when the template becomes part of a multi-file bundle.',
           "Manually review factual claims because frontmatter validation cannot prove the content is true.",
           '<a href="/compare/okf-vs-rag/">Read OKF vs RAG</a> and <a href="/compare/okf-vs-mcp/">OKF vs MCP</a> if the template will be used in an agent workflow.'
+        ]
+      },
+      {
+        heading: "Examples vs templates",
+        paragraphs: [
+          "Templates are blank starters you copy before writing source-specific facts. Examples show bundle patterns after fields and body sections have been filled in."
+        ],
+        bullets: [
+          '<a href="/okf-examples/">Use OKF examples</a> when you need to compare finished bundle shapes.',
+          '<a href="/okf-folder-validator/">Run the folder validator</a> after a template becomes part of a bundle.'
         ]
       },
       {

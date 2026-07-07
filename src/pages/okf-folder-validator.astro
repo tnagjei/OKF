@@ -13,7 +13,7 @@ const sampleBundle = `bundle/
 
 <BaseLayout
   title="OKF Folder Validator: Check Open Knowledge Format Bundles"
-  description="Validate an OKF bundle folder in your browser for Markdown files, frontmatter, type fields, index.md, internal links, and duplicate resources."
+  description="Check OKF bundle folders for index files, duplicate resources, relative links, frontmatter gaps, and publish-ready structure."
   path="/okf-folder-validator/"
 >
   <main class="page-shell">
@@ -56,7 +56,15 @@ const sampleBundle = `bundle/
     </section>
 
     <section class="compare-table-section">
-      <h2>OKF bundle validation checks</h2>
+      <h2>What the folder validator checks</h2>
+      <h3>Index files</h3>
+      <p>A root <code>index.md</code> helps readers and agents inspect the bundle scope before opening every file.</p>
+      <h3>Duplicate resources</h3>
+      <p>Repeated <code>resource</code> values usually mean two files describe the same source and need review.</p>
+      <h3>Relative links</h3>
+      <p>Relative Markdown links should point to files that exist inside the selected folder.</p>
+      <h3>Frontmatter consistency</h3>
+      <p>Each Markdown file should expose parseable frontmatter and a clear <code>type</code> field.</p>
       <div class="compare-table" role="table" aria-label="OKF bundle validation checks">
         <div class="compare-row compare-head" role="row">
           <div role="columnheader">Check</div>
@@ -97,14 +105,22 @@ const sampleBundle = `bundle/
     </section>
 
     <section class="content-section">
-      <h2>How to check an OKF folder</h2>
+      <h2>Fix warnings before publishing</h2>
       <ol class="step-list">
         <li>Select an OKF folder or several Markdown files.</li>
         <li>The page filters for Markdown files before reading file text locally in your browser.</li>
         <li>The report checks frontmatter, `type`, recommended fields, links, and duplicate resources.</li>
         <li>Copy the report, fix errors first, then review warnings with the content owner.</li>
+        <li>Run the folder check again after fixing files.</li>
       </ol>
       <CodeBlock code={sampleBundle} label="Expected bundle shape" />
+    </section>
+
+    <section class="content-section">
+      <h2>When to use file validation instead</h2>
+      <p>
+        Use the <a href="/okf-validator/">single-file OKF Validator</a> when you only need to repair one pasted Markdown file. Use this folder validator when duplicate resources, <code>index.md</code>, and relative links matter.
+      </p>
     </section>
 
     <section class="content-section">

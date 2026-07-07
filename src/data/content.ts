@@ -1280,9 +1280,9 @@ export const comparePages: Record<string, ComparePage> = {
   },
   "okf-vs-llms-txt": {
     path: "/compare/okf-vs-llms-txt/",
-    title: "OKF vs llms.txt: Knowledge Bundle and AI Index Compared",
+    title: "OKF vs llms.txt: Knowledge Bundle or AI Content Map",
     description:
-      "Compare Open Knowledge Format and llms.txt: llms.txt can guide AI crawlers to resources, while OKF packages structured knowledge files.",
+      "Compare OKF and llms.txt: OKF packages structured knowledge, while llms.txt points AI systems toward selected site content.",
     h1: "OKF vs llms.txt",
     eyebrow: "Comparison",
     intro:
@@ -1323,7 +1323,7 @@ export const comparePages: Record<string, ComparePage> = {
         ]
       },
       {
-        heading: "When llms.txt is enough",
+        heading: "What llms.txt points to",
         bullets: [
           "You only need a short site entry point.",
           "You want to list the most important public pages.",
@@ -1332,7 +1332,7 @@ export const comparePages: Record<string, ComparePage> = {
         ]
       },
       {
-        heading: "When OKF is better",
+        heading: "What OKF packages",
         bullets: [
           "Use OKF when you need one concept per file.",
           "Use OKF when metadata, citations, related concepts, and review timestamps matter.",
@@ -1343,14 +1343,14 @@ export const comparePages: Record<string, ComparePage> = {
       {
         heading: "How to use both on one site",
         bullets: [
-          "Keep `/llms.txt` as the short entry point.",
-          "Keep `/llms-full.txt` as the expanded site guide when useful.",
+          'Keep <a href="/llms.txt">/llms.txt</a> as the short entry point.',
+          'Keep <a href="/llms-full.txt">/llms-full.txt</a> as the expanded site guide when useful.',
           "Link OKF templates, examples, validator, and future downloadable bundles from those files.",
           "Avoid claiming that either file guarantees AI search traffic."
         ]
       },
       {
-        heading: "Evidence warning for AI search claims",
+        heading: "Evidence limits",
         paragraphs: [
           "The safe claim is that llms.txt and OKF can make site resources easier to orient and inspect. Public evidence is not strong enough to claim that either file directly guarantees ranking, indexing, or AI citations."
         ]
