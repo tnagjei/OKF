@@ -12,16 +12,16 @@ This document has a heading but no simple frontmatter block.`;
 ---
 
 <BaseLayout
-  title="OKF Validator: Check Open Knowledge Format Markdown"
+  title="OKF Validator: Check Open Knowledge Format Files"
   description="Paste an OKF Markdown file, check frontmatter and links, then decide when to use the OKF Folder Validator for bundle-level checks."
   path="/okf-validator/"
 >
   <main class="page-shell">
     <section class="page-hero narrow-hero">
       <p class="eyebrow">Browser-only OKF Validator</p>
-      <h1>OKF validator for Open Knowledge Format files</h1>
+      <h1>OKF Validator</h1>
       <p class="hero-copy">
-        Paste one OKF Markdown file, check YAML frontmatter, and review missing fields. The validator runs in your browser with no upload. For a multi-file bundle, use the folder validator.
+        Paste one OKF Markdown file, run a browser-side single-file check for YAML frontmatter and required fields, then decide whether a bundle needs folder validation. This is not an official conformance test.
       </p>
     </section>
 
@@ -81,7 +81,7 @@ This document has a heading but no simple frontmatter block.`;
     </section>
 
     <section class="content-section">
-      <h2>Single-file validator vs folder validator</h2>
+      <h2>Repair one OKF file</h2>
       <p>
         Use this page when you need to repair one pasted Markdown file. Use the <a href="/okf-folder-validator/">OKF Folder Validator</a> when you need to check `index.md`, duplicate resources, and relative links across a local bundle.
       </p>
@@ -159,14 +159,14 @@ This document has a heading but no simple frontmatter block.`;
     </section>
 
     <section class="content-section">
-      <h2>Privacy note</h2>
+      <h2>What this validator can and cannot prove</h2>
       <p>
-        The validator runs in the browser and does not upload pasted Markdown to this website. Do not paste restricted records into any online page unless your own policy allows it.
+        The validator runs in the browser and does not upload pasted Markdown to this website. It checks one file's structure, not source truth, official status, full OKF conformance, or AI visibility. Do not paste restricted records into any online page unless your own policy allows it.
       </p>
     </section>
 
     <section class="content-section">
-      <h2>Related pages</h2>
+      <h2>Next steps after a single-file check</h2>
       <ul class="check-list">
         <li><a href="/guides/okf-file-example/">OKF file example</a> for a full Markdown and YAML starter.</li>
         <li><a href="/guides/okf-yaml-frontmatter/">OKF YAML frontmatter</a> for required and recommended fields.</li>

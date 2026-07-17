@@ -33,7 +33,7 @@ const useCaseRoutes = [
   { path: "/use-cases/okf-for-saas/", label: "OKF for SaaS", priority: "0.8" },
   { path: "/use-cases/okf-for-data-warehouses/", label: "OKF for Data Warehouses", priority: "0.8" },
   { path: "/use-cases/okf-for-documentation-sites/", label: "OKF for Documentation Sites", priority: "0.8" },
-  { path: "/use-cases/okf-for-ai-agents/", label: "OKF for AI Agents", priority: "0.8", lastmod: "2026-07-05" },
+  { path: "/use-cases/okf-for-ai-agents/", label: "OKF for AI Agents", priority: "0.8", lastmod: "2026-07-17" },
   { path: "/use-cases/okf-for-seo/", label: "OKF for SEO", priority: "0.8" },
   { path: "/use-cases/okf-for-ai-search/", label: "OKF for AI Search", priority: "0.8" }
 ];
@@ -54,16 +54,16 @@ const templateDetailRoutes = [
 const guideRoutes = [
   { path: "/guides/how-to-create-an-okf-bundle/", label: "Create an OKF Bundle", priority: "0.75" },
   { path: "/guides/how-to-validate-okf-files/", label: "Validate OKF Files", priority: "0.75" },
-  { path: "/guides/validate-okf-bundle/", label: "Validate OKF Bundle", priority: "0.75", lastmod: "2026-07-05" },
+  { path: "/guides/validate-okf-bundle/", label: "Validate OKF Bundle", priority: "0.75", lastmod: "2026-07-17" },
   { path: "/guides/how-to-add-yaml-frontmatter-for-okf/", label: "Add YAML Frontmatter for OKF", priority: "0.75" },
   { path: "/guides/how-to-link-okf-concept-files/", label: "Link OKF Concept Files", priority: "0.75" },
   { path: "/guides/how-to-use-okf-with-rag/", label: "Use OKF with RAG", priority: "0.75" },
   { path: "/guides/how-to-use-okf-with-mcp/", label: "Use OKF with MCP", priority: "0.75" },
   { path: "/guides/how-to-convert-markdown-to-okf/", label: "Convert Markdown to OKF", priority: "0.75" },
-  { path: "/guides/how-to-create-okf-for-a-website/", label: "Create OKF for a Website", priority: "0.75", lastmod: "2026-07-05" },
+  { path: "/guides/how-to-create-okf-for-a-website/", label: "Create OKF for a Website", priority: "0.75", lastmod: "2026-07-17" },
   { path: "/guides/how-to-create-okf-for-api-docs/", label: "Create OKF for API Docs", priority: "0.75" },
-  { path: "/guides/openapi-to-okf/", label: "OpenAPI to OKF", priority: "0.75", lastmod: "2026-07-05" },
-  { path: "/guides/common-okf-validation-errors/", label: "Common OKF Validation Errors", priority: "0.75", lastmod: "2026-07-05" }
+  { path: "/guides/openapi-to-okf/", label: "OpenAPI to OKF", priority: "0.75", lastmod: "2026-07-17" },
+  { path: "/guides/common-okf-validation-errors/", label: "Common OKF Validation Errors", priority: "0.75", lastmod: "2026-07-15" }
 ];
 
 export const publicRoutes = [
@@ -72,11 +72,11 @@ export const publicRoutes = [
   { path: "/okf-tutorial/", label: "OKF Tutorial", priority: "0.9" },
   { path: "/okf-examples/", label: "OKF Examples", priority: "0.9", lastmod: "2026-07-05" },
   { path: "/okf-templates/", label: "OKF Templates", priority: "0.9", lastmod: "2026-07-05" },
-  { path: "/okf-validator/", label: "OKF Validator", priority: "0.9", lastmod: "2026-07-05" },
-  { path: "/okf-folder-validator/", label: "OKF Folder Validator", priority: "0.85", lastmod: "2026-07-05" },
+  { path: "/okf-validator/", label: "OKF Validator", priority: "0.9", lastmod: "2026-07-17" },
+  { path: "/okf-folder-validator/", label: "OKF Folder Validator", priority: "0.85", lastmod: "2026-07-17" },
   { path: "/compare/okf-vs-mcp/", label: "OKF vs MCP", priority: "0.8" },
   { path: "/compare/okf-vs-rag/", label: "OKF vs RAG", priority: "0.8", lastmod: "2026-06-25" },
-  { path: "/compare/okf-vs-llms-txt/", label: "OKF vs llms.txt", priority: "0.8", lastmod: "2026-07-05" },
+  { path: "/compare/okf-vs-llms-txt/", label: "OKF vs llms.txt", priority: "0.8", lastmod: "2026-07-15" },
   { path: "/compare/okf-vs-openapi/", label: "OKF vs OpenAPI", priority: "0.8", lastmod: "2026-07-05" },
   ...compareExpansionRoutes,
   ...useCaseRoutes,

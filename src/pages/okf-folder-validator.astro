@@ -12,16 +12,16 @@ const sampleBundle = `bundle/
 ---
 
 <BaseLayout
-  title="OKF Folder Validator: Check Open Knowledge Format Bundles"
+  title="OKF Folder Validator: Check Bundle Structure Locally"
   description="Check OKF bundle folders for index files, duplicate resources, relative links, frontmatter gaps, and publish-ready structure."
   path="/okf-folder-validator/"
 >
   <main class="page-shell">
     <section class="page-hero narrow-hero">
       <p class="eyebrow">Browser-only bundle tool</p>
-      <h1>OKF folder validator for Open Knowledge Format bundles</h1>
+      <h1>OKF Folder Validator</h1>
       <p class="hero-copy">
-        Check a local OKF bundle folder before publishing. This MVP reads selected Markdown files in your browser, reports structural errors, and does not upload your files to this website.
+        Check a local OKF bundle folder before publishing. The browser reads only selected Markdown files, reports folder structure findings such as duplicate resources and relative links, and does not upload your files to this website.
       </p>
     </section>
 
@@ -49,14 +49,14 @@ const sampleBundle = `bundle/
     </section>
 
     <section class="content-section">
-      <h2>Validate a bundle, not just one file</h2>
+      <h2>Why folder validation matters</h2>
       <p>
         The single-file OKF validator checks one pasted Markdown document. This folder validator checks how files work together: bundle layout, `index.md`, repeated resources, and relative links between Markdown files.
       </p>
     </section>
 
     <section class="compare-table-section">
-      <h2>What the folder validator checks</h2>
+      <h2>OKF bundle validation checks</h2>
       <h3>Index files</h3>
       <p>A root <code>index.md</code> helps readers and agents inspect the bundle scope before opening every file.</p>
       <h3>Duplicate resources</h3>
@@ -67,45 +67,45 @@ const sampleBundle = `bundle/
       <p>Each Markdown file should expose parseable frontmatter and a clear <code>type</code> field.</p>
       <div class="compare-table" role="table" aria-label="OKF bundle validation checks">
         <div class="compare-row compare-head" role="row">
-          <div role="columnheader">Check</div>
+          <div role="columnheader">Problem</div>
           <div role="columnheader">Why it matters</div>
-          <div role="columnheader">Severity</div>
+          <div role="columnheader">Fix route</div>
         </div>
         <div class="compare-row" role="row">
           <div role="cell">Markdown files</div>
           <div role="cell">A bundle should contain reviewable `.md` concept files.</div>
-          <div role="cell">Error if none are selected.</div>
+          <div role="cell">Select `.md` or `.markdown` files.</div>
         </div>
         <div class="compare-row" role="row">
           <div role="cell">Simple frontmatter</div>
           <div role="cell">Machines need predictable metadata before reading the body.</div>
-          <div role="cell">Error when missing.</div>
+          <div role="cell"><a href="/okf-validator/">Fix one file first</a>.</div>
         </div>
         <div class="compare-row" role="row">
           <div role="cell">type field</div>
           <div role="cell">The draft OKF field checked by this guide must identify the concept kind.</div>
-          <div role="cell">Error when missing.</div>
+          <div role="cell"><a href="/guides/common-okf-validation-errors/">Review common errors</a>.</div>
         </div>
         <div class="compare-row" role="row">
           <div role="cell">index.md</div>
           <div role="cell">A root index helps humans and agents inspect the bundle before opening every file.</div>
-          <div role="cell">Warning when missing.</div>
+          <div role="cell">Add a root <code>index.md</code>.</div>
         </div>
         <div class="compare-row" role="row">
           <div role="cell">Internal links</div>
           <div role="cell">Relative Markdown links should point to files that exist inside the selected bundle.</div>
-          <div role="cell">Warning when unresolved.</div>
+          <div role="cell">Fix paths or add the target file.</div>
         </div>
         <div class="compare-row" role="row">
           <div role="cell">Duplicate resource</div>
           <div role="cell">Repeated canonical resources usually mean two files describe the same concept.</div>
-          <div role="cell">Warning for review.</div>
+          <div role="cell">Merge overlap or split concepts clearly.</div>
         </div>
       </div>
     </section>
 
     <section class="content-section">
-      <h2>Fix warnings before publishing</h2>
+      <h2>How to run a safe local folder check</h2>
       <ol class="step-list">
         <li>Select an OKF folder or several Markdown files.</li>
         <li>The page filters for Markdown files before reading file text locally in your browser.</li>
@@ -124,7 +124,7 @@ const sampleBundle = `bundle/
     </section>
 
     <section class="content-section">
-      <h2>Evidence and limits</h2>
+      <h2>Trust and privacy boundary</h2>
       <p>
         This folder validator checks this site's guide-profile structure for selected local files. It is useful before publishing, but it is not official OKF conformance, OpenAPI contract validation, or proof that the Markdown body is factually current.
       </p>

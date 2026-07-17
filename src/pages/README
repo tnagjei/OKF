@@ -8,8 +8,8 @@
 - `[slug].astro`：普通内容页动态生成路由。
 - `index.astro`：首页，承接 OKF 定义、工具入口与对比入口。
 - `404.astro`：自定义 404 错误页面，显示 "This OKF page does not exist"。
-- `okf-validator.astro`：浏览器端单文件 OKF 验证器与常见错误修复说明。
-- `okf-folder-validator.astro`：浏览器端 OKF 文件夹验证器，检查 bundle 结构、重复 resource 与相对链接。
+- `okf-validator.astro`：浏览器端单文件 OKF 验证器、后续 bundle 检查入口与常见错误修复说明。
+- `okf-folder-validator.astro`：浏览器端 OKF 文件夹验证器，检查 bundle 结构、重复 resource、相对链接与发布前边界。
 - `robots.txt.ts`：生成 robots 文件。
 - `sitemap.xml.ts`：生成 sitemap 文件。
 - `llms.txt.ts`：生成短版 LLM 说明。

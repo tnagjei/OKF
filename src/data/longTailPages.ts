@@ -351,7 +351,7 @@ export const comparePageAdditions: Record<string, ComparePage> = {
     ],
     sections: [
       {
-        heading: "Short answer",
+        heading: "OKF vs OpenAPI in one table",
         paragraphs: [
           "Use OpenAPI when you need to describe an API contract. Use OKF when you need to package the surrounding knowledge that helps people and AI agents understand why an endpoint exists, how it is used, what the edge cases are, and where the source documentation lives."
         ]
@@ -402,7 +402,7 @@ export const comparePageAdditions: Record<string, ComparePage> = {
         ]
       },
       {
-        heading: "Example workflow",
+        heading: "Convert API context without replacing OpenAPI",
         bullets: [
           "Choose one important endpoint from the OpenAPI file.",
           "Create one OKF file with type <code>API Endpoint</code>.",
@@ -465,7 +465,7 @@ Use the canonical OpenAPI reference as the source of truth for schema details.
 export const longformThirdRoundOverrides: Record<string, LongformPage> = {
   "okf-examples": {
     path: "/okf-examples/",
-    title: "OKF Examples: Open Knowledge Format Bundles You Can Copy",
+    title: "OKF Examples: Copy Open Knowledge Format Bundles",
     description:
       "Browse copy-ready OKF examples for website content, API endpoints, product docs, support playbooks, SaaS metrics, and knowledge bases.",
     h1: "OKF examples you can copy",
@@ -474,7 +474,7 @@ export const longformThirdRoundOverrides: Record<string, LongformPage> = {
     kind: "examples",
     sections: [
       {
-        heading: "OKF examples by source type",
+        heading: "Example bundle types",
         paragraphs: [
           "The examples below show bundle shapes rather than official certification tests. Use them to choose folders, file boundaries, and review notes before creating your own Open Knowledge Format files."
         ],
@@ -516,7 +516,7 @@ export const longformThirdRoundOverrides: Record<string, LongformPage> = {
         ]
       },
       {
-        heading: "Validate the result",
+        heading: "Before you trust an example",
         bullets: [
           '<a href="/guides/okf-file-example/">OKF file example</a> for a complete single-file starter.',
           '<a href="/guides/okf-yaml-frontmatter/">OKF YAML frontmatter</a> for field rules and examples.',

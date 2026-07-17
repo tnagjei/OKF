@@ -107,7 +107,7 @@ export const longformPageOverrides = {
   },
   "okf-templates": {
     path: "/okf-templates/",
-    title: "OKF Templates: Copy Open Knowledge Format YAML Examples",
+    title: "OKF Templates: Copy YAML and Markdown Starters",
     description:
       "Browse copy-ready OKF templates with YAML examples for websites, API docs, SaaS, documentation, AI agent context, and data catalogs.",
     h1: "Copy-ready OKF templates for YAML knowledge files",
@@ -124,7 +124,7 @@ export const longformPageOverrides = {
         ]
       },
       {
-        heading: "How to choose the right OKF template",
+        heading: "Choose the right template",
         bullets: [
           "Use the Website OKF template for public pages, landing pages, pricing pages, help pages, and trust pages.",
           "Use the API OKF template for endpoint meaning, request notes, errors, limits, and surrounding business context.",
@@ -179,7 +179,7 @@ Use this file for stable pricing facts, exclusions, source links, and review not
         }
       },
       {
-        heading: "Validate every copied template",
+        heading: "Validate a copied OKF template",
         bullets: [
           '<a href="/okf-validator/">Open the OKF Validator</a>.',
           "Paste the copied template Markdown.",
@@ -190,9 +190,9 @@ Use this file for stable pricing facts, exclusions, source links, and review not
         ]
       },
       {
-        heading: "Examples vs templates",
+        heading: "Template limits",
         paragraphs: [
-          "Templates are blank starters you copy before writing source-specific facts. Examples show bundle patterns after fields and body sections have been filled in."
+          "Templates are blank starters you copy before writing source-specific facts. A template does not prove official conformance, factual accuracy, SEO impact, or AI citation visibility."
         ],
         bullets: [
           '<a href="/okf-examples/">Use OKF examples</a> when you need to compare finished bundle shapes.',

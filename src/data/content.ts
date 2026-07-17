@@ -1316,7 +1316,7 @@ export const comparePages: Record<string, ComparePage> = {
     ],
     sections: [
       {
-        heading: "The short answer",
+        heading: "OKF and llms.txt solve different jobs",
         paragraphs: [
           "A site-level llms.txt file can tell AI systems what the site is, which pages matter, and where useful resources live.",
           "It is compact and useful for orientation, but it is not a full knowledge model by itself. OKF is better when you need typed concepts, relationships, citations, and many linked files."
@@ -1350,7 +1350,7 @@ export const comparePages: Record<string, ComparePage> = {
         ]
       },
       {
-        heading: "Evidence limits",
+        heading: "What neither file can guarantee",
         paragraphs: [
           "The safe claim is that llms.txt and OKF can make site resources easier to orient and inspect. Public evidence is not strong enough to claim that either file directly guarantees ranking, indexing, or AI citations."
         ]
