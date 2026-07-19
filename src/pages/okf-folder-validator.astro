@@ -116,11 +116,25 @@ const sampleBundle = `bundle/
       <CodeBlock code={sampleBundle} label="Expected bundle shape" />
     </section>
 
-    <section class="content-section">
-      <h2>When to use file validation instead</h2>
-      <p>
-        Use the <a href="/okf-validator/">single-file OKF Validator</a> when you only need to repair one pasted Markdown file. Use this folder validator when duplicate resources, <code>index.md</code>, and relative links matter.
-      </p>
+    <section class="compare-table-section">
+      <h2>Single-file vs folder checks</h2>
+      <div class="compare-table" role="table" aria-label="Single-file and folder validation differences">
+        <div class="compare-row compare-head" role="row">
+          <div role="columnheader">Check</div>
+          <div role="columnheader">Use it for</div>
+          <div role="columnheader">What it cannot prove</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div role="cell"><a href="/okf-validator/">OKF Validator</a></div>
+          <div role="cell">One pasted Markdown file, frontmatter, required fields, and body warnings.</div>
+          <div role="cell">Whether related files exist or source claims are current.</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div role="cell">OKF Folder Validator</div>
+          <div role="cell">A selected local bundle with <code>index.md</code>, duplicate resources, and relative links.</div>
+          <div role="cell">Official conformance, source truth, SEO visibility, or AI citations.</div>
+        </div>
+      </div>
     </section>
 
     <section class="content-section">

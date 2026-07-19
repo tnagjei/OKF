@@ -705,12 +705,15 @@ useCasePages["okf-for-ai-agents"] = {
       }
     },
     {
-      heading: "Where OKF helps and where it does not",
+      heading: "OKF is not MCP or RAG",
+      paragraphs: [
+        "OKF packages reviewed context. MCP connects an agent to tools or resources, while RAG retrieves relevant source material at query time. An OKF bundle can support either workflow, but it does not grant tool access, replace retrieval, or prove that an agent will use the files correctly."
+      ],
       bullets: [
-        "Storing credentials, customer records, or private operational notes in OKF files.",
-        "Writing agent instructions that conflict with product policy or legal policy.",
-        "Treating a valid OKF structure as proof that every answer from an agent will be correct.",
-        "Skipping escalation rules for refunds, account access, billing disputes, or safety-sensitive topics."
+        "Do not store credentials, customer records, or private operational notes in OKF files.",
+        "Do not write agent instructions that conflict with product policy or legal policy.",
+        "Do not treat a valid OKF structure as proof that every answer from an agent will be correct.",
+        "Do not skip escalation rules for refunds, account access, billing disputes, or safety-sensitive topics."
       ]
     }
   ],
@@ -721,9 +724,11 @@ useCasePages["okf-for-ai-agents"] = {
     { question: "Does OKF guarantee better AI citations?", answer: "No. OKF can make context easier to inspect, but it does not guarantee retrieval quality, AI citations, or platform support." }
   ],
   related: [
-    { label: "AI Agent Context OKF template", href: "/templates/ai-agent-context-okf-template/", note: "Start with a context-file pattern." },
-    { label: "OKF Folder Validator", href: "/okf-folder-validator/", note: "Check local multi-file bundles." },
-    { label: "OKF vs AGENTS.md", href: "/compare/okf-vs-agents-md/", note: "Separate knowledge bundles from repo instructions." }
+    { label: "OKF vs MCP", href: "/compare/okf-vs-mcp/", note: "Separate portable context from tool access." },
+    { label: "OKF vs RAG", href: "/compare/okf-vs-rag/", note: "Separate source packaging from retrieval." },
+    { label: "Use OKF with MCP", href: "/guides/how-to-use-okf-with-mcp/", note: "Connect reviewed context through a tool or resource layer." },
+    { label: "OKF Templates", href: "/okf-templates/", note: "Choose a reusable context-file pattern." },
+    { label: "OKF Validator", href: "/okf-validator/", note: "Check one context file before bundling." }
   ],
   cta: {
     heading: "Validate before agent use",
@@ -894,7 +899,7 @@ guidePages["validate-okf-bundle"] = {
   path: "/guides/validate-okf-bundle/",
   title: "Validate OKF Bundle: Folder Checklist Before Publishing",
   description: "Validate OKF bundle files before publishing with frontmatter checks, folder validation, duplicate resource review, and source accuracy limits.",
-  h1: "Validate OKF bundle before publishing",
+  h1: "Validate an OKF bundle before publishing",
   eyebrow: "Bundle guide",
   intro: "Validate an OKF bundle before publishing with three layers: a single-file check, a folder check, and source owner review. Passing structure checks does not prove the facts are current.",
   conclusion: "Validate structure with tools, then validate facts with source owners.",
@@ -997,8 +1002,10 @@ guidePages["validate-okf-bundle"] = {
     { question: "Where should I go after a failed check?", answer: 'Fix single-file errors in the <a href="/okf-validator/">OKF Validator</a>, then use <a href="/guides/common-okf-validation-errors/">common OKF validation errors</a> for repair order.' }
   ],
   related: [
+    { label: "OKF Validator", href: "/okf-validator/", note: "Repair one Markdown file first." },
     { label: "OKF Folder Validator", href: "/okf-folder-validator/", note: "Run a local folder check." },
     { label: "Common OKF Validation Errors", href: "/guides/common-okf-validation-errors/", note: "Fix the most common failures." },
+    { label: "OKF Templates", href: "/okf-templates/", note: "Start from a reviewed file pattern." },
     { label: "OKF Examples", href: "/okf-examples/", note: "Compare bundle shapes." }
   ],
   cta: {
@@ -1125,6 +1132,9 @@ guidePages["how-to-create-okf-for-a-website"] = {
   ],
   related: [
     { label: "Website OKF template", href: "/templates/website-okf-template/", note: "Copy a starter file." },
+    { label: "OKF Templates", href: "/okf-templates/", note: "Choose a copy-ready starting pattern." },
+    { label: "OKF Examples", href: "/okf-examples/", note: "Review finished bundle shapes." },
+    { label: "OKF Validator", href: "/okf-validator/", note: "Check one drafted file." },
     { label: "OKF Folder Validator", href: "/okf-folder-validator/", note: "Check the finished folder." },
     { label: "OKF for Websites", href: "/use-cases/okf-for-websites/", note: "Review the use-case framing." }
   ],
@@ -1140,7 +1150,7 @@ guidePages["openapi-to-okf"] = {
   path: "/guides/openapi-to-okf/",
   title: "OpenAPI to OKF: Convert API Context Into Knowledge Files",
   description: "Use this OpenAPI to OKF workflow to keep OpenAPI as the contract while turning endpoint purpose, owners, examples, and limits into OKF files.",
-  h1: "OpenAPI to OKF workflow",
+  h1: "OpenAPI to OKF conversion guide",
   eyebrow: "API guide",
   intro: "OpenAPI to OKF is a workflow for keeping OpenAPI as the API contract while moving reviewed endpoint context, owner notes, examples, limits, and support notes into OKF files.",
   conclusion: "Do not replace OpenAPI with OKF. Convert endpoint context, not the contract itself.",
@@ -1155,6 +1165,16 @@ guidePages["openapi-to-okf"] = {
       heading: "What OKF adds",
       paragraphs: [
         "OKF adds owner notes, support context, examples, limits, review warnings, and related documentation around an API contract. It should point back to OpenAPI instead of copying schema details blindly."
+      ]
+    },
+    {
+      heading: "Before you convert",
+      bullets: [
+        "Start with the current OpenAPI specification or API reference URL.",
+        "Collect reviewed examples, error-handling notes, and support ownership details.",
+        "Remove tokens, private request bodies, customer identifiers, and restricted operational notes.",
+        "Choose one stable API area before expanding the bundle.",
+        "Keep schema and contract changes in OpenAPI, then review the surrounding context in OKF."
       ]
     },
     {
@@ -1236,7 +1256,10 @@ guidePages["openapi-to-okf"] = {
   ],
   related: [
     { label: "OKF vs OpenAPI", href: "/compare/okf-vs-openapi/", note: "Compare contracts and context." },
+    { label: "Create OKF for API Docs", href: "/guides/how-to-create-okf-for-api-docs/", note: "Plan a broader API documentation bundle." },
+    { label: "OKF Validator", href: "/okf-validator/", note: "Check one API context file." },
     { label: "API OKF template", href: "/templates/api-okf-template/", note: "Copy an endpoint context pattern." },
+    { label: "OKF Templates", href: "/okf-templates/", note: "Browse other reviewed starter patterns." },
     { label: "OKF Folder Validator", href: "/okf-folder-validator/", note: "Check API context bundles." }
   ],
   cta: {
