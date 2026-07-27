@@ -6,10 +6,10 @@ import { minimumExample, type ComparePage, type LongformPage } from "./content";
 export const longformPageOverrides = {
   "what-is-okf": {
     path: "/what-is-okf/",
-    title: "What Is OKF? Open Knowledge Format Meaning and Examples",
+    title: "What Is OKF? Open Knowledge Format Meaning and v0.2 Context",
     description:
-      "OKF means Open Knowledge Format: a Markdown and YAML metadata format for packaging knowledge. See the definition, meaning, and examples.",
-    h1: "What is OKF? Open Knowledge Format meaning",
+      "Learn what Open Knowledge Format means, how Markdown and YAML bundles work, and how v0.2 trust signals affect provenance, status, and freshness.",
+    h1: "What is Open Knowledge Format? Meaning, Structure, and v0.2 Context",
     eyebrow: "OKF definition",
     intro:
       "OKF means Open Knowledge Format. It uses Markdown and YAML metadata to package knowledge. It is different from Open Knowledge Foundation.",
@@ -65,6 +65,25 @@ export const longformPageOverrides = {
           "`tags`: short labels for grouping related files.",
           "`timestamp`: an ISO 8601 datetime for the last meaningful update."
         ]
+      },
+      {
+        heading: "What changed in v0.2",
+        paragraphs: [
+          "This guide treats `generated`, `verified`, `status`, `stale_after`, and `sources` as optional review fields. They can record how a file was produced or reviewed, but they do not prove a claim is true, current, official, or suitable for every tool."
+        ]
+      },
+      {
+        heading: "Visual overview",
+        paragraphs: [
+          "This video is visual background only. It is not used as proof of the OKF definition, version status, or any official claim."
+        ],
+        video: {
+          embedUrl: "https://www.youtube-nocookie.com/embed/fI7hZap7mZ4",
+          originalUrl: "https://www.youtube.com/watch?v=fI7hZap7mZ4",
+          title: "Open Knowledge Format visual overview",
+          fallbackText: "Watch the OKF visual overview on YouTube",
+          note: "Visual background only; not used as factual verification."
+        }
       },
       {
         heading: "Start from these OKF resources",
@@ -197,6 +216,12 @@ Use this file for stable pricing facts, exclusions, source links, and review not
         bullets: [
           '<a href="/okf-examples/">Use OKF examples</a> when you need to compare finished bundle shapes.',
           '<a href="/okf-folder-validator/">Run the folder validator</a> after a template becomes part of a bundle.'
+        ]
+      },
+      {
+        heading: "Optional v0.2 review fields",
+        paragraphs: [
+          "You may record `generated`, `verified`, `status`, `stale_after`, and `sources` when the source owner can review them. Treat every field as a review aid, not an official required schema or proof that copied content is correct."
         ]
       },
       {
@@ -334,6 +359,18 @@ export const comparePageOverrides = {
         paragraphs: [
           "Can OKF improve RAG retrieval? It can improve the source structure that retrieval uses: cleaner titles, metadata, tags, and citations can make filtering and review easier. It does not guarantee better ranking, recall, or answer accuracy by itself.",
           "Is OKF a replacement for RAG? No. A RAG system still needs retrieval logic, indexing, ranking, prompt assembly, and evaluation."
+        ]
+      },
+      {
+        heading: "Where trust metadata fits",
+        paragraphs: [
+          "Provenance, `sources`, `status`, and `stale_after` make source review easier. They do not prove retrieval quality, ranking, or answer accuracy."
+        ]
+      },
+      {
+        heading: "Agentic RAG review boundary",
+        paragraphs: [
+          "Structured frontmatter can retain source identity, review status, and freshness notes before chunking. It does not prevent semantic loss, prove chunk quality, or make an agent answer correct."
         ]
       },
       {

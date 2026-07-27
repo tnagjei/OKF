@@ -12,14 +12,14 @@ This document has a heading but no simple frontmatter block.`;
 ---
 
 <BaseLayout
-  title="OKF Validator: Check Open Knowledge Format Files"
-  description="Paste an OKF Markdown file, check frontmatter and links, then decide when to use the OKF Folder Validator for bundle-level checks."
+  title="OKF Validator: Check Markdown Files and v0.2 Fields"
+  description="Use the browser-only OKF Validator to check Markdown frontmatter and basic fields, then review sources manually before publishing a knowledge bundle."
   path="/okf-validator/"
 >
   <main class="page-shell">
     <section class="page-hero narrow-hero">
       <p class="eyebrow">Browser-only OKF Validator</p>
-      <h1>OKF Validator</h1>
+      <h1>OKF Validator: check an Open Knowledge Format file</h1>
       <p class="hero-copy">
         Paste one OKF Markdown file, run a browser-side single-file check for YAML frontmatter and required fields, then decide whether a bundle needs folder validation. This is not an official conformance test.
       </p>
@@ -109,6 +109,13 @@ This document has a heading but no simple frontmatter block.`;
       </ul>
     </section>
 
+    <section class="content-section">
+      <h2>v0.2 field review</h2>
+      <p>
+        <code>generated</code>, <code>verified</code>, <code>status</code>, <code>stale_after</code>, and <code>sources</code> can help an owner review a file. This browser helper does not verify those fields or turn them into official requirements.
+      </p>
+    </section>
+
     <section class="compare-table-section">
       <h2>Common validation errors</h2>
       <div class="compare-table" role="table" aria-label="Common OKF validation errors and fixes">
@@ -191,6 +198,10 @@ This document has a heading but no simple frontmatter block.`;
       <details>
         <summary>What field is required?</summary>
         <p>The field this guide treats as required is <code>type</code>. Other fields are recommended for clear previews and review.</p>
+      </details>
+      <details>
+        <summary>Does this validate v0.2 trust metadata?</summary>
+        <p>No. Fields such as <code>generated</code>, <code>verified</code>, <code>status</code>, <code>stale_after</code>, and <code>sources</code> need manual review; this tool does not verify their meaning or official conformance.</p>
       </details>
       <details>
         <summary>Can it validate a full bundle?</summary>

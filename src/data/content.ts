@@ -599,9 +599,9 @@ export const longformPages: Record<string, LongformPage> = {
   },
   "okf-tutorial": {
     path: "/okf-tutorial/",
-    title: "OKF Tutorial: Build Your First OKF Bundle",
+    title: "OKF Tutorial: Build a Bundle with v0.2 Trust Fields",
     description:
-      "Follow a beginner-friendly OKF tutorial to build your first Open Knowledge Format bundle with Markdown files, YAML frontmatter, and links.",
+      "Follow an OKF tutorial to build a small Markdown bundle, add YAML metadata, link sources, review provenance, and validate freshness before publishing.",
     h1: "OKF tutorial: build your first knowledge bundle",
     eyebrow: "Step-by-step tutorial",
     intro:
@@ -710,6 +710,14 @@ This page gives readers a correction path for Open Knowledge Format Guide.
         ]
       },
       {
+        heading: "Review v0.2 trust fields",
+        bullets: [
+          "Use `sources` and `provenance` notes to point reviewers back to the source material.",
+          "Use `status` and `stale_after` only when an owner can review whether the file still reflects the source.",
+          "A `generated` or `verified` label is not proof that every claim in the Markdown body is correct."
+        ]
+      },
+      {
         heading: "FAQ",
         subsections: [
           {
@@ -785,6 +793,12 @@ This page gives readers a correction path for Open Knowledge Format Guide.
           "Next check: paste individual concept files into the OKF validator.",
           "Bundle-level check: use the OKF folder validator when you assemble a full folder.",
           "Manual review still has to confirm source links, owners, privacy risk, and timestamps."
+        ]
+      },
+      {
+        heading: "Optional review metadata",
+        paragraphs: [
+          "Examples may show `generated`, `verified`, `status`, `stale_after`, or `sources` as review notes. Treat them as pending until the source owner checks the actual file and linked source."
         ]
       },
       {
@@ -1243,6 +1257,12 @@ export const comparePages: Record<string, ComparePage> = {
         ]
       },
       {
+        heading: "RAG trust boundary",
+        paragraphs: [
+          "Structured metadata can retain source identity, review status, and freshness notes before chunking. It does not prevent semantic loss, prove chunk quality, or make a RAG answer correct."
+        ]
+      },
+      {
         heading: "Visual background on RAG",
         paragraphs: [
           "This video is included as visual background for RAG. It does not prove that OKF is better than RAG or that RAG results improve after using OKF."
@@ -1280,9 +1300,9 @@ export const comparePages: Record<string, ComparePage> = {
   },
   "okf-vs-llms-txt": {
     path: "/compare/okf-vs-llms-txt/",
-    title: "OKF vs llms.txt: Knowledge Bundle or AI Content Map",
+    title: "OKF vs llms.txt: Knowledge Bundles and URL Maps",
     description:
-      "Compare OKF and llms.txt: OKF packages structured knowledge, while llms.txt points AI systems toward selected site content.",
+      "Compare OKF and llms.txt: one packages reviewed knowledge files, the other points systems toward selected URLs, and neither guarantees AI search visibility.",
     h1: "OKF vs llms.txt",
     eyebrow: "Comparison",
     intro:
@@ -1307,6 +1327,11 @@ export const comparePages: Record<string, ComparePage> = {
         label: "SEO evidence",
         okf: "A structure and readability asset, not a ranking guarantee.",
         other: "A visibility aid proposal, not a proven ranking guarantee."
+      },
+      {
+        label: "Provenance and trust metadata",
+        okf: "Can record source links, review status, and freshness as optional review metadata.",
+        other: "Points to selected URLs but does not verify source claims or freshness."
       },
       {
         label: "Relationship",

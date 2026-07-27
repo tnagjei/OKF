@@ -7,19 +7,20 @@ import CodeBlock from "../components/CodeBlock.astro";
 
 const sampleBundle = `bundle/
   index.md
+  llms.txt (optional public entry point; not read by this validator)
   pages/home.md
   support/contact.md`;
 ---
 
 <BaseLayout
-  title="OKF Folder Validator: Check Bundle Structure Locally"
-  description="Check OKF bundle folders for index files, duplicate resources, relative links, frontmatter gaps, and publish-ready structure."
+  title="OKF Folder Validator: Check Bundle Links and Structure"
+  description="Check an OKF folder in your browser for index coverage, duplicate resources, relative links, frontmatter gaps, and bundle structure before publishing."
   path="/okf-folder-validator/"
 >
   <main class="page-shell">
     <section class="page-hero narrow-hero">
       <p class="eyebrow">Browser-only bundle tool</p>
-      <h1>OKF Folder Validator</h1>
+      <h1>OKF Folder Validator: check a local knowledge bundle</h1>
       <p class="hero-copy">
         Check a local OKF bundle folder before publishing. The browser reads only selected Markdown files, reports folder structure findings such as duplicate resources and relative links, and does not upload your files to this website.
       </p>
@@ -51,7 +52,7 @@ const sampleBundle = `bundle/
     <section class="content-section">
       <h2>Why folder validation matters</h2>
       <p>
-        The single-file OKF validator checks one pasted Markdown document. This folder validator checks how files work together: bundle layout, `index.md`, repeated resources, and relative links between Markdown files.
+        The single-file OKF validator checks one pasted Markdown document. This folder validator checks how files work together: bundle layout, `index.md`, repeated resources, and relative links between Markdown files. An optional `llms.txt` file can point readers to the bundle, but this tool does not read or validate it.
       </p>
     </section>
 
@@ -105,12 +106,13 @@ const sampleBundle = `bundle/
     </section>
 
     <section class="content-section">
-      <h2>How to run a safe local folder check</h2>
+      <h2>Repair order</h2>
       <ol class="step-list">
         <li>Select an OKF folder or several Markdown files.</li>
         <li>The page filters for Markdown files before reading file text locally in your browser.</li>
         <li>The report checks frontmatter, `type`, recommended fields, links, and duplicate resources.</li>
-        <li>Copy the report, fix errors first, then review warnings with the content owner.</li>
+        <li>Fix parsing and required-field errors before index, link, and duplicate-resource warnings.</li>
+        <li>Review remaining warnings with the content owner before publishing.</li>
         <li>Run the folder check again after fixing files.</li>
       </ol>
       <CodeBlock code={sampleBundle} label="Expected bundle shape" />

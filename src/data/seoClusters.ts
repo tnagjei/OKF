@@ -897,8 +897,8 @@ Write the reviewed page summary here.`
 
 guidePages["validate-okf-bundle"] = {
   path: "/guides/validate-okf-bundle/",
-  title: "Validate OKF Bundle: Folder Checklist Before Publishing",
-  description: "Validate OKF bundle files before publishing with frontmatter checks, folder validation, duplicate resource review, and source accuracy limits.",
+  title: "Validate an OKF Bundle: Checklist for Structure and Trust",
+  description: "Validate an OKF bundle with single-file checks, folder structure, links, duplicate resources, source review, and v0.2 trust metadata limits.",
   h1: "Validate an OKF bundle before publishing",
   eyebrow: "Bundle guide",
   intro: "Validate an OKF bundle before publishing with three layers: a single-file check, a folder check, and source owner review. Passing structure checks does not prove the facts are current.",
@@ -982,6 +982,13 @@ guidePages["validate-okf-bundle"] = {
       ]
     },
     {
+      heading: "v0.2 trust review",
+      bullets: [
+        "Review provenance, `sources`, `status`, and `stale_after` with the source owner before publishing.",
+        "Do not treat optional metadata as proof that facts are verified or that a bundle is officially conformant."
+      ]
+    },
+    {
       heading: "Visual background",
       paragraphs: [
         "This video is included as visual background for OKF learning demand. It is not evidence that this page proves official OKF conformance."
@@ -1018,8 +1025,8 @@ guidePages["validate-okf-bundle"] = {
 
 guidePages["how-to-create-okf-for-a-website"] = {
   path: "/guides/how-to-create-okf-for-a-website/",
-  title: "Website to OKF: Create Knowledge Files From Site Pages",
-  description: "Use this Website to OKF guide to map important URLs into reviewed Markdown files, add source fields, exclude private data, and validate the bundle.",
+  title: "Website to OKF: Map URLs into Reviewed Knowledge Files",
+  description: "Create website OKF files from selected public URLs, preserve canonical sources, exclude private data, review generated drafts, and validate the bundle.",
   h1: "Website to OKF guide",
   eyebrow: "Website guide",
   intro: "Website to OKF starts with URL mapping: choose important public pages, convert them into reviewed Markdown files, and skip private or thin pages instead of scraping everything.",
@@ -1148,8 +1155,8 @@ guidePages["how-to-create-okf-for-a-website"] = {
 
 guidePages["openapi-to-okf"] = {
   path: "/guides/openapi-to-okf/",
-  title: "OpenAPI to OKF: Convert API Context Into Knowledge Files",
-  description: "Use this OpenAPI to OKF workflow to keep OpenAPI as the contract while turning endpoint purpose, owners, examples, and limits into OKF files.",
+  title: "OpenAPI to OKF: Add Reviewed API Context Files",
+  description: "Use OpenAPI as the API contract and OKF for reviewed context, examples, owners, limits, and support notes without copying secrets or schemas blindly.",
   h1: "OpenAPI to OKF conversion guide",
   eyebrow: "API guide",
   intro: "OpenAPI to OKF is a workflow for keeping OpenAPI as the API contract while moving reviewed endpoint context, owner notes, examples, limits, and support notes into OKF files.",
@@ -1226,6 +1233,12 @@ guidePages["openapi-to-okf"] = {
         "Do not let OKF contradict the OpenAPI contract.",
         "Do not mechanically convert every endpoint into a separate thin concept file.",
         "Do not include tokens, private request bodies, or customer data in examples."
+      ]
+    },
+    {
+      heading: "Review boundaries",
+      paragraphs: [
+        "Generated API context remains pending until an owner reviews the contract link, examples, limits, and support notes. OKF does not validate OpenAPI schemas or replace contract tooling."
       ]
     },
     {
