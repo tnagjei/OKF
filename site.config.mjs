@@ -33,7 +33,7 @@ const useCaseRoutes = [
   { path: "/use-cases/okf-for-saas/", label: "OKF for SaaS", priority: "0.8" },
   { path: "/use-cases/okf-for-data-warehouses/", label: "OKF for Data Warehouses", priority: "0.8" },
   { path: "/use-cases/okf-for-documentation-sites/", label: "OKF for Documentation Sites", priority: "0.8" },
-  { path: "/use-cases/okf-for-ai-agents/", label: "OKF for AI Agents", priority: "0.8", lastmod: "2026-07-19" },
+  { path: "/use-cases/okf-for-ai-agents/", label: "OKF for AI Agents", priority: "0.8", lastmod: "2026-07-29" },
   { path: "/use-cases/okf-for-seo/", label: "OKF for SEO", priority: "0.8" },
   { path: "/use-cases/okf-for-ai-search/", label: "OKF for AI Search", priority: "0.8" }
 ];
@@ -68,15 +68,15 @@ const guideRoutes = [
 
 export const publicRoutes = [
   { path: "/", label: "Home", priority: "1.0", lastmod: "2026-07-05" },
-  { path: "/what-is-okf/", label: "What is OKF", priority: "0.9", lastmod: "2026-07-25" },
-  { path: "/okf-tutorial/", label: "OKF Tutorial", priority: "0.9", lastmod: "2026-07-25" },
+  { path: "/what-is-okf/", label: "What is OKF", priority: "0.9", lastmod: "2026-07-29" },
+  { path: "/okf-tutorial/", label: "OKF Tutorial", priority: "0.9", lastmod: "2026-07-29" },
   { path: "/okf-examples/", label: "OKF Examples", priority: "0.9", lastmod: "2026-07-25" },
   { path: "/okf-templates/", label: "OKF Templates", priority: "0.9", lastmod: "2026-07-25" },
-  { path: "/okf-validator/", label: "OKF Validator", priority: "0.9", lastmod: "2026-07-27" },
+  { path: "/okf-validator/", label: "OKF Validator", priority: "0.9", lastmod: "2026-07-29" },
   { path: "/okf-folder-validator/", label: "OKF Folder Validator", priority: "0.85", lastmod: "2026-07-27" },
   { path: "/compare/okf-vs-mcp/", label: "OKF vs MCP", priority: "0.8", lastmod: "2026-07-25" },
-  { path: "/compare/okf-vs-rag/", label: "OKF vs RAG", priority: "0.8", lastmod: "2026-07-27" },
-  { path: "/compare/okf-vs-llms-txt/", label: "OKF vs llms.txt", priority: "0.8", lastmod: "2026-07-27" },
+  { path: "/compare/okf-vs-rag/", label: "OKF vs RAG", priority: "0.8", lastmod: "2026-07-29" },
+  { path: "/compare/okf-vs-llms-txt/", label: "OKF vs llms.txt", priority: "0.8", lastmod: "2026-07-29" },
   { path: "/compare/okf-vs-openapi/", label: "OKF vs OpenAPI", priority: "0.8", lastmod: "2026-07-05" },
   ...compareExpansionRoutes,
   ...useCaseRoutes,

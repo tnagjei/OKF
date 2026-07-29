@@ -4,13 +4,13 @@
 import { minimumExample, type ComparePage, type LongformPage } from "./content";
 
 export const longformPageOverrides = {
-  "what-is-okf": {
-    path: "/what-is-okf/",
-    title: "What Is OKF? Open Knowledge Format Meaning and v0.2 Context",
+ "what-is-okf": {
+   path: "/what-is-okf/",
+    title: "What Is OKF? Open Knowledge Format Meaning, v0.2 Spec & Trust",
     description:
-      "Learn what Open Knowledge Format means, how Markdown and YAML bundles work, and how v0.2 trust signals affect provenance, status, and freshness.",
-    h1: "What is Open Knowledge Format? Meaning, Structure, and v0.2 Context",
-    eyebrow: "OKF definition",
+      "Learn what Open Knowledge Format means, explore the OKF v0.2 specification, and see how trust, provenance, freshness, and attestation metadata structure agent context.",
+    h1: "What is Open Knowledge Format? Meaning, Structure, and v0.2 Spec",
+   eyebrow: "OKF definition",
     intro:
       "OKF means Open Knowledge Format. It uses Markdown and YAML metadata to package knowledge. It is different from Open Knowledge Foundation.",
     sections: [
@@ -66,14 +66,26 @@ export const longformPageOverrides = {
           "`timestamp`: an ISO 8601 datetime for the last meaningful update."
         ]
       },
-      {
-        heading: "What changed in v0.2",
-        paragraphs: [
-          "This guide treats `generated`, `verified`, `status`, `stale_after`, and `sources` as optional review fields. They can record how a file was produced or reviewed, but they do not prove a claim is true, current, official, or suitable for every tool."
-        ]
-      },
-      {
-        heading: "Visual overview",
+     {
+       heading: "What changed in v0.2",
+       paragraphs: [
+         "This guide treats `generated`, `verified`, `status`, `stale_after`, and `sources` as optional review fields. They can record how a file was produced or reviewed, but they do not prove a claim is true, current, official, or suitable for every tool."
+       ]
+     },
+     {
+       heading: "OKF v0.2 specification: trust and provenance",
+       paragraphs: [
+         "The OKF v0.2 specification expands frontmatter attributes to support trust boundaries, provenance tracking, freshness controls, and source attestations before context is indexed or consumed by AI agents."
+       ],
+       bullets: [
+         "`verified: true`: indicates that a human owner reviewed the file content against the canonical source (`verified` tag).",
+         "`status: active`: defines operational state (`active`, `pending`, `deprecated`, or `disputed`).",
+         "`stale_after`: sets explicit review cadence to prevent stale context in AI agent memory (`verified`).",
+         "`sources`: lists explicit origin URLs or URNs for provenance verification."
+       ]
+     },
+     {
+       heading: "Visual overview",
         paragraphs: [
           "This video is visual background only. It is not used as proof of the OKF definition, version status, or any official claim."
         ],
@@ -256,10 +268,10 @@ Use this file for stable pricing facts, exclusions, source links, and review not
 export const comparePageOverrides = {
   "okf-vs-rag": {
     path: "/compare/okf-vs-rag/",
-    title: "OKF vs RAG: Source Knowledge and Retrieval Compared",
+    title: "OKF vs RAG: Context Packaging vs Vector Chunking (2026 Comparison)",
     description:
-      "Compare OKF vs RAG: OKF structures source knowledge before indexing, while RAG retrieves relevant context at answer time.",
-    h1: "OKF vs RAG",
+      "Compare Open Knowledge Format (OKF) with traditional RAG vector chunking. Learn how structured frontmatter improves AI agent context retrieval.",
+    h1: "OKF vs RAG: Context Packaging vs Vector Chunking",
     eyebrow: "Comparison",
     intro:
       "Use OKF before retrieval when your source knowledge is messy. Use RAG when the model needs to fetch relevant context at answer time.",
@@ -268,6 +280,11 @@ export const comparePageOverrides = {
         label: "Primary role",
         okf: "OKF is a knowledge organization format for source files.",
         other: "RAG is a retrieval method for finding relevant context before generation."
+      },
+      {
+        label: "Context boundary",
+        okf: "Explicit concept units with YAML frontmatter metadata (type, status, sources).",
+        other: "Arbitrary character or token chunk splits without source-level metadata."
       },
       {
         label: "Problem solved",
@@ -297,6 +314,37 @@ export const comparePageOverrides = {
           "RAG, Retrieval Augmented Generation, is a retrieval and generation method. OKF, Open Knowledge Format, is a knowledge organization format.",
           "RAG solves how to find content. OKF solves how content is organized before it is searched, reviewed, or indexed. They are not replacements for each other and can work together."
         ]
+      },
+      {
+        heading: "Python and LangChain integration example",
+        paragraphs: [
+          "Instead of feeding unverified raw text chunks into vector stores, developers parse OKF YAML metadata to attach explicit filters, review status, and provenance attributes to LangChain Documents (`verified`)."
+        ],
+        code: {
+          label: "Python / LangChain OKF context loader example",
+          value: `# ponytail: parse OKF frontmatter to enrich RAG documents before vector indexing
+import yaml
+from langchain_core.documents import Document
+
+def load_okf_document(file_path: str) -> Document:
+    with open(file_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    parts = content.split("---", 2)
+    metadata = yaml.safe_load(parts[1]) if len(parts) >= 3 else {}
+    body = parts[2].strip() if len(parts) >= 3 else content
+
+    return Document(
+        page_content=body,
+        metadata={
+            "title": metadata.get("title"),
+            "type": metadata.get("type"),
+            "status": metadata.get("status", "pending"),
+            "stale_after": metadata.get("stale_after"),
+            "source": metadata.get("resource", file_path),
+        }
+    )`
+        }
       },
       {
         heading: "How the two layers differ",

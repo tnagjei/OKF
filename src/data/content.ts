@@ -664,15 +664,21 @@ export const longformPages: Record<string, LongformPage> = {
           "Use ordinary Markdown links to connect related concept files."
         ]
       },
-      {
-        heading: "Step 5: validate and review",
-        paragraphs: [
-          "Paste each file into the OKF validator on this site. The validator runs in your browser, which means pasted content is not uploaded to this website.",
-          "After validation, review the file for accuracy. A passing file can still contain outdated or unsupported claims."
-        ]
-      },
-      {
-        heading: "Final output",
+     {
+       heading: "Step 5: validate and review",
+       paragraphs: [
+         "Paste each file into the OKF validator on this site. The validator runs in your browser, which means pasted content is not uploaded to this website.",
+         "After validation, review the file for accuracy. A passing file can still contain outdated or unsupported claims."
+       ]
+     },
+     {
+       heading: "Step 6: consume OKF context in AI agent workflows",
+       paragraphs: [
+         "Once validated, an AI agent framework (such as LangChain or custom Python scripts) can read the YAML metadata to filter active concepts, check freshness timestamps (`stale_after`), and pass verified Markdown bodies into prompt context (`verified`)."
+       ]
+     },
+     {
+       heading: "Final output",
         paragraphs: [
           "A useful first bundle has a root index, one concept per file, canonical resource links, and enough body text for a reviewer to understand the source without guessing."
         ],
@@ -1365,15 +1371,16 @@ export const comparePages: Record<string, ComparePage> = {
           "Use OKF when agents need deeper context than a link list can provide."
         ]
       },
-      {
-        heading: "How to use both on one site",
-        bullets: [
-          'Keep <a href="/llms.txt">/llms.txt</a> as the short entry point.',
-          'Keep <a href="/llms-full.txt">/llms-full.txt</a> as the expanded site guide when useful.',
-          "Link OKF templates, examples, validator, and future downloadable bundles from those files.",
-          "Avoid claiming that either file guarantees AI search traffic."
-        ]
-      },
+     {
+       heading: "How to use both on one site",
+       bullets: [
+         'Keep <a href="/llms.txt">/llms.txt</a> as the short entry point.',
+         'Keep <a href="/llms-full.txt">/llms-full.txt</a> as the expanded site guide when useful.',
+         "Link OKF templates, examples, validator, and future downloadable bundles from those files.",
+         "Use llms.txt as the top-level URL orientation map, and point AI readers to deep OKF concept bundles for structured frontmatter, metadata, and review timestamps (`reported`).",
+         "Avoid claiming that either file guarantees AI search traffic."
+       ]
+     },
       {
         heading: "What neither file can guarantee",
         paragraphs: [

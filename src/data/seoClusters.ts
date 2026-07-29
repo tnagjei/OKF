@@ -671,18 +671,46 @@ useCasePages["okf-for-ai-agents"] = {
         )
       }
     },
-    {
-      heading: "Build a small OKF bundle for an agent",
-      steps: [
-        "Pick one narrow agent task such as support routing, refund triage, onboarding, or documentation lookup.",
-        "Create index.md with scope, owner, safe-use boundaries, and escalation triggers.",
-        "Add only the workflows, policies, and references the agent needs for that task.",
-        'Validate one file with the <a href="/okf-validator/">OKF Validator</a>, then validate the folder with the <a href="/okf-folder-validator/">OKF Folder Validator</a>.',
-        "Review stale context, unsupported policy claims, secrets, private tokens, customer records, and restricted operational notes before using the bundle."
-      ]
-    },
-    {
-      heading: "Why agents still need reviewed source context",
+   {
+     heading: "Build a small OKF bundle for an agent",
+     steps: [
+       "Pick one narrow agent task such as support routing, refund triage, onboarding, or documentation lookup.",
+       "Create index.md with scope, owner, safe-use boundaries, and escalation triggers.",
+       "Add only the workflows, policies, and references the agent needs for that task.",
+       'Validate one file with the <a href="/okf-validator/">OKF Validator</a>, then validate the folder with the <a href="/okf-folder-validator/">OKF Folder Validator</a>.',
+       "Review stale context, unsupported policy claims, secrets, private tokens, customer records, and restricted operational notes before using the bundle."
+     ]
+   },
+   {
+     heading: "Python SDK and AI agent context consumption example",
+     paragraphs: [
+       "AI Agent frameworks can inspect OKF YAML metadata to verify `status`, filter out deprecated concepts, and check `stale_after` timestamps before injecting concept body text into agent prompt memory (`verified`)."
+     ],
+     code: {
+       label: "Python AI Agent OKF context parser example",
+       value: `# ponytail: parse OKF context bundle for AI Agent prompt assembly
+import yaml
+
+def parse_okf_context(markdown_text: str) -> dict:
+    parts = markdown_text.split("---", 2)
+    if len(parts) < 3:
+        return {"metadata": {}, "body": markdown_text.strip(), "agent_ready": False}
+
+    metadata = yaml.safe_load(parts[1]) or {}
+    body = parts[2].strip()
+    is_ready = (
+        metadata.get("type") is not None
+        and metadata.get("status") in ["active", "verified", None]
+    )
+    return {
+        "metadata": metadata,
+        "body": body,
+        "agent_ready": is_ready
+    }`
+     }
+   },
+   {
+     heading: "Why agents still need reviewed source context",
       steps: [
         'Validate each Markdown file with the <a href="/okf-validator/">single-file OKF Validator</a>.',
         'Validate the local folder with the <a href="/okf-folder-validator/">OKF Folder Validator</a>.',
